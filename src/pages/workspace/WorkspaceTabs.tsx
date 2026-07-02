@@ -11,6 +11,9 @@ import { externalLinks } from "../../config/externalLinks";
 import { visitManager } from "../../modules/visit/visitManager";
 import { dispatchManager } from "../../modules/dispatch/dispatchManager";
 import { generateCaseAA01, planner } from "../../modules/planner/planner";
+import { reviewAdapter } from "../../modules/review/reviewAdapter";
+import { reviewManager } from "../../modules/review/reviewEngine";
+import type { ReviewResult } from "../../modules/review/reviewTypes";
 import {
   Badge,
   Card,
@@ -283,17 +286,111 @@ export function AA01Tab({ c }: { c: CaseRecord }) {
   );
 }
 
+const reviewOutcomeLabel: Record<string, string> = {
+  pass: "審查通過",
+  returned: "已退件",
+  in_review: "審查中",
+  pending: "尚未送審",
+};
+
+const reviewOutcomeClass: Record<string, string> = {
+  pass: "bg-emerald-100 text-emerald-700",
+  returned: "bg-red-100 text-red-700",
+  in_review: "bg-sky-100 text-sky-700",
+  pending: "bg-slate-100 text-slate-600",
+};
+
+const severityClass: Record<string, string> = {
+  low: "bg-slate-100 text-slate-600",
+  medium: "bg-amber-100 text-amber-700",
+  high: "bg-red-100 text-red-700",
+};
+
 export function FA310Tab({ c }: { c: CaseRecord }) {
+  const [review, setReview] = useState<ReviewResult | null | undefined>(
+    undefined
+  );
+  useEffect(() => {
+    let active = true;
+    setReview(undefined);
+    void reviewAdapter.getReview(c.id).then((r) => active && setReview(r));
+    return () => {
+      active = false;
+    };
+  }, [c.id]);
+
   return (
-    <IntegrationNotice
-      title="FA310 審查（Review）"
-      source="source-systems/LongCare-QA-Engine · Python，透過 Adapter"
-      link={{ label: "QA Engine 原始碼", url: externalLinks.github.qaEngine }}
-    >
-      FA310 審查規則由 LongCare-QA-Engine 提供，透過 Adapter 介接，
-      <span className="font-medium text-slate-700"> 不在 React 端重建審查規則</span>。
-      審查結果將綁定個案 {c.name}（{c.id}），並回填至公司 Excel 欄位 L（需人工 Approve）。
-    </IntegrationNotice>
+    <div className="space-y-4">
+      <Card className="p-5">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <div className="text-sm font-semibold text-slate-900">
+              FA310 審查（Review）
+            </div>
+            <div className="mt-0.5 text-xs text-slate-500">
+              審查引擎：{reviewManager.source} · 綁定個案 {c.name}（{c.id}）
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            {review && (
+              <Badge className={reviewOutcomeClass[review.outcome]}>
+                {reviewOutcomeLabel[review.outcome]}
+              </Badge>
+            )}
+            <a
+              href={reviewManager.url}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-lg bg-orbit-50 px-3 py-1.5 text-sm font-medium text-orbit-700 hover:bg-orbit-100"
+            >
+              QA Engine ↗
+            </a>
+          </div>
+        </div>
+        <p className="mt-3 text-xs leading-relaxed text-slate-500">
+          {reviewManager.note} 審查結果經人工 Approve 後回填公司 Excel 欄位 L。
+        </p>
+      </Card>
+
+      {review === undefined && (
+        <div className="text-sm text-slate-400">載入審查結果中…</div>
+      )}
+
+      {review && review.findings.length === 0 && (
+        <Card className="p-5 text-sm text-slate-600">
+          {review.outcome === "pass"
+            ? "審查通過，目前無待修正項目。"
+            : review.outcome === "in_review"
+              ? "本案審查中，尚無回報項目。"
+              : "本案尚未送審 FA310。"}
+        </Card>
+      )}
+
+      {review &&
+        review.findings.map((f) => (
+          <Card key={f.findingId} className="p-5">
+            <div className="flex flex-wrap items-center gap-2">
+              <Badge className={severityClass[f.severity]}>{f.severity}</Badge>
+              <Badge className="bg-slate-100 text-slate-600">
+                {f.category}
+              </Badge>
+              <span className="text-xs text-slate-400">
+                欄位 {f.location.columnLetter ?? f.location.fieldId} · 信心{" "}
+                {Math.round(f.confidence * 100)}%
+              </span>
+            </div>
+            <div className="mt-2 text-sm text-slate-800">{f.issue}</div>
+            {f.suggestion && (
+              <div className="mt-2 rounded-lg bg-slate-50 px-3 py-2 text-sm text-slate-700">
+                建議：{f.suggestion}
+              </div>
+            )}
+            <div className="mt-2 text-xs text-slate-400">
+              依據：{f.evidence.join("、") || "—"}
+            </div>
+          </Card>
+        ))}
+    </div>
   );
 }
 
