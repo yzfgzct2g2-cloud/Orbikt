@@ -2,9 +2,9 @@
   "project": "Orbikt",
   "version": "0.1.0",
   "current_phase": "Phase 2",
-  "current_checkpoint": "CP-0003",
-  "status": "PHASE_2_COMPLETE",
-  "last_commit": "09d6b61",
+  "current_checkpoint": "CP-0004",
+  "status": "PHASE_2_COMPLETE_PII_HARDENED",
+  "last_commit": "4392428",
   "next_phase": "Phase 3",
   "next_task": "Command Center consolidation pass (widgets → source mapping complete) per migration-map Dashboard Mapping",
   "build": "PASS",
@@ -12,6 +12,6 @@
   "tests": "PASS",
   "lint": "PASS",
   "stack": "React 18 + TypeScript 5.6 + Vite 5 + TailwindCSS 3 + React Router 6 + Zustand 4",
-  "data_source": "CS100 seed (sanitized, 378 cases) + derived tasks/notifications/timeline/schedule",
+  "data_source": "CS100 seed (sanitized, 378 cases; maskedNationalId only, raw ID transient at import) + derived tasks/notifications/timeline/schedule",
   "updated_at": "2026-07-03"
 }

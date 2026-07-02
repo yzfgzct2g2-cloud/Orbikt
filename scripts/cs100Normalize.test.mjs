@@ -4,11 +4,14 @@ import {
   blankToNull,
   buildCases,
   deriveTags,
+  extractRawId,
   genDispatch,
   genModuleStatus,
   genVisit,
   hashString,
+  idHash,
   mapCaseStatus,
+  maskNationalId,
   parseAge,
   parseCms,
   rocToIso,
@@ -58,6 +61,35 @@ describe("cs100Normalize field parsers", () => {
     expect(deriveTags(row)).toContain("交通從優");
     expect(deriveTags(row)).toContain("第三類");
     expect(deriveTags(row)).not.toContain("照顧從優");
+  });
+});
+
+describe("national ID handling (raw is transient, only masked emitted)", () => {
+  it("masks to first-char + last-4", () => {
+    expect(maskNationalId("A123456789")).toBe("A*****6789");
+    expect(maskNationalId("g100000042")).toBe("G*****0042");
+    expect(maskNationalId("")).toBeNull();
+    expect(maskNationalId("-")).toBe(null);
+  });
+
+  it("extracts raw id from col 3, else from an embedded 案號", () => {
+    const direct = [];
+    direct[CS100_COLS.nationalId] = "G120456789";
+    expect(extractRawId(direct)).toBe("G120456789");
+
+    const embedded = [];
+    embedded[CS100_COLS.caseNo] = "CSMS-PA1234567890";
+    expect(extractRawId(embedded)).toBe("A123456789");
+
+    expect(extractRawId([])).toBeNull();
+  });
+
+  it("idHash is salted, omitted without a salt, and does not reveal the raw id", () => {
+    expect(idHash("A123456789", "")).toBeUndefined();
+    expect(idHash(null, "salt")).toBeUndefined();
+    const h = idHash("A123456789", "secret-salt");
+    expect(h).toMatch(/^[0-9a-f]{32}$/);
+    expect(h).not.toContain("A123456789");
   });
 });
 
@@ -142,5 +174,18 @@ describe("assignManagers + buildCases", () => {
     expect(json).not.toContain("CSMS-P");
     expect(json).not.toContain("A123456789");
     expect(cases[0].srcKey).toBeUndefined();
+    // The masked form IS emitted; the raw id is not.
+    expect(cases[0].maskedNationalId).toBe("A*****6789");
+    expect(cases[0].idLookupHash).toBeUndefined();
+  });
+
+  it("emits idLookupHash only when a salt is supplied, never the raw id", () => {
+    const row = [];
+    row[CS100_COLS.caseNo] = "115B00001";
+    row[CS100_COLS.nationalId] = "G120456789";
+    const [c] = buildCases([row], team, SEED, { idSalt: "secret-salt" });
+    expect(c.idLookupHash).toMatch(/^[0-9a-f]{32}$/);
+    expect(JSON.stringify(c)).not.toMatch(/[A-Z][0-9]{9}/);
+    expect(c.maskedNationalId).toBe("G*****6789");
   });
 });

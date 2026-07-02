@@ -86,6 +86,15 @@ export interface CaseRecord {
   govAssessor?: string; // 照管專員（照管中心，非 A 單位個管員）
   aUnit?: string; // A 單位名稱
   serviceCodes?: string; // 服務代碼
+
+  // Masked national ID for display/search only, e.g. "A*****6789". The RAW
+  // national ID is read transiently in the import script and is NEVER stored
+  // here, in the seed JSON, logs, timeline, UI, or tests. See cs100Normalize.mjs.
+  maskedNationalId?: string | null;
+  // Optional salted hash for import-time matching against company records.
+  // Only present when a build-time salt (ORBIKT_ID_SALT) is supplied; the raw
+  // ID is not recoverable without that salt. Never used to display anything.
+  idLookupHash?: string;
 }
 
 export type TaskType = "visit" | "review" | "dispatch" | "document" | "general";

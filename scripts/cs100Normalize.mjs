@@ -15,11 +15,14 @@
 // Phase 6, AA01 = Phase 7, FA310 = Phase 8). They are NOT authoritative and are
 // generated here in the data layer, never recomputed in the UI.
 
+import { createHash } from "node:crypto";
+
 /** Fixed 0-based column indices in the CS100 sheet. */
 export const CS100_COLS = {
   caseNo: 0, // 案號
   caseStatus: 1, // 案件狀態
   name: 2, // 姓名
+  nationalId: 3, // 身分證號 (RAW PII — transient use only, never emitted)
   age: 5, // 年齡
   cms: 6, // CMS
   welfare: 8, // 福利身分
@@ -100,6 +103,43 @@ export function deriveTags(row) {
   const welfare = blankToNull(row[CS100_COLS.welfare]);
   if (welfare) tags.push(welfare);
   return tags;
+}
+
+// --- National ID handling (RAW is transient; only masked/hashed is emitted) ---
+
+/**
+ * Read the raw national ID for a row. TRANSIENT USE ONLY — the return value
+ * must never be stored in output. Prefers col 3 (身分證號); falls back to the
+ * ID embedded in 案號 (e.g. "CSMS-P<id>...") for rows where col 3 is blank.
+ */
+export function extractRawId(row) {
+  const direct = String(row[CS100_COLS.nationalId] ?? "")
+    .trim()
+    .toUpperCase();
+  if (/^[A-Z][0-9]{9}$/.test(direct)) return direct;
+  const embedded = String(row[CS100_COLS.caseNo] ?? "")
+    .toUpperCase()
+    .match(/[A-Z][0-9]{9}/);
+  return embedded ? embedded[0] : null;
+}
+
+/** Mask a national ID to first-char + last-4, e.g. "A123456789" -> "A*****6789". */
+export function maskNationalId(raw) {
+  const s = String(raw ?? "").trim().toUpperCase();
+  if (!s) return null;
+  if (/^[A-Z][0-9]{9}$/.test(s)) return s[0] + "*****" + s.slice(-4);
+  if (s.length < 5) return null;
+  return s[0] + "*".repeat(s.length - 5) + s.slice(-4);
+}
+
+/**
+ * Salted, one-way lookup hash of the raw ID for import-time matching. Returns
+ * undefined unless a salt is supplied — WITHOUT a secret salt an unsalted hash
+ * of a low-entropy national ID would be brute-forceable, so we simply omit it.
+ */
+export function idHash(raw, salt) {
+  if (!raw || !salt) return undefined;
+  return createHash("sha256").update(`${salt}|${raw}`).digest("hex").slice(0, 32);
 }
 
 /** Deterministic 32-bit FNV-1a hash of a string. */
@@ -188,14 +228,24 @@ export function genModuleStatus(caseNo, kind) {
  * placed in the output, because for many rows it embeds the national ID
  * (format "CSMS-P<national-id><suffix>"). buildCases() assigns a surrogate id.
  */
-export function normalizeRow(row, seedToday) {
+export function normalizeRow(row, seedToday, opts = {}) {
   const caseNo = String(row[CS100_COLS.caseNo] ?? "").trim();
   if (!caseNo) return null;
   const visit = genVisit(caseNo, seedToday);
   const dispatch = genDispatch(caseNo, seedToday);
+
+  // RAW national ID lives only inside this function scope. We derive the masked
+  // form (and optionally a salted hash) and then let `rawId` go out of scope —
+  // it is never assigned to the returned record.
+  const rawId = extractRawId(row);
+  const maskedNationalId = maskNationalId(rawId);
+  const idLookupHash = idHash(rawId, opts.idSalt);
+
   return {
     srcKey: caseNo, // internal only; stripped by buildCases
     name: String(row[CS100_COLS.name] ?? "").trim() || "(未命名)",
+    maskedNationalId,
+    ...(idLookupHash ? { idLookupHash } : {}),
     managerId: "", // assigned later from team.json quotas
     cmsLevel: parseCms(row[CS100_COLS.cms]),
     status: mapCaseStatus(row[CS100_COLS.caseStatus]),
@@ -248,10 +298,14 @@ export function assignSurrogateIds(cases) {
   });
 }
 
-/** Full pipeline: raw data rows (no header) -> sanitized, manager-assigned cases. */
-export function buildCases(dataRows, team, seedToday) {
+/**
+ * Full pipeline: raw data rows (no header) -> sanitized, manager-assigned cases.
+ * `opts.idSalt` (optional) enables the salted idLookupHash; without it the hash
+ * is omitted. The raw national ID never leaves normalizeRow.
+ */
+export function buildCases(dataRows, team, seedToday, opts = {}) {
   const normalized = dataRows
-    .map((r) => normalizeRow(r, seedToday))
+    .map((r) => normalizeRow(r, seedToday, opts))
     .filter((c) => c !== null);
   return assignManagers(assignSurrogateIds(normalized), team);
 }

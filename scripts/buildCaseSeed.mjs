@@ -29,7 +29,11 @@ const dataRows = rows.slice(1).filter((r) => String(r[0]).trim() !== "");
 const team = JSON.parse(
   readFileSync(path.join(root, "config/team.json"), "utf8")
 );
-const cases = buildCases(dataRows, team, SEED_TODAY);
+
+// Optional secret salt for the idLookupHash (matching against company records).
+// Not committed; when absent the hash is omitted entirely.
+const idSalt = process.env.ORBIKT_ID_SALT || "";
+const cases = buildCases(dataRows, team, SEED_TODAY, { idSalt });
 
 function tally(list, key) {
   return list.reduce((acc, item) => {
@@ -46,22 +50,32 @@ const meta = {
   seedToday: SEED_TODAY,
   count: cases.length,
   note:
-    "Sanitized V1 seed. National ID / birth date / phone / street address omitted. " +
-    "visit / dispatch / aa01 / fa310 are deterministic seed stand-ins replaced by " +
-    "their SSOT adapters in Phases 5-8.",
+    "Sanitized V1 seed. Raw national ID is read transiently at import and NEVER " +
+    "emitted — only maskedNationalId (first char + last 4). Birth date / phone / " +
+    "street address omitted. visit / dispatch / aa01 / fa310 are deterministic " +
+    "seed stand-ins replaced by their SSOT adapters in Phases 5-8.",
+  idLookupHashEnabled: Boolean(idSalt),
   byManager: tally(cases, (c) => c.managerId),
   byCaseStatus: tally(cases, (c) => c.status),
   byVisitStatus: tally(cases, (c) => c.visit.status),
   byDispatchStatus: tally(cases, (c) => c.dispatch.status),
 };
 
+const serialized = JSON.stringify(cases, null, 2);
+
+// HARD SAFETY NET: a raw national ID (letter + 9 digits) must never reach the
+// emitted seed. If one does, abort the build rather than write PII to disk.
+const leak = serialized.match(/[A-Z][0-9]{9}/);
+if (leak) {
+  throw new Error(
+    `Raw national ID pattern "${leak[0].slice(0, 1)}********" detected in seed ` +
+      `output — aborting to avoid writing PII.`
+  );
+}
+
 const outDir = path.join(root, "src/data/seed");
 mkdirSync(outDir, { recursive: true });
-writeFileSync(
-  path.join(outDir, "cases.generated.json"),
-  JSON.stringify(cases, null, 2) + "\n",
-  "utf8"
-);
+writeFileSync(path.join(outDir, "cases.generated.json"), serialized + "\n", "utf8");
 writeFileSync(
   path.join(outDir, "meta.generated.json"),
   JSON.stringify(meta, null, 2) + "\n",

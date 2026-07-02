@@ -36,6 +36,7 @@ export function OverviewTab({ c }: { c: CaseRecord }) {
       <Card className="p-5">
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           <Field label="個管員" value={managerName(c.managerId)} />
+          <Field label="身分證" value={c.maskedNationalId ?? "—"} />
           <Field label="CMS 等級" value={c.cmsLevel ?? "未評估"} />
           <Field label="個案狀態" value={caseStatusLabel[c.status]} />
           <Field label="年齡" value={c.age ? `${c.age} 歲` : "—"} />

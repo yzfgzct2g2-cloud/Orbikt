@@ -11,12 +11,22 @@ describe("Cs100DataAdapter", () => {
     expect(cases.length).toBe(expected); // 378
   });
 
-  it("uses non-PII surrogate ids and never exposes a national ID", async () => {
+  it("uses non-PII surrogate ids and never exposes a raw national ID", async () => {
     const cases = await adapter.listCases();
     const json = JSON.stringify(cases);
     expect(json).not.toMatch(/[A-Z][0-9]{9}/);
     for (const c of cases) {
       expect(c.id).toMatch(/^C-\d{4}$/);
+    }
+  });
+
+  it("emits only masked national IDs, never raw or a lookup hash (no salt)", async () => {
+    const cases = await adapter.listCases();
+    for (const c of cases) {
+      if (c.maskedNationalId) {
+        expect(c.maskedNationalId).toMatch(/^[A-Z]\*+\d{4}$/);
+      }
+      expect(c.idLookupHash).toBeUndefined();
     }
   });
 

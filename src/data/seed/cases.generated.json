@@ -2,6 +2,7 @@
   {
     "id": "C-0001",
     "name": "鄭阿梅",
+    "maskedNationalId": "G*****1601",
     "managerId": "cm-001",
     "cmsLevel": null,
     "status": "active",
@@ -35,6 +36,7 @@
   {
     "id": "C-0002",
     "name": "呂禎祺",
+    "maskedNationalId": "G*****9999",
     "managerId": "cm-001",
     "cmsLevel": null,
     "status": "active",
@@ -68,6 +70,7 @@
   {
     "id": "C-0003",
     "name": "洪振哲",
+    "maskedNationalId": "A*****8762",
     "managerId": "cm-001",
     "cmsLevel": 3,
     "status": "active",
@@ -102,6 +105,7 @@
   {
     "id": "C-0004",
     "name": "李政治",
+    "maskedNationalId": "G*****7164",
     "managerId": "cm-001",
     "cmsLevel": null,
     "status": "active",
@@ -135,6 +139,7 @@
   {
     "id": "C-0005",
     "name": "陳張聰敏",
+    "maskedNationalId": "G*****7760",
     "managerId": "cm-001",
     "cmsLevel": 3,
     "status": "active",
@@ -169,6 +174,7 @@
   {
     "id": "C-0006",
     "name": "陳玲蓉",
+    "maskedNationalId": "G*****0873",
     "managerId": "cm-001",
     "cmsLevel": 4,
     "status": "active",
@@ -203,6 +209,7 @@
   {
     "id": "C-0007",
     "name": "李阿蘭",
+    "maskedNationalId": "G*****8951",
     "managerId": "cm-001",
     "cmsLevel": 8,
     "status": "active",
@@ -237,6 +244,7 @@
   {
     "id": "C-0008",
     "name": "黃素月",
+    "maskedNationalId": "U*****6658",
     "managerId": "cm-001",
     "cmsLevel": 3,
     "status": "active",
@@ -271,6 +279,7 @@
   {
     "id": "C-0009",
     "name": "劉素香",
+    "maskedNationalId": "G*****9239",
     "managerId": "cm-001",
     "cmsLevel": 5,
     "status": "active",
@@ -305,6 +314,7 @@
   {
     "id": "C-0010",
     "name": "呂葉素蘭",
+    "maskedNationalId": "G*****3235",
     "managerId": "cm-001",
     "cmsLevel": 2,
     "status": "active",
@@ -339,6 +349,7 @@
   {
     "id": "C-0011",
     "name": "陳明鍾",
+    "maskedNationalId": "G*****7604",
     "managerId": "cm-001",
     "cmsLevel": 5,
     "status": "active",
@@ -373,6 +384,7 @@
   {
     "id": "C-0012",
     "name": "林慶龍",
+    "maskedNationalId": "G*****9530",
     "managerId": "cm-001",
     "cmsLevel": 8,
     "status": "active",
@@ -407,6 +419,7 @@
   {
     "id": "C-0013",
     "name": "范阿綢",
+    "maskedNationalId": "G*****9892",
     "managerId": "cm-001",
     "cmsLevel": 3,
     "status": "active",
@@ -441,6 +454,7 @@
   {
     "id": "C-0014",
     "name": "李美慧",
+    "maskedNationalId": "G*****6625",
     "managerId": "cm-001",
     "cmsLevel": 5,
     "status": "active",
@@ -475,6 +489,7 @@
   {
     "id": "C-0015",
     "name": "簡寶蓮",
+    "maskedNationalId": "G*****9852",
     "managerId": "cm-001",
     "cmsLevel": 2,
     "status": "active",
@@ -509,6 +524,7 @@
   {
     "id": "C-0016",
     "name": "黃幸枝",
+    "maskedNationalId": "G*****2950",
     "managerId": "cm-001",
     "cmsLevel": 3,
     "status": "active",
@@ -543,6 +559,7 @@
   {
     "id": "C-0017",
     "name": "呂黃阿梅",
+    "maskedNationalId": "G*****4835",
     "managerId": "cm-001",
     "cmsLevel": 4,
     "status": "active",
@@ -577,6 +594,7 @@
   {
     "id": "C-0018",
     "name": "邴建容",
+    "maskedNationalId": "G*****9656",
     "managerId": "cm-001",
     "cmsLevel": 7,
     "status": "active",
@@ -611,6 +629,7 @@
   {
     "id": "C-0019",
     "name": "蔡承助",
+    "maskedNationalId": "R*****5591",
     "managerId": "cm-001",
     "cmsLevel": 4,
     "status": "active",
@@ -645,6 +664,7 @@
   {
     "id": "C-0020",
     "name": "陳春雄",
+    "maskedNationalId": "Q*****2672",
     "managerId": "cm-001",
     "cmsLevel": 2,
     "status": "active",
@@ -679,6 +699,7 @@
   {
     "id": "C-0021",
     "name": "周俊斌",
+    "maskedNationalId": "G*****0984",
     "managerId": "cm-001",
     "cmsLevel": 5,
     "status": "active",
@@ -713,6 +734,7 @@
   {
     "id": "C-0022",
     "name": "游文祥",
+    "maskedNationalId": "G*****6139",
     "managerId": "cm-001",
     "cmsLevel": 4,
     "status": "active",
@@ -747,6 +769,7 @@
   {
     "id": "C-0023",
     "name": "吳燿州",
+    "maskedNationalId": "G*****1540",
     "managerId": "cm-001",
     "cmsLevel": 5,
     "status": "active",
@@ -781,6 +804,7 @@
   {
     "id": "C-0024",
     "name": "吳清水",
+    "maskedNationalId": "G*****1586",
     "managerId": "cm-001",
     "cmsLevel": 8,
     "status": "active",
@@ -815,6 +839,7 @@
   {
     "id": "C-0025",
     "name": "吳黃彩雲",
+    "maskedNationalId": "G*****2848",
     "managerId": "cm-001",
     "cmsLevel": 8,
     "status": "active",
@@ -849,6 +874,7 @@
   {
     "id": "C-0026",
     "name": "李翎方",
+    "maskedNationalId": "G*****1962",
     "managerId": "cm-001",
     "cmsLevel": 3,
     "status": "active",
@@ -883,6 +909,7 @@
   {
     "id": "C-0027",
     "name": "吳宏傑",
+    "maskedNationalId": "Q*****5234",
     "managerId": "cm-001",
     "cmsLevel": 4,
     "status": "active",
@@ -917,6 +944,7 @@
   {
     "id": "C-0028",
     "name": "吳秀楤",
+    "maskedNationalId": "G*****9927",
     "managerId": "cm-001",
     "cmsLevel": 3,
     "status": "active",
@@ -951,6 +979,7 @@
   {
     "id": "C-0029",
     "name": "林頂立",
+    "maskedNationalId": "G*****9531",
     "managerId": "cm-001",
     "cmsLevel": 4,
     "status": "active",
@@ -985,6 +1014,7 @@
   {
     "id": "C-0030",
     "name": "林正雄",
+    "maskedNationalId": "G*****4727",
     "managerId": "cm-001",
     "cmsLevel": 5,
     "status": "active",
@@ -1019,6 +1049,7 @@
   {
     "id": "C-0031",
     "name": "唐功有",
+    "maskedNationalId": "G*****6629",
     "managerId": "cm-001",
     "cmsLevel": 4,
     "status": "active",
@@ -1053,6 +1084,7 @@
   {
     "id": "C-0032",
     "name": "游美惠",
+    "maskedNationalId": "G*****6464",
     "managerId": "cm-001",
     "cmsLevel": 3,
     "status": "active",
@@ -1087,6 +1119,7 @@
   {
     "id": "C-0033",
     "name": "張頂璋",
+    "maskedNationalId": "G*****4521",
     "managerId": "cm-001",
     "cmsLevel": 5,
     "status": "active",
@@ -1121,6 +1154,7 @@
   {
     "id": "C-0034",
     "name": "許吳淑子",
+    "maskedNationalId": "G*****2121",
     "managerId": "cm-001",
     "cmsLevel": 3,
     "status": "active",
@@ -1155,6 +1189,7 @@
   {
     "id": "C-0035",
     "name": "林季玉",
+    "maskedNationalId": "G*****9691",
     "managerId": "cm-001",
     "cmsLevel": 8,
     "status": "active",
@@ -1189,6 +1224,7 @@
   {
     "id": "C-0036",
     "name": "張惠瓊",
+    "maskedNationalId": "G*****7693",
     "managerId": "cm-001",
     "cmsLevel": 4,
     "status": "active",
@@ -1223,6 +1259,7 @@
   {
     "id": "C-0037",
     "name": "郭林緞",
+    "maskedNationalId": "G*****4905",
     "managerId": "cm-001",
     "cmsLevel": 7,
     "status": "active",
@@ -1257,6 +1294,7 @@
   {
     "id": "C-0038",
     "name": "林朝溪",
+    "maskedNationalId": "G*****9102",
     "managerId": "cm-001",
     "cmsLevel": 5,
     "status": "active",
@@ -1291,6 +1329,7 @@
   {
     "id": "C-0039",
     "name": "林松柏",
+    "maskedNationalId": "G*****4890",
     "managerId": "cm-001",
     "cmsLevel": 5,
     "status": "active",
@@ -1325,6 +1364,7 @@
   {
     "id": "C-0040",
     "name": "張銀來",
+    "maskedNationalId": "G*****7707",
     "managerId": "cm-001",
     "cmsLevel": 3,
     "status": "active",
@@ -1359,6 +1399,7 @@
   {
     "id": "C-0041",
     "name": "林振裕",
+    "maskedNationalId": "G*****8773",
     "managerId": "cm-001",
     "cmsLevel": 8,
     "status": "active",
@@ -1393,6 +1434,7 @@
   {
     "id": "C-0042",
     "name": "陳美麗",
+    "maskedNationalId": "C*****3640",
     "managerId": "cm-001",
     "cmsLevel": 5,
     "status": "active",
@@ -1427,6 +1469,7 @@
   {
     "id": "C-0043",
     "name": "黃增壬",
+    "maskedNationalId": "Q*****9424",
     "managerId": "cm-001",
     "cmsLevel": 2,
     "status": "active",
@@ -1461,6 +1504,7 @@
   {
     "id": "C-0044",
     "name": "詹陳悅鳳",
+    "maskedNationalId": "G*****7376",
     "managerId": "cm-001",
     "cmsLevel": 5,
     "status": "active",
@@ -1495,6 +1539,7 @@
   {
     "id": "C-0045",
     "name": "陳慶安",
+    "maskedNationalId": "G*****6003",
     "managerId": "cm-001",
     "cmsLevel": 4,
     "status": "active",
@@ -1529,6 +1574,7 @@
   {
     "id": "C-0046",
     "name": "陳守晟",
+    "maskedNationalId": "G*****5478",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -1563,6 +1609,7 @@
   {
     "id": "C-0047",
     "name": "楊義昌",
+    "maskedNationalId": "G*****9040",
     "managerId": "cm-002",
     "cmsLevel": 7,
     "status": "active",
@@ -1597,6 +1644,7 @@
   {
     "id": "C-0048",
     "name": "林茜蓉",
+    "maskedNationalId": "G*****4085",
     "managerId": "cm-002",
     "cmsLevel": 7,
     "status": "active",
@@ -1631,6 +1679,7 @@
   {
     "id": "C-0049",
     "name": "陳茂雄",
+    "maskedNationalId": "G*****5222",
     "managerId": "cm-002",
     "cmsLevel": 4,
     "status": "active",
@@ -1665,6 +1714,7 @@
   {
     "id": "C-0050",
     "name": "邱正國",
+    "maskedNationalId": "G*****2412",
     "managerId": "cm-002",
     "cmsLevel": 8,
     "status": "active",
@@ -1699,6 +1749,7 @@
   {
     "id": "C-0051",
     "name": "詹正治",
+    "maskedNationalId": "G*****9170",
     "managerId": "cm-002",
     "cmsLevel": 3,
     "status": "active",
@@ -1733,6 +1784,7 @@
   {
     "id": "C-0052",
     "name": "郭惠淑",
+    "maskedNationalId": "G*****3363",
     "managerId": "cm-002",
     "cmsLevel": 3,
     "status": "active",
@@ -1767,6 +1819,7 @@
   {
     "id": "C-0053",
     "name": "林金珠",
+    "maskedNationalId": "G*****8841",
     "managerId": "cm-002",
     "cmsLevel": 4,
     "status": "active",
@@ -1801,6 +1854,7 @@
   {
     "id": "C-0054",
     "name": "潘許阿春",
+    "maskedNationalId": "G*****8868",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -1835,6 +1889,7 @@
   {
     "id": "C-0055",
     "name": "林昆男",
+    "maskedNationalId": "G*****6208",
     "managerId": "cm-002",
     "cmsLevel": 5,
     "status": "active",
@@ -1869,6 +1924,7 @@
   {
     "id": "C-0056",
     "name": "林文勇",
+    "maskedNationalId": "G*****5624",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -1903,6 +1959,7 @@
   {
     "id": "C-0057",
     "name": "黃榮吉",
+    "maskedNationalId": "G*****7264",
     "managerId": "cm-002",
     "cmsLevel": 4,
     "status": "active",
@@ -1937,6 +1994,7 @@
   {
     "id": "C-0058",
     "name": "李簡射留",
+    "maskedNationalId": "G*****3755",
     "managerId": "cm-002",
     "cmsLevel": 3,
     "status": "active",
@@ -1971,6 +2029,7 @@
   {
     "id": "C-0059",
     "name": "曾力志",
+    "maskedNationalId": "A*****0262",
     "managerId": "cm-002",
     "cmsLevel": 4,
     "status": "active",
@@ -2005,6 +2064,7 @@
   {
     "id": "C-0060",
     "name": "許愛",
+    "maskedNationalId": "L*****8139",
     "managerId": "cm-002",
     "cmsLevel": 4,
     "status": "active",
@@ -2039,6 +2099,7 @@
   {
     "id": "C-0061",
     "name": "黃詹雪江",
+    "maskedNationalId": "Q*****2361",
     "managerId": "cm-002",
     "cmsLevel": 6,
     "status": "active",
@@ -2073,6 +2134,7 @@
   {
     "id": "C-0062",
     "name": "賴林阿尾",
+    "maskedNationalId": "G*****3420",
     "managerId": "cm-002",
     "cmsLevel": 8,
     "status": "active",
@@ -2107,6 +2169,7 @@
   {
     "id": "C-0063",
     "name": "羅木桂",
+    "maskedNationalId": "G*****0750",
     "managerId": "cm-002",
     "cmsLevel": 4,
     "status": "active",
@@ -2141,6 +2204,7 @@
   {
     "id": "C-0064",
     "name": "石成發",
+    "maskedNationalId": "G*****3271",
     "managerId": "cm-002",
     "cmsLevel": 6,
     "status": "active",
@@ -2175,6 +2239,7 @@
   {
     "id": "C-0065",
     "name": "黃貴玉",
+    "maskedNationalId": "G*****3491",
     "managerId": "cm-002",
     "cmsLevel": 4,
     "status": "active",
@@ -2209,6 +2274,7 @@
   {
     "id": "C-0066",
     "name": "王有珌",
+    "maskedNationalId": "F*****9677",
     "managerId": "cm-002",
     "cmsLevel": 7,
     "status": "active",
@@ -2243,6 +2309,7 @@
   {
     "id": "C-0067",
     "name": "陳建國",
+    "maskedNationalId": "G*****6489",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -2277,6 +2344,7 @@
   {
     "id": "C-0068",
     "name": "謝淑珍",
+    "maskedNationalId": "G*****0208",
     "managerId": "cm-002",
     "cmsLevel": 3,
     "status": "active",
@@ -2311,6 +2379,7 @@
   {
     "id": "C-0069",
     "name": "黃林素妙",
+    "maskedNationalId": "G*****9620",
     "managerId": "cm-002",
     "cmsLevel": 3,
     "status": "active",
@@ -2345,6 +2414,7 @@
   {
     "id": "C-0070",
     "name": "簡正雄",
+    "maskedNationalId": "G*****0158",
     "managerId": "cm-002",
     "cmsLevel": 4,
     "status": "active",
@@ -2379,6 +2449,7 @@
   {
     "id": "C-0071",
     "name": "林玲卿",
+    "maskedNationalId": "G*****6230",
     "managerId": "cm-002",
     "cmsLevel": 3,
     "status": "active",
@@ -2413,6 +2484,7 @@
   {
     "id": "C-0072",
     "name": "陳羅菊子",
+    "maskedNationalId": "G*****1375",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -2447,6 +2519,7 @@
   {
     "id": "C-0073",
     "name": "吳梅蘭",
+    "maskedNationalId": "G*****0049",
     "managerId": "cm-002",
     "cmsLevel": 8,
     "status": "active",
@@ -2481,6 +2554,7 @@
   {
     "id": "C-0074",
     "name": "林江河",
+    "maskedNationalId": "G*****3355",
     "managerId": "cm-002",
     "cmsLevel": 6,
     "status": "active",
@@ -2515,6 +2589,7 @@
   {
     "id": "C-0075",
     "name": "何舜習",
+    "maskedNationalId": "G*****4301",
     "managerId": "cm-002",
     "cmsLevel": 7,
     "status": "active",
@@ -2549,6 +2624,7 @@
   {
     "id": "C-0076",
     "name": "李春雄",
+    "maskedNationalId": "G*****8089",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -2583,6 +2659,7 @@
   {
     "id": "C-0077",
     "name": "林彩雲",
+    "maskedNationalId": "G*****4083",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -2617,6 +2694,7 @@
   {
     "id": "C-0078",
     "name": "林惜雲",
+    "maskedNationalId": "G*****5752",
     "managerId": "cm-002",
     "cmsLevel": 4,
     "status": "active",
@@ -2651,6 +2729,7 @@
   {
     "id": "C-0079",
     "name": "蘇金妹",
+    "maskedNationalId": "H*****2615",
     "managerId": "cm-002",
     "cmsLevel": 3,
     "status": "active",
@@ -2685,6 +2764,7 @@
   {
     "id": "C-0080",
     "name": "黃淑惠",
+    "maskedNationalId": "G*****3786",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -2719,6 +2799,7 @@
   {
     "id": "C-0081",
     "name": "簡振盛",
+    "maskedNationalId": "G*****8416",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -2753,6 +2834,7 @@
   {
     "id": "C-0082",
     "name": "王振成",
+    "maskedNationalId": "G*****1063",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -2787,6 +2869,7 @@
   {
     "id": "C-0083",
     "name": "鄭許桂花",
+    "maskedNationalId": "G*****0015",
     "managerId": "cm-002",
     "cmsLevel": 7,
     "status": "active",
@@ -2821,6 +2904,7 @@
   {
     "id": "C-0084",
     "name": "凌梁秀蘭",
+    "maskedNationalId": "C*****3762",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -2855,6 +2939,7 @@
   {
     "id": "C-0085",
     "name": "林忠雄",
+    "maskedNationalId": "G*****2181",
     "managerId": "cm-002",
     "cmsLevel": 7,
     "status": "active",
@@ -2889,6 +2974,7 @@
   {
     "id": "C-0086",
     "name": "陳吳千惠",
+    "maskedNationalId": "G*****3168",
     "managerId": "cm-002",
     "cmsLevel": 5,
     "status": "active",
@@ -2923,6 +3009,7 @@
   {
     "id": "C-0087",
     "name": "陳忠雄",
+    "maskedNationalId": "G*****2096",
     "managerId": "cm-002",
     "cmsLevel": 5,
     "status": "active",
@@ -2957,6 +3044,7 @@
   {
     "id": "C-0088",
     "name": "黃琳娟",
+    "maskedNationalId": "G*****7131",
     "managerId": "cm-002",
     "cmsLevel": 4,
     "status": "active",
@@ -2991,6 +3079,7 @@
   {
     "id": "C-0089",
     "name": "吳素月",
+    "maskedNationalId": "G*****4414",
     "managerId": "cm-002",
     "cmsLevel": 7,
     "status": "active",
@@ -3025,6 +3114,7 @@
   {
     "id": "C-0090",
     "name": "黃淑德",
+    "maskedNationalId": "G*****2362",
     "managerId": "cm-002",
     "cmsLevel": 4,
     "status": "active",
@@ -3059,6 +3149,7 @@
   {
     "id": "C-0091",
     "name": "徐雅鈴",
+    "maskedNationalId": "G*****5238",
     "managerId": "cm-002",
     "cmsLevel": 4,
     "status": "active",
@@ -3093,6 +3184,7 @@
   {
     "id": "C-0092",
     "name": "盧芳杏",
+    "maskedNationalId": "G*****9482",
     "managerId": "cm-002",
     "cmsLevel": 6,
     "status": "active",
@@ -3127,6 +3219,7 @@
   {
     "id": "C-0093",
     "name": "楊天賜",
+    "maskedNationalId": "G*****8062",
     "managerId": "cm-002",
     "cmsLevel": 5,
     "status": "active",
@@ -3161,6 +3254,7 @@
   {
     "id": "C-0094",
     "name": "林彥辰",
+    "maskedNationalId": "G*****3997",
     "managerId": "cm-002",
     "cmsLevel": 4,
     "status": "active",
@@ -3195,6 +3289,7 @@
   {
     "id": "C-0095",
     "name": "黃元成",
+    "maskedNationalId": "G*****4729",
     "managerId": "cm-002",
     "cmsLevel": 3,
     "status": "active",
@@ -3229,6 +3324,7 @@
   {
     "id": "C-0096",
     "name": "黃欽榮",
+    "maskedNationalId": "G*****8994",
     "managerId": "cm-002",
     "cmsLevel": 5,
     "status": "active",
@@ -3263,6 +3359,7 @@
   {
     "id": "C-0097",
     "name": "游阿旋",
+    "maskedNationalId": "G*****0884",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -3297,6 +3394,7 @@
   {
     "id": "C-0098",
     "name": "楊含笑",
+    "maskedNationalId": "G*****3858",
     "managerId": "cm-002",
     "cmsLevel": 4,
     "status": "active",
@@ -3331,6 +3429,7 @@
   {
     "id": "C-0099",
     "name": "呂禮彥",
+    "maskedNationalId": "G*****8290",
     "managerId": "cm-002",
     "cmsLevel": 8,
     "status": "active",
@@ -3365,6 +3464,7 @@
   {
     "id": "C-0100",
     "name": "林范月貞",
+    "maskedNationalId": "J*****0455",
     "managerId": "cm-002",
     "cmsLevel": 7,
     "status": "active",
@@ -3399,6 +3499,7 @@
   {
     "id": "C-0101",
     "name": "范姜櫻春",
+    "maskedNationalId": "H*****4593",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -3433,6 +3534,7 @@
   {
     "id": "C-0102",
     "name": "盧宥亘",
+    "maskedNationalId": "G*****8695",
     "managerId": "cm-002",
     "cmsLevel": 3,
     "status": "active",
@@ -3467,6 +3569,7 @@
   {
     "id": "C-0103",
     "name": "謝碧蝦",
+    "maskedNationalId": "G*****6370",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -3501,6 +3604,7 @@
   {
     "id": "C-0104",
     "name": "林碧娥",
+    "maskedNationalId": "G*****4756",
     "managerId": "cm-002",
     "cmsLevel": 4,
     "status": "active",
@@ -3535,6 +3639,7 @@
   {
     "id": "C-0105",
     "name": "李茂吉",
+    "maskedNationalId": "U*****9250",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -3569,6 +3674,7 @@
   {
     "id": "C-0106",
     "name": "吳宣萱",
+    "maskedNationalId": "G*****0156",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -3603,6 +3709,7 @@
   {
     "id": "C-0107",
     "name": "龎碧維",
+    "maskedNationalId": "M*****5866",
     "managerId": "cm-002",
     "cmsLevel": 6,
     "status": "active",
@@ -3637,6 +3744,7 @@
   {
     "id": "C-0108",
     "name": "韓廖靜𡚱",
+    "maskedNationalId": "G*****9942",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -3671,6 +3779,7 @@
   {
     "id": "C-0109",
     "name": "鄒許阿月",
+    "maskedNationalId": "G*****3265",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -3705,6 +3814,7 @@
   {
     "id": "C-0110",
     "name": "廖陳月子",
+    "maskedNationalId": "G*****7076",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -3739,6 +3849,7 @@
   {
     "id": "C-0111",
     "name": "陳黃桂花",
+    "maskedNationalId": "A*****4607",
     "managerId": "cm-002",
     "cmsLevel": 4,
     "status": "active",
@@ -3773,6 +3884,7 @@
   {
     "id": "C-0112",
     "name": "張秀鳳",
+    "maskedNationalId": "G*****0833",
     "managerId": "cm-002",
     "cmsLevel": 8,
     "status": "active",
@@ -3807,6 +3919,7 @@
   {
     "id": "C-0113",
     "name": "李桂梅",
+    "maskedNationalId": "G*****8186",
     "managerId": "cm-002",
     "cmsLevel": 5,
     "status": "active",
@@ -3841,6 +3954,7 @@
   {
     "id": "C-0114",
     "name": "石游阿琴",
+    "maskedNationalId": "G*****2924",
     "managerId": "cm-002",
     "cmsLevel": 8,
     "status": "active",
@@ -3875,6 +3989,7 @@
   {
     "id": "C-0115",
     "name": "王秀鳳",
+    "maskedNationalId": "F*****3747",
     "managerId": "cm-002",
     "cmsLevel": 8,
     "status": "active",
@@ -3909,6 +4024,7 @@
   {
     "id": "C-0116",
     "name": "黃素真",
+    "maskedNationalId": "A*****2863",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -3943,6 +4059,7 @@
   {
     "id": "C-0117",
     "name": "楊麗惠",
+    "maskedNationalId": "G*****7764",
     "managerId": "cm-002",
     "cmsLevel": 4,
     "status": "active",
@@ -3977,6 +4094,7 @@
   {
     "id": "C-0118",
     "name": "簡文娥",
+    "maskedNationalId": "G*****2523",
     "managerId": "cm-002",
     "cmsLevel": 4,
     "status": "active",
@@ -4011,6 +4129,7 @@
   {
     "id": "C-0119",
     "name": "蕭志忠",
+    "maskedNationalId": "Q*****6772",
     "managerId": "cm-002",
     "cmsLevel": 5,
     "status": "active",
@@ -4045,6 +4164,7 @@
   {
     "id": "C-0120",
     "name": "余蘇含笑",
+    "maskedNationalId": "G*****6149",
     "managerId": "cm-002",
     "cmsLevel": 3,
     "status": "active",
@@ -4079,6 +4199,7 @@
   {
     "id": "C-0121",
     "name": "張美華",
+    "maskedNationalId": "G*****6718",
     "managerId": "cm-002",
     "cmsLevel": 3,
     "status": "active",
@@ -4113,6 +4234,7 @@
   {
     "id": "C-0122",
     "name": "易林都子",
+    "maskedNationalId": "G*****7121",
     "managerId": "cm-002",
     "cmsLevel": 6,
     "status": "active",
@@ -4147,6 +4269,7 @@
   {
     "id": "C-0123",
     "name": "林金星",
+    "maskedNationalId": "G*****5020",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -4181,6 +4304,7 @@
   {
     "id": "C-0124",
     "name": "江清波",
+    "maskedNationalId": "G*****4529",
     "managerId": "cm-002",
     "cmsLevel": 8,
     "status": "active",
@@ -4215,6 +4339,7 @@
   {
     "id": "C-0125",
     "name": "林騰筠",
+    "maskedNationalId": "G*****7939",
     "managerId": "cm-002",
     "cmsLevel": 8,
     "status": "active",
@@ -4249,6 +4374,7 @@
   {
     "id": "C-0126",
     "name": "謝鳳嬌",
+    "maskedNationalId": "G*****3368",
     "managerId": "cm-002",
     "cmsLevel": 5,
     "status": "active",
@@ -4283,6 +4409,7 @@
   {
     "id": "C-0127",
     "name": "楊永和",
+    "maskedNationalId": "G*****2430",
     "managerId": "cm-002",
     "cmsLevel": 8,
     "status": "active",
@@ -4317,6 +4444,7 @@
   {
     "id": "C-0128",
     "name": "王寶秀",
+    "maskedNationalId": "G*****6893",
     "managerId": "cm-002",
     "cmsLevel": 3,
     "status": "active",
@@ -4351,6 +4479,7 @@
   {
     "id": "C-0129",
     "name": "宮進發",
+    "maskedNationalId": "G*****4958",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -4385,6 +4514,7 @@
   {
     "id": "C-0130",
     "name": "李林美麗",
+    "maskedNationalId": "G*****3320",
     "managerId": "cm-002",
     "cmsLevel": 6,
     "status": "active",
@@ -4419,6 +4549,7 @@
   {
     "id": "C-0131",
     "name": "林水連",
+    "maskedNationalId": "G*****9040",
     "managerId": "cm-002",
     "cmsLevel": 6,
     "status": "active",
@@ -4453,6 +4584,7 @@
   {
     "id": "C-0132",
     "name": "吳榮春",
+    "maskedNationalId": "G*****5973",
     "managerId": "cm-002",
     "cmsLevel": 4,
     "status": "active",
@@ -4487,6 +4619,7 @@
   {
     "id": "C-0133",
     "name": "池新元",
+    "maskedNationalId": "R*****8222",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -4521,6 +4654,7 @@
   {
     "id": "C-0134",
     "name": "王瀞鎂",
+    "maskedNationalId": "N*****6790",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -4555,6 +4689,7 @@
   {
     "id": "C-0135",
     "name": "張江海",
+    "maskedNationalId": "G*****2342",
     "managerId": "cm-002",
     "cmsLevel": 6,
     "status": "active",
@@ -4589,6 +4724,7 @@
   {
     "id": "C-0136",
     "name": "林正德",
+    "maskedNationalId": "G*****8749",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -4623,6 +4759,7 @@
   {
     "id": "C-0137",
     "name": "陳永鎮",
+    "maskedNationalId": "G*****5857",
     "managerId": "cm-002",
     "cmsLevel": 4,
     "status": "active",
@@ -4657,6 +4794,7 @@
   {
     "id": "C-0138",
     "name": "吳麗卿",
+    "maskedNationalId": "G*****2711",
     "managerId": "cm-002",
     "cmsLevel": 2,
     "status": "active",
@@ -4691,6 +4829,7 @@
   {
     "id": "C-0139",
     "name": "葉明璋",
+    "maskedNationalId": "H*****0259",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -4725,6 +4864,7 @@
   {
     "id": "C-0140",
     "name": "林拱福",
+    "maskedNationalId": "G*****1124",
     "managerId": "cm-003",
     "cmsLevel": 5,
     "status": "active",
@@ -4759,6 +4899,7 @@
   {
     "id": "C-0141",
     "name": "朱芳佑",
+    "maskedNationalId": "G*****9147",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -4793,6 +4934,7 @@
   {
     "id": "C-0142",
     "name": "李陳春貴",
+    "maskedNationalId": "G*****0244",
     "managerId": "cm-003",
     "cmsLevel": 7,
     "status": "active",
@@ -4827,6 +4969,7 @@
   {
     "id": "C-0143",
     "name": "林許阿玉",
+    "maskedNationalId": "G*****4698",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -4861,6 +5004,7 @@
   {
     "id": "C-0144",
     "name": "劉吳阿秀",
+    "maskedNationalId": "G*****0801",
     "managerId": "cm-003",
     "cmsLevel": 2,
     "status": "active",
@@ -4895,6 +5039,7 @@
   {
     "id": "C-0145",
     "name": "莊林淑霞",
+    "maskedNationalId": "G*****0775",
     "managerId": "cm-003",
     "cmsLevel": 2,
     "status": "active",
@@ -4929,6 +5074,7 @@
   {
     "id": "C-0146",
     "name": "尤美珠",
+    "maskedNationalId": "V*****3834",
     "managerId": "cm-003",
     "cmsLevel": 5,
     "status": "active",
@@ -4963,6 +5109,7 @@
   {
     "id": "C-0147",
     "name": "游吳阿守",
+    "maskedNationalId": "G*****7840",
     "managerId": "cm-003",
     "cmsLevel": 2,
     "status": "active",
@@ -4997,6 +5144,7 @@
   {
     "id": "C-0148",
     "name": "林六吉",
+    "maskedNationalId": "V*****6824",
     "managerId": "cm-003",
     "cmsLevel": 3,
     "status": "active",
@@ -5031,6 +5179,7 @@
   {
     "id": "C-0149",
     "name": "蔡淑英",
+    "maskedNationalId": "G*****0786",
     "managerId": "cm-003",
     "cmsLevel": 3,
     "status": "active",
@@ -5065,6 +5214,7 @@
   {
     "id": "C-0150",
     "name": "李勝祝",
+    "maskedNationalId": "G*****7554",
     "managerId": "cm-003",
     "cmsLevel": 6,
     "status": "active",
@@ -5099,6 +5249,7 @@
   {
     "id": "C-0151",
     "name": "林素華",
+    "maskedNationalId": "M*****2696",
     "managerId": "cm-003",
     "cmsLevel": 3,
     "status": "active",
@@ -5133,6 +5284,7 @@
   {
     "id": "C-0152",
     "name": "黃境銘",
+    "maskedNationalId": "M*****5768",
     "managerId": "cm-003",
     "cmsLevel": 5,
     "status": "active",
@@ -5167,6 +5319,7 @@
   {
     "id": "C-0153",
     "name": "游朝枝",
+    "maskedNationalId": "G*****3489",
     "managerId": "cm-003",
     "cmsLevel": 6,
     "status": "active",
@@ -5201,6 +5354,7 @@
   {
     "id": "C-0154",
     "name": "陳楊錫兢",
+    "maskedNationalId": "G*****8416",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -5235,6 +5389,7 @@
   {
     "id": "C-0155",
     "name": "李善民",
+    "maskedNationalId": "R*****2637",
     "managerId": "cm-003",
     "cmsLevel": 6,
     "status": "active",
@@ -5269,6 +5424,7 @@
   {
     "id": "C-0156",
     "name": "朱永盛",
+    "maskedNationalId": "G*****3553",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -5303,6 +5459,7 @@
   {
     "id": "C-0157",
     "name": "楊簡草",
+    "maskedNationalId": "G*****0163",
     "managerId": "cm-003",
     "cmsLevel": 3,
     "status": "active",
@@ -5337,6 +5494,7 @@
   {
     "id": "C-0158",
     "name": "林孝三",
+    "maskedNationalId": "G*****6249",
     "managerId": "cm-003",
     "cmsLevel": 3,
     "status": "active",
@@ -5371,6 +5529,7 @@
   {
     "id": "C-0159",
     "name": "陳萩樺",
+    "maskedNationalId": "G*****1802",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -5405,6 +5564,7 @@
   {
     "id": "C-0160",
     "name": "吳梅嬌",
+    "maskedNationalId": "G*****9089",
     "managerId": "cm-003",
     "cmsLevel": 2,
     "status": "active",
@@ -5439,6 +5599,7 @@
   {
     "id": "C-0161",
     "name": "朱秀子",
+    "maskedNationalId": "G*****0004",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -5473,6 +5634,7 @@
   {
     "id": "C-0162",
     "name": "陳昱仲",
+    "maskedNationalId": "G*****2275",
     "managerId": "cm-003",
     "cmsLevel": 7,
     "status": "active",
@@ -5507,6 +5669,7 @@
   {
     "id": "C-0163",
     "name": "張秀珠",
+    "maskedNationalId": "J*****7898",
     "managerId": "cm-003",
     "cmsLevel": 5,
     "status": "active",
@@ -5541,6 +5704,7 @@
   {
     "id": "C-0164",
     "name": "馮王淑惠",
+    "maskedNationalId": "G*****5762",
     "managerId": "cm-003",
     "cmsLevel": 8,
     "status": "active",
@@ -5575,6 +5739,7 @@
   {
     "id": "C-0165",
     "name": "林蔡淑珍",
+    "maskedNationalId": "G*****9782",
     "managerId": "cm-003",
     "cmsLevel": 5,
     "status": "active",
@@ -5609,6 +5774,7 @@
   {
     "id": "C-0166",
     "name": "吳弘志",
+    "maskedNationalId": "G*****8032",
     "managerId": "cm-003",
     "cmsLevel": 5,
     "status": "active",
@@ -5643,6 +5809,7 @@
   {
     "id": "C-0167",
     "name": "吳陳瑞子",
+    "maskedNationalId": "G*****1092",
     "managerId": "cm-003",
     "cmsLevel": 2,
     "status": "active",
@@ -5677,6 +5844,7 @@
   {
     "id": "C-0168",
     "name": "游溪雄",
+    "maskedNationalId": "A*****8891",
     "managerId": "cm-003",
     "cmsLevel": 5,
     "status": "active",
@@ -5711,6 +5879,7 @@
   {
     "id": "C-0169",
     "name": "韓錦隆",
+    "maskedNationalId": "G*****9953",
     "managerId": "cm-003",
     "cmsLevel": 7,
     "status": "active",
@@ -5745,6 +5914,7 @@
   {
     "id": "C-0170",
     "name": "劉周阿鳳",
+    "maskedNationalId": "G*****5605",
     "managerId": "cm-003",
     "cmsLevel": 8,
     "status": "active",
@@ -5779,6 +5949,7 @@
   {
     "id": "C-0171",
     "name": "張再添",
+    "maskedNationalId": "G*****2450",
     "managerId": "cm-003",
     "cmsLevel": 6,
     "status": "active",
@@ -5813,6 +5984,7 @@
   {
     "id": "C-0172",
     "name": "林秀蓮",
+    "maskedNationalId": "G*****2758",
     "managerId": "cm-003",
     "cmsLevel": 3,
     "status": "active",
@@ -5847,6 +6019,7 @@
   {
     "id": "C-0173",
     "name": "吳森泉",
+    "maskedNationalId": "G*****2003",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -5881,6 +6054,7 @@
   {
     "id": "C-0174",
     "name": "林月美",
+    "maskedNationalId": "G*****8948",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -5915,6 +6089,7 @@
   {
     "id": "C-0175",
     "name": "游林麗香",
+    "maskedNationalId": "G*****1082",
     "managerId": "cm-003",
     "cmsLevel": 8,
     "status": "active",
@@ -5949,6 +6124,7 @@
   {
     "id": "C-0176",
     "name": "陶林素琴",
+    "maskedNationalId": "G*****4154",
     "managerId": "cm-003",
     "cmsLevel": 5,
     "status": "active",
@@ -5983,6 +6159,7 @@
   {
     "id": "C-0177",
     "name": "林曾美榮",
+    "maskedNationalId": "F*****3100",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -6017,6 +6194,7 @@
   {
     "id": "C-0178",
     "name": "謝錦松",
+    "maskedNationalId": "G*****1530",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -6051,6 +6229,7 @@
   {
     "id": "C-0179",
     "name": "邱耀鍟",
+    "maskedNationalId": "E*****5921",
     "managerId": "cm-003",
     "cmsLevel": 5,
     "status": "active",
@@ -6085,6 +6264,7 @@
   {
     "id": "C-0180",
     "name": "藍碧霞",
+    "maskedNationalId": "N*****5697",
     "managerId": "cm-003",
     "cmsLevel": 2,
     "status": "active",
@@ -6119,6 +6299,7 @@
   {
     "id": "C-0181",
     "name": "莊金龍",
+    "maskedNationalId": "G*****9572",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -6153,6 +6334,7 @@
   {
     "id": "C-0182",
     "name": "林德旺",
+    "maskedNationalId": "G*****2694",
     "managerId": "cm-003",
     "cmsLevel": 5,
     "status": "active",
@@ -6187,6 +6369,7 @@
   {
     "id": "C-0183",
     "name": "戴志宏",
+    "maskedNationalId": "G*****6294",
     "managerId": "cm-003",
     "cmsLevel": 7,
     "status": "active",
@@ -6221,6 +6404,7 @@
   {
     "id": "C-0184",
     "name": "林正宗",
+    "maskedNationalId": "A*****6523",
     "managerId": "cm-003",
     "cmsLevel": 5,
     "status": "active",
@@ -6255,6 +6439,7 @@
   {
     "id": "C-0185",
     "name": "林東隆",
+    "maskedNationalId": "G*****4820",
     "managerId": "cm-003",
     "cmsLevel": 6,
     "status": "active",
@@ -6289,6 +6474,7 @@
   {
     "id": "C-0186",
     "name": "林潘清香",
+    "maskedNationalId": "G*****3677",
     "managerId": "cm-003",
     "cmsLevel": 5,
     "status": "active",
@@ -6323,6 +6509,7 @@
   {
     "id": "C-0187",
     "name": "黃良惠",
+    "maskedNationalId": "G*****3817",
     "managerId": "cm-003",
     "cmsLevel": 2,
     "status": "active",
@@ -6357,6 +6544,7 @@
   {
     "id": "C-0188",
     "name": "林榮煌",
+    "maskedNationalId": "G*****2194",
     "managerId": "cm-003",
     "cmsLevel": 6,
     "status": "active",
@@ -6391,6 +6579,7 @@
   {
     "id": "C-0189",
     "name": "王秋子",
+    "maskedNationalId": "G*****6544",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -6425,6 +6614,7 @@
   {
     "id": "C-0190",
     "name": "陳秀美",
+    "maskedNationalId": "G*****2442",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -6459,6 +6649,7 @@
   {
     "id": "C-0191",
     "name": "朱政仁",
+    "maskedNationalId": "G*****2549",
     "managerId": "cm-003",
     "cmsLevel": 8,
     "status": "active",
@@ -6493,6 +6684,7 @@
   {
     "id": "C-0192",
     "name": "蔡許玉環",
+    "maskedNationalId": "G*****1866",
     "managerId": "cm-003",
     "cmsLevel": 8,
     "status": "active",
@@ -6527,6 +6719,7 @@
   {
     "id": "C-0193",
     "name": "林詩琳",
+    "maskedNationalId": "G*****6965",
     "managerId": "cm-003",
     "cmsLevel": 3,
     "status": "active",
@@ -6561,6 +6754,7 @@
   {
     "id": "C-0194",
     "name": "林明信",
+    "maskedNationalId": "G*****0974",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -6595,6 +6789,7 @@
   {
     "id": "C-0195",
     "name": "羅淑英",
+    "maskedNationalId": "G*****6991",
     "managerId": "cm-003",
     "cmsLevel": 2,
     "status": "active",
@@ -6629,6 +6824,7 @@
   {
     "id": "C-0196",
     "name": "蔡靜枝",
+    "maskedNationalId": "G*****0850",
     "managerId": "cm-003",
     "cmsLevel": 6,
     "status": "active",
@@ -6663,6 +6859,7 @@
   {
     "id": "C-0197",
     "name": "陳宥安",
+    "maskedNationalId": "G*****4369",
     "managerId": "cm-003",
     "cmsLevel": 7,
     "status": "active",
@@ -6697,6 +6894,7 @@
   {
     "id": "C-0198",
     "name": "張建明",
+    "maskedNationalId": "G*****5760",
     "managerId": "cm-003",
     "cmsLevel": 3,
     "status": "active",
@@ -6731,6 +6929,7 @@
   {
     "id": "C-0199",
     "name": "陳建鏵",
+    "maskedNationalId": "G*****3135",
     "managerId": "cm-003",
     "cmsLevel": 6,
     "status": "active",
@@ -6765,6 +6964,7 @@
   {
     "id": "C-0200",
     "name": "許鐵",
+    "maskedNationalId": "G*****2968",
     "managerId": "cm-003",
     "cmsLevel": 2,
     "status": "active",
@@ -6799,6 +6999,7 @@
   {
     "id": "C-0201",
     "name": "林再立",
+    "maskedNationalId": "G*****2536",
     "managerId": "cm-003",
     "cmsLevel": 8,
     "status": "active",
@@ -6833,6 +7034,7 @@
   {
     "id": "C-0202",
     "name": "蔡秀玉",
+    "maskedNationalId": "V*****3388",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -6867,6 +7069,7 @@
   {
     "id": "C-0203",
     "name": "林佳蓁",
+    "maskedNationalId": "G*****3926",
     "managerId": "cm-003",
     "cmsLevel": 2,
     "status": "active",
@@ -6901,6 +7104,7 @@
   {
     "id": "C-0204",
     "name": "林鄭來富",
+    "maskedNationalId": "N*****2410",
     "managerId": "cm-003",
     "cmsLevel": 5,
     "status": "active",
@@ -6935,6 +7139,7 @@
   {
     "id": "C-0205",
     "name": "林陳素丹",
+    "maskedNationalId": "G*****5126",
     "managerId": "cm-003",
     "cmsLevel": 3,
     "status": "active",
@@ -6969,6 +7174,7 @@
   {
     "id": "C-0206",
     "name": "吳黃美麗",
+    "maskedNationalId": "G*****1548",
     "managerId": "cm-003",
     "cmsLevel": 2,
     "status": "active",
@@ -7003,6 +7209,7 @@
   {
     "id": "C-0207",
     "name": "林馮芳蘭",
+    "maskedNationalId": "G*****5753",
     "managerId": "cm-003",
     "cmsLevel": 3,
     "status": "active",
@@ -7037,6 +7244,7 @@
   {
     "id": "C-0208",
     "name": "謝義一",
+    "maskedNationalId": "G*****8885",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -7071,6 +7279,7 @@
   {
     "id": "C-0209",
     "name": "賴蘇温淑",
+    "maskedNationalId": "G*****1579",
     "managerId": "cm-003",
     "cmsLevel": 2,
     "status": "active",
@@ -7105,6 +7314,7 @@
   {
     "id": "C-0210",
     "name": "林掽",
+    "maskedNationalId": "G*****0290",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -7139,6 +7349,7 @@
   {
     "id": "C-0211",
     "name": "陳淇澤",
+    "maskedNationalId": "G*****5351",
     "managerId": "cm-003",
     "cmsLevel": 7,
     "status": "active",
@@ -7173,6 +7384,7 @@
   {
     "id": "C-0212",
     "name": "林慧美",
+    "maskedNationalId": "G*****4985",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -7207,6 +7419,7 @@
   {
     "id": "C-0213",
     "name": "潘林秀子",
+    "maskedNationalId": "G*****3753",
     "managerId": "cm-003",
     "cmsLevel": 7,
     "status": "active",
@@ -7241,6 +7454,7 @@
   {
     "id": "C-0214",
     "name": "黃阿甜",
+    "maskedNationalId": "G*****7991",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -7275,6 +7489,7 @@
   {
     "id": "C-0215",
     "name": "吳金鳳",
+    "maskedNationalId": "G*****1704",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -7309,6 +7524,7 @@
   {
     "id": "C-0216",
     "name": "陳穎川",
+    "maskedNationalId": "G*****4201",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -7343,6 +7559,7 @@
   {
     "id": "C-0217",
     "name": "黃薔薇",
+    "maskedNationalId": "G*****0970",
     "managerId": "cm-003",
     "cmsLevel": 2,
     "status": "active",
@@ -7377,6 +7594,7 @@
   {
     "id": "C-0218",
     "name": "廖淙榕",
+    "maskedNationalId": "G*****7423",
     "managerId": "cm-003",
     "cmsLevel": 6,
     "status": "active",
@@ -7411,6 +7629,7 @@
   {
     "id": "C-0219",
     "name": "吳貴全",
+    "maskedNationalId": "G*****1514",
     "managerId": "cm-003",
     "cmsLevel": 3,
     "status": "active",
@@ -7445,6 +7664,7 @@
   {
     "id": "C-0220",
     "name": "黃振瀛",
+    "maskedNationalId": "C*****8759",
     "managerId": "cm-003",
     "cmsLevel": 2,
     "status": "active",
@@ -7479,6 +7699,7 @@
   {
     "id": "C-0221",
     "name": "馮王小巧",
+    "maskedNationalId": "B*****3450",
     "managerId": "cm-003",
     "cmsLevel": 8,
     "status": "active",
@@ -7513,6 +7734,7 @@
   {
     "id": "C-0222",
     "name": "林阿月",
+    "maskedNationalId": "G*****4438",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -7547,6 +7769,7 @@
   {
     "id": "C-0223",
     "name": "曹伯瑜",
+    "maskedNationalId": "G*****2174",
     "managerId": "cm-003",
     "cmsLevel": 6,
     "status": "active",
@@ -7581,6 +7804,7 @@
   {
     "id": "C-0224",
     "name": "曾美琴",
+    "maskedNationalId": "G*****1093",
     "managerId": "cm-003",
     "cmsLevel": 3,
     "status": "active",
@@ -7615,6 +7839,7 @@
   {
     "id": "C-0225",
     "name": "何彥廷",
+    "maskedNationalId": "G*****7529",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -7649,6 +7874,7 @@
   {
     "id": "C-0226",
     "name": "胡賢文",
+    "maskedNationalId": "A*****6321",
     "managerId": "cm-003",
     "cmsLevel": 2,
     "status": "active",
@@ -7683,6 +7909,7 @@
   {
     "id": "C-0227",
     "name": "吳文維",
+    "maskedNationalId": "G*****9962",
     "managerId": "cm-003",
     "cmsLevel": 2,
     "status": "active",
@@ -7717,6 +7944,7 @@
   {
     "id": "C-0228",
     "name": "林黃妙珠",
+    "maskedNationalId": "G*****0113",
     "managerId": "cm-003",
     "cmsLevel": 6,
     "status": "active",
@@ -7751,6 +7979,7 @@
   {
     "id": "C-0229",
     "name": "温江彰子",
+    "maskedNationalId": "G*****8505",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -7785,6 +8014,7 @@
   {
     "id": "C-0230",
     "name": "陳林淑珍",
+    "maskedNationalId": "G*****4132",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -7819,6 +8049,7 @@
   {
     "id": "C-0231",
     "name": "楊美珠",
+    "maskedNationalId": "G*****1036",
     "managerId": "cm-003",
     "cmsLevel": 6,
     "status": "active",
@@ -7853,6 +8084,7 @@
   {
     "id": "C-0232",
     "name": "簡陳春",
+    "maskedNationalId": "G*****1451",
     "managerId": "cm-003",
     "cmsLevel": 3,
     "status": "active",
@@ -7887,6 +8119,7 @@
   {
     "id": "C-0233",
     "name": "黃素慧",
+    "maskedNationalId": "G*****8476",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -7921,6 +8154,7 @@
   {
     "id": "C-0234",
     "name": "趙陳富士",
+    "maskedNationalId": "G*****1258",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -7955,6 +8189,7 @@
   {
     "id": "C-0235",
     "name": "趙阿玉",
+    "maskedNationalId": "G*****0692",
     "managerId": "cm-003",
     "cmsLevel": 4,
     "status": "active",
@@ -7989,6 +8224,7 @@
   {
     "id": "C-0236",
     "name": "林俊義",
+    "maskedNationalId": "G*****9205",
     "managerId": "cm-004",
     "cmsLevel": 2,
     "status": "active",
@@ -8023,6 +8259,7 @@
   {
     "id": "C-0237",
     "name": "李林惠美",
+    "maskedNationalId": "G*****3702",
     "managerId": "cm-004",
     "cmsLevel": 3,
     "status": "active",
@@ -8057,6 +8294,7 @@
   {
     "id": "C-0238",
     "name": "林侑蓁",
+    "maskedNationalId": "G*****2225",
     "managerId": "cm-004",
     "cmsLevel": 4,
     "status": "active",
@@ -8091,6 +8329,7 @@
   {
     "id": "C-0239",
     "name": "徐瑞蓮",
+    "maskedNationalId": "G*****0997",
     "managerId": "cm-004",
     "cmsLevel": 2,
     "status": "active",
@@ -8125,6 +8364,7 @@
   {
     "id": "C-0240",
     "name": "陳桂蘭",
+    "maskedNationalId": "G*****1193",
     "managerId": "cm-004",
     "cmsLevel": 2,
     "status": "active",
@@ -8159,6 +8399,7 @@
   {
     "id": "C-0241",
     "name": "游美",
+    "maskedNationalId": "G*****1940",
     "managerId": "cm-004",
     "cmsLevel": 7,
     "status": "active",
@@ -8193,6 +8434,7 @@
   {
     "id": "C-0242",
     "name": "張羅文妹",
+    "maskedNationalId": "A*****6194",
     "managerId": "cm-004",
     "cmsLevel": 8,
     "status": "active",
@@ -8227,6 +8469,7 @@
   {
     "id": "C-0243",
     "name": "莊秋亮",
+    "maskedNationalId": "G*****4667",
     "managerId": "cm-004",
     "cmsLevel": 2,
     "status": "active",
@@ -8261,6 +8504,7 @@
   {
     "id": "C-0244",
     "name": "林游貴美",
+    "maskedNationalId": "G*****4170",
     "managerId": "cm-004",
     "cmsLevel": 7,
     "status": "active",
@@ -8295,6 +8539,7 @@
   {
     "id": "C-0245",
     "name": "游吳桂美",
+    "maskedNationalId": "G*****7449",
     "managerId": "cm-004",
     "cmsLevel": 2,
     "status": "active",
@@ -8329,6 +8574,7 @@
   {
     "id": "C-0246",
     "name": "林莓蓉",
+    "maskedNationalId": "G*****2377",
     "managerId": "cm-004",
     "cmsLevel": 4,
     "status": "active",
@@ -8363,6 +8609,7 @@
   {
     "id": "C-0247",
     "name": "林克勤",
+    "maskedNationalId": "C*****6655",
     "managerId": "cm-004",
     "cmsLevel": 8,
     "status": "active",
@@ -8397,6 +8644,7 @@
   {
     "id": "C-0248",
     "name": "林輝明",
+    "maskedNationalId": "G*****0563",
     "managerId": "cm-004",
     "cmsLevel": 8,
     "status": "active",
@@ -8431,6 +8679,7 @@
   {
     "id": "C-0249",
     "name": "林紹武",
+    "maskedNationalId": "G*****9875",
     "managerId": "cm-004",
     "cmsLevel": 5,
     "status": "active",
@@ -8465,6 +8714,7 @@
   {
     "id": "C-0250",
     "name": "許張秋雄",
+    "maskedNationalId": "G*****8538",
     "managerId": "cm-004",
     "cmsLevel": 3,
     "status": "active",
@@ -8499,6 +8749,7 @@
   {
     "id": "C-0251",
     "name": "林玉春",
+    "maskedNationalId": "L*****1615",
     "managerId": "cm-004",
     "cmsLevel": 3,
     "status": "active",
@@ -8533,6 +8784,7 @@
   {
     "id": "C-0252",
     "name": "關阮百合",
+    "maskedNationalId": "G*****1414",
     "managerId": "cm-004",
     "cmsLevel": 5,
     "status": "active",
@@ -8567,6 +8819,7 @@
   {
     "id": "C-0253",
     "name": "陳張魩",
+    "maskedNationalId": "G*****8435",
     "managerId": "cm-004",
     "cmsLevel": 6,
     "status": "active",
@@ -8601,6 +8854,7 @@
   {
     "id": "C-0254",
     "name": "林美琴",
+    "maskedNationalId": "G*****0554",
     "managerId": "cm-004",
     "cmsLevel": 8,
     "status": "active",
@@ -8635,6 +8889,7 @@
   {
     "id": "C-0255",
     "name": "李寶貴",
+    "maskedNationalId": "G*****2570",
     "managerId": "cm-004",
     "cmsLevel": 3,
     "status": "active",
@@ -8669,6 +8924,7 @@
   {
     "id": "C-0256",
     "name": "曾鳳嬌",
+    "maskedNationalId": "G*****1927",
     "managerId": "cm-004",
     "cmsLevel": 6,
     "status": "active",
@@ -8703,6 +8959,7 @@
   {
     "id": "C-0257",
     "name": "游林美麗",
+    "maskedNationalId": "G*****0281",
     "managerId": "cm-004",
     "cmsLevel": 2,
     "status": "active",
@@ -8737,6 +8994,7 @@
   {
     "id": "C-0258",
     "name": "黃陳涼",
+    "maskedNationalId": "A*****3658",
     "managerId": "cm-004",
     "cmsLevel": 5,
     "status": "active",
@@ -8771,6 +9029,7 @@
   {
     "id": "C-0259",
     "name": "林信淑",
+    "maskedNationalId": "G*****0105",
     "managerId": "cm-004",
     "cmsLevel": 6,
     "status": "active",
@@ -8805,6 +9064,7 @@
   {
     "id": "C-0260",
     "name": "劉菊江",
+    "maskedNationalId": "G*****0774",
     "managerId": "cm-004",
     "cmsLevel": 3,
     "status": "active",
@@ -8839,6 +9099,7 @@
   {
     "id": "C-0261",
     "name": "郝台齡",
+    "maskedNationalId": "G*****0063",
     "managerId": "cm-004",
     "cmsLevel": 6,
     "status": "active",
@@ -8873,6 +9134,7 @@
   {
     "id": "C-0262",
     "name": "吳清泉",
+    "maskedNationalId": "G*****4079",
     "managerId": "cm-004",
     "cmsLevel": 3,
     "status": "active",
@@ -8907,6 +9169,7 @@
   {
     "id": "C-0263",
     "name": "林吳文子",
+    "maskedNationalId": "G*****7549",
     "managerId": "cm-004",
     "cmsLevel": 2,
     "status": "active",
@@ -8941,6 +9204,7 @@
   {
     "id": "C-0264",
     "name": "黃麗玲",
+    "maskedNationalId": "N*****8381",
     "managerId": "cm-004",
     "cmsLevel": 2,
     "status": "active",
@@ -8975,6 +9239,7 @@
   {
     "id": "C-0265",
     "name": "蕭任翔",
+    "maskedNationalId": "G*****3113",
     "managerId": "cm-004",
     "cmsLevel": 6,
     "status": "active",
@@ -9009,6 +9274,7 @@
   {
     "id": "C-0266",
     "name": "李蘭香",
+    "maskedNationalId": "H*****9888",
     "managerId": "cm-004",
     "cmsLevel": 3,
     "status": "active",
@@ -9043,6 +9309,7 @@
   {
     "id": "C-0267",
     "name": "游慧玲",
+    "maskedNationalId": "G*****1413",
     "managerId": "cm-004",
     "cmsLevel": 4,
     "status": "active",
@@ -9077,6 +9344,7 @@
   {
     "id": "C-0268",
     "name": "陳秀美",
+    "maskedNationalId": "G*****5482",
     "managerId": "cm-004",
     "cmsLevel": 7,
     "status": "active",
@@ -9111,6 +9379,7 @@
   {
     "id": "C-0269",
     "name": "李坤諒",
+    "maskedNationalId": "A*****5448",
     "managerId": "cm-004",
     "cmsLevel": 8,
     "status": "active",
@@ -9145,6 +9414,7 @@
   {
     "id": "C-0270",
     "name": "江素瓊",
+    "maskedNationalId": "G*****1708",
     "managerId": "cm-004",
     "cmsLevel": 5,
     "status": "active",
@@ -9179,6 +9449,7 @@
   {
     "id": "C-0271",
     "name": "薛慧珍",
+    "maskedNationalId": "G*****4099",
     "managerId": "cm-004",
     "cmsLevel": 2,
     "status": "active",
@@ -9213,6 +9484,7 @@
   {
     "id": "C-0272",
     "name": "林秀琴",
+    "maskedNationalId": "G*****9556",
     "managerId": "cm-004",
     "cmsLevel": 2,
     "status": "active",
@@ -9247,6 +9519,7 @@
   {
     "id": "C-0273",
     "name": "楊炳均",
+    "maskedNationalId": "G*****8069",
     "managerId": "cm-004",
     "cmsLevel": 4,
     "status": "active",
@@ -9281,6 +9554,7 @@
   {
     "id": "C-0274",
     "name": "黃淑惠",
+    "maskedNationalId": "G*****1379",
     "managerId": "cm-004",
     "cmsLevel": 7,
     "status": "active",
@@ -9315,6 +9589,7 @@
   {
     "id": "C-0275",
     "name": "李藹真",
+    "maskedNationalId": "G*****8232",
     "managerId": "cm-004",
     "cmsLevel": 2,
     "status": "active",
@@ -9349,6 +9624,7 @@
   {
     "id": "C-0276",
     "name": "林政鋒",
+    "maskedNationalId": "G*****5163",
     "managerId": "cm-004",
     "cmsLevel": 4,
     "status": "active",
@@ -9383,6 +9659,7 @@
   {
     "id": "C-0277",
     "name": "吳金春",
+    "maskedNationalId": "G*****7834",
     "managerId": "cm-004",
     "cmsLevel": 5,
     "status": "active",
@@ -9417,6 +9694,7 @@
   {
     "id": "C-0278",
     "name": "簡琴子",
+    "maskedNationalId": "G*****0209",
     "managerId": "cm-004",
     "cmsLevel": 6,
     "status": "active",
@@ -9451,6 +9729,7 @@
   {
     "id": "C-0279",
     "name": "林月女",
+    "maskedNationalId": "G*****2206",
     "managerId": "cm-004",
     "cmsLevel": 3,
     "status": "active",
@@ -9485,6 +9764,7 @@
   {
     "id": "C-0280",
     "name": "朱簡雪津",
+    "maskedNationalId": "G*****5714",
     "managerId": "cm-004",
     "cmsLevel": 5,
     "status": "active",
@@ -9519,6 +9799,7 @@
   {
     "id": "C-0281",
     "name": "林純妃",
+    "maskedNationalId": "G*****1099",
     "managerId": "cm-004",
     "cmsLevel": 2,
     "status": "active",
@@ -9553,6 +9834,7 @@
   {
     "id": "C-0282",
     "name": "連永達",
+    "maskedNationalId": "G*****6476",
     "managerId": "cm-004",
     "cmsLevel": 7,
     "status": "active",
@@ -9587,6 +9869,7 @@
   {
     "id": "C-0283",
     "name": "吳銘達",
+    "maskedNationalId": "G*****0988",
     "managerId": "cm-004",
     "cmsLevel": 8,
     "status": "active",
@@ -9621,6 +9904,7 @@
   {
     "id": "C-0284",
     "name": "林靜子",
+    "maskedNationalId": "G*****7126",
     "managerId": "cm-004",
     "cmsLevel": 7,
     "status": "active",
@@ -9655,6 +9939,7 @@
   {
     "id": "C-0285",
     "name": "劉林碧章",
+    "maskedNationalId": "G*****4327",
     "managerId": "cm-004",
     "cmsLevel": 4,
     "status": "active",
@@ -9689,6 +9974,7 @@
   {
     "id": "C-0286",
     "name": "潘國彬",
+    "maskedNationalId": "G*****9401",
     "managerId": "cm-004",
     "cmsLevel": 3,
     "status": "active",
@@ -9723,6 +10009,7 @@
   {
     "id": "C-0287",
     "name": "黃淑卿",
+    "maskedNationalId": "G*****7062",
     "managerId": "cm-004",
     "cmsLevel": 2,
     "status": "active",
@@ -9757,6 +10044,7 @@
   {
     "id": "C-0288",
     "name": "吳春香",
+    "maskedNationalId": "G*****7724",
     "managerId": "cm-004",
     "cmsLevel": 4,
     "status": "active",
@@ -9791,6 +10079,7 @@
   {
     "id": "C-0289",
     "name": "翁陳錦緣",
+    "maskedNationalId": "N*****8687",
     "managerId": "cm-004",
     "cmsLevel": 3,
     "status": "active",
@@ -9825,6 +10114,7 @@
   {
     "id": "C-0290",
     "name": "吳美雲",
+    "maskedNationalId": "G*****8576",
     "managerId": "cm-004",
     "cmsLevel": 5,
     "status": "active",
@@ -9859,6 +10149,7 @@
   {
     "id": "C-0291",
     "name": "吳素雲",
+    "maskedNationalId": "G*****9399",
     "managerId": "cm-004",
     "cmsLevel": 2,
     "status": "active",
@@ -9893,6 +10184,7 @@
   {
     "id": "C-0292",
     "name": "林吳敦子",
+    "maskedNationalId": "G*****3417",
     "managerId": "cm-004",
     "cmsLevel": 8,
     "status": "active",
@@ -9927,6 +10219,7 @@
   {
     "id": "C-0293",
     "name": "葉陳明珠",
+    "maskedNationalId": "G*****7042",
     "managerId": "cm-004",
     "cmsLevel": 4,
     "status": "active",
@@ -9961,6 +10254,7 @@
   {
     "id": "C-0294",
     "name": "林許素雲",
+    "maskedNationalId": "G*****5035",
     "managerId": "cm-004",
     "cmsLevel": 3,
     "status": "active",
@@ -9995,6 +10289,7 @@
   {
     "id": "C-0295",
     "name": "林淑珍",
+    "maskedNationalId": "G*****2796",
     "managerId": "cm-004",
     "cmsLevel": 5,
     "status": "active",
@@ -10029,6 +10324,7 @@
   {
     "id": "C-0296",
     "name": "簡黃阿娥",
+    "maskedNationalId": "G*****7620",
     "managerId": "cm-004",
     "cmsLevel": 4,
     "status": "active",
@@ -10063,6 +10359,7 @@
   {
     "id": "C-0297",
     "name": "林麗雲",
+    "maskedNationalId": "C*****8231",
     "managerId": "cm-004",
     "cmsLevel": 7,
     "status": "active",
@@ -10097,6 +10394,7 @@
   {
     "id": "C-0298",
     "name": "許月貴",
+    "maskedNationalId": "R*****9807",
     "managerId": "cm-004",
     "cmsLevel": 7,
     "status": "active",
@@ -10131,6 +10429,7 @@
   {
     "id": "C-0299",
     "name": "羅陳阿愛",
+    "maskedNationalId": "G*****7649",
     "managerId": "cm-004",
     "cmsLevel": 6,
     "status": "active",
@@ -10165,6 +10464,7 @@
   {
     "id": "C-0300",
     "name": "陳杜麗華",
+    "maskedNationalId": "D*****6873",
     "managerId": "cm-004",
     "cmsLevel": 3,
     "status": "active",
@@ -10199,6 +10499,7 @@
   {
     "id": "C-0301",
     "name": "許吳阿換",
+    "maskedNationalId": "G*****1860",
     "managerId": "cm-004",
     "cmsLevel": 7,
     "status": "active",
@@ -10233,6 +10534,7 @@
   {
     "id": "C-0302",
     "name": "洪林秋季",
+    "maskedNationalId": "E*****4815",
     "managerId": "cm-004",
     "cmsLevel": 4,
     "status": "active",
@@ -10267,6 +10569,7 @@
   {
     "id": "C-0303",
     "name": "徐文堅",
+    "maskedNationalId": "G*****0391",
     "managerId": "cm-004",
     "cmsLevel": 3,
     "status": "active",
@@ -10301,6 +10604,7 @@
   {
     "id": "C-0304",
     "name": "黃林梅",
+    "maskedNationalId": "G*****2596",
     "managerId": "cm-004",
     "cmsLevel": 5,
     "status": "active",
@@ -10335,6 +10639,7 @@
   {
     "id": "C-0305",
     "name": "簡振松",
+    "maskedNationalId": "G*****3156",
     "managerId": "cm-004",
     "cmsLevel": 8,
     "status": "active",
@@ -10369,6 +10674,7 @@
   {
     "id": "C-0306",
     "name": "陳銀根",
+    "maskedNationalId": "G*****8794",
     "managerId": "cm-004",
     "cmsLevel": 2,
     "status": "active",
@@ -10403,6 +10709,7 @@
   {
     "id": "C-0307",
     "name": "江明漢",
+    "maskedNationalId": "G*****5446",
     "managerId": "cm-004",
     "cmsLevel": 4,
     "status": "active",
@@ -10437,6 +10744,7 @@
   {
     "id": "C-0308",
     "name": "林立于",
+    "maskedNationalId": "G*****3425",
     "managerId": "cm-004",
     "cmsLevel": 5,
     "status": "active",
@@ -10471,6 +10779,7 @@
   {
     "id": "C-0309",
     "name": "潘進展",
+    "maskedNationalId": "T*****3407",
     "managerId": "cm-004",
     "cmsLevel": 4,
     "status": "active",
@@ -10505,6 +10814,7 @@
   {
     "id": "C-0310",
     "name": "林月英",
+    "maskedNationalId": "G*****4358",
     "managerId": "cm-004",
     "cmsLevel": 8,
     "status": "active",
@@ -10539,6 +10849,7 @@
   {
     "id": "C-0311",
     "name": "李偉熙",
+    "maskedNationalId": "G*****3338",
     "managerId": "cm-004",
     "cmsLevel": 3,
     "status": "active",
@@ -10573,6 +10884,7 @@
   {
     "id": "C-0312",
     "name": "林秀玉",
+    "maskedNationalId": "T*****2469",
     "managerId": "cm-004",
     "cmsLevel": 8,
     "status": "active",
@@ -10607,6 +10919,7 @@
   {
     "id": "C-0313",
     "name": "張乾錦",
+    "maskedNationalId": "U*****8111",
     "managerId": "cm-004",
     "cmsLevel": 7,
     "status": "active",
@@ -10641,6 +10954,7 @@
   {
     "id": "C-0314",
     "name": "林永河",
+    "maskedNationalId": "G*****2118",
     "managerId": "cm-004",
     "cmsLevel": 7,
     "status": "active",
@@ -10675,6 +10989,7 @@
   {
     "id": "C-0315",
     "name": "龍游玉里",
+    "maskedNationalId": "G*****1111",
     "managerId": "cm-004",
     "cmsLevel": 4,
     "status": "active",
@@ -10709,6 +11024,7 @@
   {
     "id": "C-0316",
     "name": "吳訓銘",
+    "maskedNationalId": "G*****4593",
     "managerId": "cm-004",
     "cmsLevel": 8,
     "status": "active",
@@ -10743,6 +11059,7 @@
   {
     "id": "C-0317",
     "name": "林芸禎",
+    "maskedNationalId": "G*****7830",
     "managerId": "cm-004",
     "cmsLevel": 2,
     "status": "active",
@@ -10777,6 +11094,7 @@
   {
     "id": "C-0318",
     "name": "尤信女",
+    "maskedNationalId": "G*****3169",
     "managerId": "cm-004",
     "cmsLevel": 6,
     "status": "active",
@@ -10811,6 +11129,7 @@
   {
     "id": "C-0319",
     "name": "林賴春菊",
+    "maskedNationalId": "G*****3633",
     "managerId": "cm-004",
     "cmsLevel": 5,
     "status": "active",
@@ -10845,6 +11164,7 @@
   {
     "id": "C-0320",
     "name": "吳美秀",
+    "maskedNationalId": "F*****3054",
     "managerId": "cm-004",
     "cmsLevel": 4,
     "status": "active",
@@ -10879,6 +11199,7 @@
   {
     "id": "C-0321",
     "name": "孔令妤",
+    "maskedNationalId": "G*****7544",
     "managerId": "cm-004",
     "cmsLevel": 2,
     "status": "active",
@@ -10913,6 +11234,7 @@
   {
     "id": "C-0322",
     "name": "林陳含少",
+    "maskedNationalId": "G*****0790",
     "managerId": "cm-004",
     "cmsLevel": 7,
     "status": "active",
@@ -10947,6 +11269,7 @@
   {
     "id": "C-0323",
     "name": "黃月子",
+    "maskedNationalId": "G*****2070",
     "managerId": "cm-004",
     "cmsLevel": 3,
     "status": "active",
@@ -10981,6 +11304,7 @@
   {
     "id": "C-0324",
     "name": "王許滿子",
+    "maskedNationalId": "L*****1431",
     "managerId": "cm-004",
     "cmsLevel": 2,
     "status": "active",
@@ -11015,6 +11339,7 @@
   {
     "id": "C-0325",
     "name": "張陳月英",
+    "maskedNationalId": "C*****0876",
     "managerId": "cm-004",
     "cmsLevel": 5,
     "status": "active",
@@ -11049,6 +11374,7 @@
   {
     "id": "C-0326",
     "name": "張國信",
+    "maskedNationalId": "G*****7371",
     "managerId": "cm-005",
     "cmsLevel": 2,
     "status": "active",
@@ -11083,6 +11409,7 @@
   {
     "id": "C-0327",
     "name": "謝林麗玉",
+    "maskedNationalId": "G*****7468",
     "managerId": "cm-005",
     "cmsLevel": 8,
     "status": "active",
@@ -11117,6 +11444,7 @@
   {
     "id": "C-0328",
     "name": "張黃素貞",
+    "maskedNationalId": "G*****4972",
     "managerId": "cm-005",
     "cmsLevel": 2,
     "status": "active",
@@ -11151,6 +11479,7 @@
   {
     "id": "C-0329",
     "name": "黃海川",
+    "maskedNationalId": "G*****5449",
     "managerId": "cm-005",
     "cmsLevel": 5,
     "status": "active",
@@ -11185,6 +11514,7 @@
   {
     "id": "C-0330",
     "name": "王游美燕",
+    "maskedNationalId": "G*****1352",
     "managerId": "cm-005",
     "cmsLevel": 6,
     "status": "active",
@@ -11219,6 +11549,7 @@
   {
     "id": "C-0331",
     "name": "譚陳鸞",
+    "maskedNationalId": "G*****6694",
     "managerId": "cm-005",
     "cmsLevel": 2,
     "status": "active",
@@ -11253,6 +11584,7 @@
   {
     "id": "C-0332",
     "name": "胡文琦",
+    "maskedNationalId": "G*****4932",
     "managerId": "cm-005",
     "cmsLevel": 8,
     "status": "active",
@@ -11287,6 +11619,7 @@
   {
     "id": "C-0333",
     "name": "李朱敏",
+    "maskedNationalId": "G*****3874",
     "managerId": "cm-005",
     "cmsLevel": 2,
     "status": "active",
@@ -11321,6 +11654,7 @@
   {
     "id": "C-0334",
     "name": "陳黃省",
+    "maskedNationalId": "G*****4724",
     "managerId": "cm-005",
     "cmsLevel": 3,
     "status": "active",
@@ -11355,6 +11689,7 @@
   {
     "id": "C-0335",
     "name": "張葉秀娥",
+    "maskedNationalId": "G*****0390",
     "managerId": "cm-005",
     "cmsLevel": 3,
     "status": "active",
@@ -11389,6 +11724,7 @@
   {
     "id": "C-0336",
     "name": "吳程阿景",
+    "maskedNationalId": "G*****3547",
     "managerId": "cm-005",
     "cmsLevel": 4,
     "status": "active",
@@ -11423,6 +11759,7 @@
   {
     "id": "C-0337",
     "name": "藍陳月子",
+    "maskedNationalId": "G*****2092",
     "managerId": "cm-005",
     "cmsLevel": 4,
     "status": "active",
@@ -11457,6 +11794,7 @@
   {
     "id": "C-0338",
     "name": "胡鐘美華",
+    "maskedNationalId": "F*****6869",
     "managerId": "cm-005",
     "cmsLevel": 6,
     "status": "active",
@@ -11491,6 +11829,7 @@
   {
     "id": "C-0339",
     "name": "黃吳惠美",
+    "maskedNationalId": "G*****5300",
     "managerId": "cm-005",
     "cmsLevel": 2,
     "status": "active",
@@ -11525,6 +11864,7 @@
   {
     "id": "C-0340",
     "name": "陳月里",
+    "maskedNationalId": "G*****2198",
     "managerId": "cm-005",
     "cmsLevel": 5,
     "status": "active",
@@ -11559,6 +11899,7 @@
   {
     "id": "C-0341",
     "name": "陳錚",
+    "maskedNationalId": "C*****0282",
     "managerId": "cm-005",
     "cmsLevel": 5,
     "status": "active",
@@ -11593,6 +11934,7 @@
   {
     "id": "C-0342",
     "name": "徐廖春梅",
+    "maskedNationalId": "F*****1546",
     "managerId": "cm-005",
     "cmsLevel": 4,
     "status": "active",
@@ -11627,6 +11969,7 @@
   {
     "id": "C-0343",
     "name": "吳秀惠",
+    "maskedNationalId": "G*****1797",
     "managerId": "cm-005",
     "cmsLevel": 2,
     "status": "active",
@@ -11661,6 +12004,7 @@
   {
     "id": "C-0344",
     "name": "何冬梅",
+    "maskedNationalId": "G*****3009",
     "managerId": "cm-005",
     "cmsLevel": 4,
     "status": "active",
@@ -11695,6 +12039,7 @@
   {
     "id": "C-0345",
     "name": "陳阿華",
+    "maskedNationalId": "G*****0004",
     "managerId": "cm-005",
     "cmsLevel": 6,
     "status": "active",
@@ -11729,6 +12074,7 @@
   {
     "id": "C-0346",
     "name": "林藍阿錦",
+    "maskedNationalId": "G*****3493",
     "managerId": "cm-005",
     "cmsLevel": 7,
     "status": "active",
@@ -11763,6 +12109,7 @@
   {
     "id": "C-0347",
     "name": "陳威宥",
+    "maskedNationalId": "F*****8266",
     "managerId": "cm-005",
     "cmsLevel": 8,
     "status": "active",
@@ -11797,6 +12144,7 @@
   {
     "id": "C-0348",
     "name": "李忠美",
+    "maskedNationalId": "G*****1801",
     "managerId": "cm-005",
     "cmsLevel": 2,
     "status": "active",
@@ -11831,6 +12179,7 @@
   {
     "id": "C-0349",
     "name": "林游香果",
+    "maskedNationalId": "G*****2800",
     "managerId": "cm-005",
     "cmsLevel": 7,
     "status": "active",
@@ -11865,6 +12214,7 @@
   {
     "id": "C-0350",
     "name": "李元馨",
+    "maskedNationalId": "Q*****7723",
     "managerId": "cm-005",
     "cmsLevel": 8,
     "status": "active",
@@ -11899,6 +12249,7 @@
   {
     "id": "C-0351",
     "name": "張美雲",
+    "maskedNationalId": "G*****3266",
     "managerId": "cm-005",
     "cmsLevel": 8,
     "status": "active",
@@ -11933,6 +12284,7 @@
   {
     "id": "C-0352",
     "name": "吳淑玲",
+    "maskedNationalId": "G*****0846",
     "managerId": "cm-005",
     "cmsLevel": 2,
     "status": "active",
@@ -11967,6 +12319,7 @@
   {
     "id": "C-0353",
     "name": "吳郭惠蘭",
+    "maskedNationalId": "G*****6187",
     "managerId": "cm-005",
     "cmsLevel": 2,
     "status": "active",
@@ -12001,6 +12354,7 @@
   {
     "id": "C-0354",
     "name": "潘林美玉",
+    "maskedNationalId": "G*****5480",
     "managerId": "cm-005",
     "cmsLevel": 8,
     "status": "active",
@@ -12035,6 +12389,7 @@
   {
     "id": "C-0355",
     "name": "魏絹",
+    "maskedNationalId": "N*****5629",
     "managerId": "cm-005",
     "cmsLevel": 3,
     "status": "active",
@@ -12069,6 +12424,7 @@
   {
     "id": "C-0356",
     "name": "賴美雲",
+    "maskedNationalId": "G*****1329",
     "managerId": "cm-005",
     "cmsLevel": 8,
     "status": "active",
@@ -12103,6 +12459,7 @@
   {
     "id": "C-0357",
     "name": "黃紅桃",
+    "maskedNationalId": "G*****1462",
     "managerId": "cm-005",
     "cmsLevel": 3,
     "status": "active",
@@ -12137,6 +12494,7 @@
   {
     "id": "C-0358",
     "name": "宋月芳",
+    "maskedNationalId": "G*****9019",
     "managerId": "cm-005",
     "cmsLevel": 3,
     "status": "active",
@@ -12171,6 +12529,7 @@
   {
     "id": "C-0359",
     "name": "高春英",
+    "maskedNationalId": "G*****7623",
     "managerId": "cm-005",
     "cmsLevel": 3,
     "status": "active",
@@ -12205,6 +12564,7 @@
   {
     "id": "C-0360",
     "name": "海陳美梅",
+    "maskedNationalId": "G*****4418",
     "managerId": "cm-005",
     "cmsLevel": 2,
     "status": "active",
@@ -12239,6 +12599,7 @@
   {
     "id": "C-0361",
     "name": "翁雀",
+    "maskedNationalId": "G*****3851",
     "managerId": "cm-005",
     "cmsLevel": 7,
     "status": "active",
@@ -12273,6 +12634,7 @@
   {
     "id": "C-0362",
     "name": "黃金",
+    "maskedNationalId": "J*****8836",
     "managerId": "cm-005",
     "cmsLevel": 3,
     "status": "active",
@@ -12307,6 +12669,7 @@
   {
     "id": "C-0363",
     "name": "陳李阿菊",
+    "maskedNationalId": "G*****4136",
     "managerId": "cm-005",
     "cmsLevel": 6,
     "status": "active",
@@ -12341,6 +12704,7 @@
   {
     "id": "C-0364",
     "name": "李西河",
+    "maskedNationalId": "G*****7227",
     "managerId": "cm-005",
     "cmsLevel": 8,
     "status": "active",
@@ -12375,6 +12739,7 @@
   {
     "id": "C-0365",
     "name": "張美智",
+    "maskedNationalId": "G*****4647",
     "managerId": "cm-005",
     "cmsLevel": 4,
     "status": "active",
@@ -12409,6 +12774,7 @@
   {
     "id": "C-0366",
     "name": "林秀美",
+    "maskedNationalId": "G*****6752",
     "managerId": "cm-005",
     "cmsLevel": 3,
     "status": "active",
@@ -12443,6 +12809,7 @@
   {
     "id": "C-0367",
     "name": "簡增梤",
+    "maskedNationalId": "G*****8991",
     "managerId": "cm-005",
     "cmsLevel": 8,
     "status": "active",
@@ -12477,6 +12844,7 @@
   {
     "id": "C-0368",
     "name": "江朱良",
+    "maskedNationalId": "G*****5732",
     "managerId": "cm-005",
     "cmsLevel": 8,
     "status": "active",
@@ -12511,6 +12879,7 @@
   {
     "id": "C-0369",
     "name": "尹明方",
+    "maskedNationalId": "G*****9160",
     "managerId": "cm-005",
     "cmsLevel": 6,
     "status": "active",
@@ -12545,6 +12914,7 @@
   {
     "id": "C-0370",
     "name": "李華玉",
+    "maskedNationalId": "G*****2402",
     "managerId": "cm-005",
     "cmsLevel": 8,
     "status": "active",
@@ -12579,6 +12949,7 @@
   {
     "id": "C-0371",
     "name": "林國章",
+    "maskedNationalId": "G*****4013",
     "managerId": "cm-005",
     "cmsLevel": 5,
     "status": "active",
@@ -12613,6 +12984,7 @@
   {
     "id": "C-0372",
     "name": "楊朝城",
+    "maskedNationalId": "G*****7871",
     "managerId": "cm-005",
     "cmsLevel": 7,
     "status": "active",
@@ -12647,6 +13019,7 @@
   {
     "id": "C-0373",
     "name": "蕭石秀足",
+    "maskedNationalId": "G*****2518",
     "managerId": "cm-005",
     "cmsLevel": 6,
     "status": "active",
@@ -12681,6 +13054,7 @@
   {
     "id": "C-0374",
     "name": "吳芳美",
+    "maskedNationalId": "G*****7545",
     "managerId": "cm-005",
     "cmsLevel": 6,
     "status": "active",
@@ -12715,6 +13089,7 @@
   {
     "id": "C-0375",
     "name": "張謝阿幼",
+    "maskedNationalId": "G*****6794",
     "managerId": "cm-005",
     "cmsLevel": 6,
     "status": "active",
@@ -12749,6 +13124,7 @@
   {
     "id": "C-0376",
     "name": "許陳秀銮",
+    "maskedNationalId": "G*****1033",
     "managerId": "cm-005",
     "cmsLevel": 8,
     "status": "active",
@@ -12783,6 +13159,7 @@
   {
     "id": "C-0377",
     "name": "姚立元",
+    "maskedNationalId": "B*****2605",
     "managerId": "cm-005",
     "cmsLevel": 6,
     "status": "active",
@@ -12817,6 +13194,7 @@
   {
     "id": "C-0378",
     "name": "何謝美子",
+    "maskedNationalId": "G*****6466",
     "managerId": "cm-005",
     "cmsLevel": 7,
     "status": "active",

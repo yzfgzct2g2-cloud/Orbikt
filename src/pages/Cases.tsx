@@ -20,12 +20,20 @@ export function Cases() {
   const filtered = useMemo(() => {
     const q = query.trim();
     if (!q) return cases;
-    return cases.filter(
-      (c) =>
+    const lower = q.toLowerCase();
+    const digits = q.replace(/\D/g, "");
+    // Frontend search: name, caseId, maskedNationalId, or last-4 digits only.
+    // Raw national ID is never available client-side.
+    return cases.filter((c) => {
+      const masked = c.maskedNationalId ?? "";
+      return (
         c.name.includes(q) ||
-        c.id.toLowerCase().includes(q.toLowerCase()) ||
-        managerName(c.managerId).includes(q)
-    );
+        c.id.toLowerCase().includes(lower) ||
+        managerName(c.managerId).includes(q) ||
+        masked.toLowerCase().includes(lower) ||
+        (digits.length === 4 && masked.endsWith(digits))
+      );
+    });
   }, [cases, query]);
 
   return (
@@ -37,7 +45,7 @@ export function Cases() {
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="搜尋姓名 / 編號 / 個管員"
+            placeholder="搜尋姓名 / 編號 / 個管員 / 身分證末四碼"
             className="w-64 rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-orbit-500"
           />
         }
@@ -49,6 +57,7 @@ export function Cases() {
             <thead className="border-b border-slate-100 text-xs uppercase tracking-wide text-slate-400">
               <tr>
                 <th className="px-5 py-3 font-medium">個案</th>
+                <th className="px-5 py-3 font-medium">身分證</th>
                 <th className="px-5 py-3 font-medium">個管員</th>
                 <th className="px-5 py-3 font-medium">居住地</th>
                 <th className="px-5 py-3 font-medium">CMS</th>
@@ -70,6 +79,9 @@ export function Cases() {
                       {c.name}
                     </Link>
                     <div className="text-xs text-slate-400">{c.id}</div>
+                  </td>
+                  <td className="px-5 py-3 font-mono text-xs text-slate-500">
+                    {c.maskedNationalId ?? "—"}
                   </td>
                   <td className="px-5 py-3 text-slate-600">
                     {managerName(c.managerId)}
@@ -105,7 +117,7 @@ export function Cases() {
               ))}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={9} className="px-5 py-8 text-center text-slate-400">
+                  <td colSpan={10} className="px-5 py-8 text-center text-slate-400">
                     找不到符合條件的個案。
                   </td>
                 </tr>
