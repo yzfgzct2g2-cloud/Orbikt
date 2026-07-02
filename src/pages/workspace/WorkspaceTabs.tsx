@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { dataAdapter } from "../../adapters";
 import type {
@@ -10,6 +10,7 @@ import { managerName } from "../../config/appConfig";
 import { externalLinks } from "../../config/externalLinks";
 import { visitManager } from "../../modules/visit/visitManager";
 import { dispatchManager } from "../../modules/dispatch/dispatchManager";
+import { generateCaseAA01, planner } from "../../modules/planner/planner";
 import {
   Badge,
   Card,
@@ -202,15 +203,83 @@ export function OverviewTab({ c }: { c: CaseRecord }) {
 }
 
 export function AA01Tab({ c }: { c: CaseRecord }) {
+  // Runs the vendored AA01 engine bound to this case (real generator logic).
+  const result = useMemo(() => generateCaseAA01(c), [c]);
+  const [copied, setCopied] = useState(false);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(result.draft);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      setCopied(false);
+    }
+  };
+
   return (
-    <IntegrationNotice
-      title="AA01 照顧計畫（Planner）"
-      source="source-systems/aa01-ai-system · React"
-      link={{ label: "開啟現行 AA01 系統", url: externalLinks.github.aa01 }}
-    >
-      現行 AA01 撰寫系統（評估、服務規劃、產生器、驗證、輸出）將於後續 Phase 包裝進本
-      Workspace 分頁，並綁定個案 {c.name}（{c.id}）。V1 保留既有業務邏輯，不在此重寫。
-    </IntegrationNotice>
+    <div className="space-y-4">
+      <Card className="p-5">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <div className="text-sm font-semibold text-slate-900">
+              AA01 照顧計畫（Planner）
+            </div>
+            <div className="mt-0.5 text-xs text-slate-500">
+              引擎：{planner.source}（{planner.engine}）· 綁定個案 {c.name}（{c.id}）
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <Badge className={moduleStatusClass[c.aa01Status]}>
+              {moduleStatusLabel[c.aa01Status]}
+            </Badge>
+            <a
+              href={planner.url}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-lg bg-orbit-50 px-3 py-1.5 text-sm font-medium text-orbit-700 hover:bg-orbit-100"
+            >
+              完整撰寫（AA01）↗
+            </a>
+          </div>
+        </div>
+        <p className="mt-3 text-xs leading-relaxed text-slate-500">
+          以下草稿由既有 AA01 產生器（vendored，未改寫規則）依 Orbikt 個案資料即時產出。
+          完整評估與服務規劃請於 AA01 撰寫系統進行；此處保留業務邏輯並綁定 Case ID。
+        </p>
+      </Card>
+
+      {result.warnings.length > 0 && (
+        <Card className="p-5">
+          <div className="text-xs font-semibold uppercase tracking-wide text-amber-600">
+            服務檢核提醒（{result.warnings.length}）
+          </div>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-700">
+            {result.warnings.map((w, i) => (
+              <li key={i}>{w}</li>
+            ))}
+          </ul>
+        </Card>
+      )}
+
+      <Card>
+        <CardHeader
+          title="AA01 產出草稿"
+          subtitle="AA01 產生器輸出（可複製後於送審文件使用）"
+          action={
+            <button
+              onClick={copy}
+              className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-50"
+            >
+              {copied ? "已複製" : "複製"}
+            </button>
+          }
+        />
+        <pre className="max-h-[28rem] overflow-auto whitespace-pre-wrap px-5 py-4 text-xs leading-relaxed text-slate-800">
+          {result.draft}
+        </pre>
+      </Card>
+    </div>
   );
 }
 
