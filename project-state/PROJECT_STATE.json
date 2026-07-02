@@ -1,16 +1,17 @@
 {
   "project": "Orbikt",
   "version": "0.1.0",
-  "current_phase": "Phase 0",
-  "current_checkpoint": "CP-0001",
-  "status": "PHASE_0_COMPLETE",
-  "last_commit": "",
-  "next_phase": "Phase 1",
-  "next_task": "Case data adapter — ingest CS100 / real case source into the Cases module",
+  "current_phase": "Phase 1",
+  "current_checkpoint": "CP-0002",
+  "status": "PHASE_1_COMPLETE",
+  "last_commit": "d4c6073",
+  "next_phase": "Phase 2",
+  "next_task": "Mock data adapters for tasks/calendar/notifications as first-class adapters (Command Center depth)",
   "build": "PASS",
   "typecheck": "PASS",
   "tests": "PASS",
   "lint": "PASS",
   "stack": "React 18 + TypeScript 5.6 + Vite 5 + TailwindCSS 3 + React Router 6 + Zustand 4",
-  "updated_at": "2026-07-02"
+  "data_source": "CS100 seed (sanitized from mock-data/CS100.xlsx, 378 cases, PII stripped)",
+  "updated_at": "2026-07-03"
 }

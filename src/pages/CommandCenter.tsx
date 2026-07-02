@@ -51,7 +51,7 @@ function CaseRow({ c }: { c: CaseRecord }) {
           <span className="ml-2 text-xs text-slate-400">{c.id}</span>
         </div>
         <div className="truncate text-xs text-slate-500">
-          {managerName(c.managerId)} · CMS {c.cmsLevel}
+          {managerName(c.managerId)} · CMS {c.cmsLevel ?? "—"}
         </div>
       </div>
       <Badge className={visitStatusClass[c.visit.status]}>
@@ -99,8 +99,8 @@ export function CommandCenter() {
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Stat
           label="總個案量"
-          value={totalCaseload}
-          hint={`${team.length} 位個管員`}
+          value={cases.length}
+          hint={`${team.length} 位個管員 · team.json 參考 ${totalCaseload}`}
         />
         <Stat label="訪視逾期" value={overdue.length} tone="danger" hint="需儘速安排" />
         <Stat
@@ -212,15 +212,25 @@ export function CommandCenter() {
             <div className="mb-2 text-xs font-semibold text-orange-600">
               30 日內（{within30.length}）
             </div>
-            {within30.map((c) => (
+            {within30.slice(0, 6).map((c) => (
               <CaseRow key={c.id} c={c} />
             ))}
+            {within30.length > 6 && (
+              <div className="px-3 pt-1 text-xs text-slate-400">
+                …另有 {within30.length - 6} 筆
+              </div>
+            )}
             <div className="mb-2 mt-4 text-xs font-semibold text-amber-600">
               60 日內（{within60.length}）
             </div>
-            {within60.map((c) => (
+            {within60.slice(0, 6).map((c) => (
               <CaseRow key={c.id} c={c} />
             ))}
+            {within60.length > 6 && (
+              <div className="px-3 pt-1 text-xs text-slate-400">
+                …另有 {within60.length - 6} 筆
+              </div>
+            )}
           </div>
         </Card>
 

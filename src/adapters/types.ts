@@ -61,10 +61,10 @@ export interface DispatchInfo {
 }
 
 export interface CaseRecord {
-  id: string;
+  id: string; // 案號 (business case number, not the national ID)
   name: string;
   managerId: string;
-  cmsLevel: number; // CMS 2–8
+  cmsLevel: number | null; // CMS 2–8, or null when not yet assessed
   status: CaseStatus;
   visit: VisitInfo;
   dispatch: DispatchInfo;
@@ -72,6 +72,20 @@ export interface CaseRecord {
   fa310Status: ModuleStatus;
   tags: string[];
   updatedAt: string; // ISO datetime
+
+  // Case master fields sourced from CS100 (national ID / phone / street
+  // address are intentionally omitted — see scripts/cs100Normalize.mjs).
+  age?: number | null;
+  welfare?: string; // 福利身分
+  area?: string; // 居住地（縣市/區）
+  village?: string; // 居住地（里）
+  openDate?: string | null; // 開案日期 (ISO)
+  assessmentDate?: string | null; // 評估日期 (ISO)
+  serviceItemCount?: number | null; // 服務項目數
+  careCenter?: string; // 照管中心
+  govAssessor?: string; // 照管專員（照管中心，非 A 單位個管員）
+  aUnit?: string; // A 單位名稱
+  serviceCodes?: string; // 服務代碼
 }
 
 export type TaskType = "visit" | "review" | "dispatch" | "document" | "general";

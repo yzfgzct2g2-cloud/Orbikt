@@ -36,18 +36,33 @@ export function OverviewTab({ c }: { c: CaseRecord }) {
       <Card className="p-5">
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           <Field label="個管員" value={managerName(c.managerId)} />
-          <Field label="CMS 等級" value={c.cmsLevel} />
+          <Field label="CMS 等級" value={c.cmsLevel ?? "未評估"} />
           <Field label="個案狀態" value={caseStatusLabel[c.status]} />
+          <Field label="年齡" value={c.age ? `${c.age} 歲` : "—"} />
+          <Field label="福利身分" value={c.welfare ?? "—"} />
+          <Field
+            label="居住地"
+            value={[c.area, c.village].filter(Boolean).join(" ") || "—"}
+          />
+          <Field label="開案日期" value={c.openDate ?? "—"} />
+          <Field label="評估日期" value={c.assessmentDate ?? "—"} />
+          <Field label="照管中心" value={c.careCenter ?? "—"} />
+          <Field label="照管專員" value={c.govAssessor ?? "—"} />
+          <Field label="A 單位" value={c.aUnit ?? "—"} />
           <Field
             label="標籤"
             value={
-              <div className="flex flex-wrap gap-1">
-                {c.tags.map((t) => (
-                  <Badge key={t} className="bg-slate-100 text-slate-600">
-                    {t}
-                  </Badge>
-                ))}
-              </div>
+              c.tags.length ? (
+                <div className="flex flex-wrap gap-1">
+                  {c.tags.map((t) => (
+                    <Badge key={t} className="bg-slate-100 text-slate-600">
+                      {t}
+                    </Badge>
+                  ))}
+                </div>
+              ) : (
+                "—"
+              )
             }
           />
         </div>

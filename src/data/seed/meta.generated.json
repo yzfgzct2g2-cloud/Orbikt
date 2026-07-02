@@ -1,0 +1,34 @@
+{
+  "source": "mock-data/CS100.xlsx",
+  "sheet": "個案總查詢清冊",
+  "generatedAt": "2026-07-02T16:02:07.272Z",
+  "seedToday": "2026-07-02",
+  "count": 378,
+  "note": "Sanitized V1 seed. National ID / birth date / phone / street address omitted. visit / dispatch / aa01 / fa310 are deterministic seed stand-ins replaced by their SSOT adapters in Phases 5-8.",
+  "byManager": {
+    "cm-001": 45,
+    "cm-002": 93,
+    "cm-003": 97,
+    "cm-004": 90,
+    "cm-005": 53
+  },
+  "byCaseStatus": {
+    "active": 378
+  },
+  "byVisitStatus": {
+    "within_60": 65,
+    "scheduled": 34,
+    "normal": 198,
+    "overdue": 38,
+    "within_30": 43
+  },
+  "byDispatchStatus": {
+    "waiting": 48,
+    "accepted": 137,
+    "no_capacity": 35,
+    "manual_required": 18,
+    "closed": 81,
+    "timeout": 16,
+    "dispatching": 43
+  }
+}

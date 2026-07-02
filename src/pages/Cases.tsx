@@ -50,6 +50,7 @@ export function Cases() {
               <tr>
                 <th className="px-5 py-3 font-medium">個案</th>
                 <th className="px-5 py-3 font-medium">個管員</th>
+                <th className="px-5 py-3 font-medium">居住地</th>
                 <th className="px-5 py-3 font-medium">CMS</th>
                 <th className="px-5 py-3 font-medium">狀態</th>
                 <th className="px-5 py-3 font-medium">訪視</th>
@@ -73,7 +74,10 @@ export function Cases() {
                   <td className="px-5 py-3 text-slate-600">
                     {managerName(c.managerId)}
                   </td>
-                  <td className="px-5 py-3 text-slate-600">{c.cmsLevel}</td>
+                  <td className="px-5 py-3 text-slate-600">{c.area ?? "—"}</td>
+                  <td className="px-5 py-3 text-slate-600">
+                    {c.cmsLevel ?? "—"}
+                  </td>
                   <td className="px-5 py-3 text-slate-600">
                     {caseStatusLabel[c.status]}
                   </td>
@@ -101,7 +105,7 @@ export function Cases() {
               ))}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={8} className="px-5 py-8 text-center text-slate-400">
+                  <td colSpan={9} className="px-5 py-8 text-center text-slate-400">
                     找不到符合條件的個案。
                   </td>
                 </tr>
