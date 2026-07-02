@@ -52,7 +52,7 @@ export function Sidebar() {
       </nav>
 
       <div className="px-5 py-4 text-[11px] text-orbit-100/50">
-        Orbikt V1 · Phase 0
+        Orbikt v1.0.0
       </div>
     </aside>
   );

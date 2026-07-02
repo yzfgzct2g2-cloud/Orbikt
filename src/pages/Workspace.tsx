@@ -106,7 +106,7 @@ export function Workspace() {
             </Badge>
           </div>
           <p className="mt-1 text-sm text-slate-500">
-            個管員 {managerName(c.managerId)} · CMS {c.cmsLevel}
+            個管員 {managerName(c.managerId)} · CMS {c.cmsLevel ?? "—"}
           </p>
         </div>
         <Link
