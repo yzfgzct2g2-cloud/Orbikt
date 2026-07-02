@@ -1,0 +1,18 @@
+{
+  "available": [
+    "aa01-ai-system",
+    "knowledge",
+    "LongCare-QA-Engine",
+    "longcare-user-auth-test"
+  ],
+  "external": [
+    "dispatch-console",
+    "visit-countdown-google-apps-script"
+  ],
+  "prototype": [
+    "genogram-canvas"
+  ],
+  "missing_or_pending": [
+    "fa310-review-source-if-not-yet-copied"
+  ]
+}

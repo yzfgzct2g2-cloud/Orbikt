@@ -1,0 +1,27 @@
+{
+  "dispatch": {
+    "type": "external_console_or_api",
+    "status": "external",
+    "integration": "dashboard + workspace",
+    "future": "api",
+    "description": "派案系統目前為外部系統，Orbikt V1 先以 Command Center 狀態面板、Workspace tab 與外部連結整合，後續再 API 化。"
+  },
+  "visitManager": {
+    "type": "google_apps_script",
+    "status": "external",
+    "integration": "dashboard + workspace",
+    "description": "家訪倒數網頁為訪視警戒 SSOT，Orbikt Dashboard 僅讀取或連結，不重建第二套邏輯。"
+  },
+  "genogram": {
+    "type": "canvas_prototype",
+    "status": "prototype",
+    "integration": "workspace_tab",
+    "description": "互動家系圖尚在畫布階段，Orbikt V1 先建立 Workspace tab 與整合介面。"
+  },
+  "onedrive": {
+    "type": "external_link",
+    "status": "v1_link_only",
+    "integration": "document_center",
+    "description": "V1 先支援 OneDrive 共用資料夾捷徑，Microsoft Graph API 留到 V1.1。"
+  }
+}

@@ -1,0 +1,15 @@
+node_modules
+dist
+dist-ssr
+*.local
+.env
+.env.*
+!.env.example
+.DS_Store
+coverage
+.vite
+node_modules/.tmp
+
+# Never commit credentials or service-account keys
+serviceAccountKey.json
+**/serviceAccountKey.json
