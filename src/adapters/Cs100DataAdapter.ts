@@ -21,7 +21,7 @@ import type {
   VisitInfo,
 } from "./types";
 import seed from "../data/seed/cases.generated.json";
-import { externalLinks } from "../config/externalLinks";
+import { availableDocumentLinks } from "../modules/documents/documents";
 
 const SEED_TODAY = "2026-07-02";
 
@@ -292,14 +292,7 @@ export class Cs100DataAdapter implements DataAdapter {
   }
 
   async listDocuments(): Promise<DocumentLink[]> {
-    return [
-      {
-        id: "D-01",
-        label: "個管共用資料夾（A個管）",
-        url: externalLinks.onedrive.sharedFolder,
-        scope: "shared",
-      },
-    ];
+    return availableDocumentLinks();
   }
 
   async listSchedule(dayISO: string = SEED_TODAY): Promise<ScheduleEvent[]> {

@@ -1,12 +1,12 @@
 {
   "project": "Orbikt",
   "version": "0.1.0",
-  "current_phase": "Phase 10",
-  "current_checkpoint": "CP-0012",
-  "status": "PHASE_10_COMPLETE",
-  "last_commit": "eef69c3",
-  "next_phase": "Phase 11",
-  "next_task": "Document Center — OneDrive link-first documents + per-case attachments shortcuts",
+  "current_phase": "Phase 11",
+  "current_checkpoint": "CP-0013",
+  "status": "PHASE_11_COMPLETE",
+  "last_commit": "c38f690",
+  "next_phase": "Phase 12",
+  "next_task": "Final polish + release: full-app QA pass, v1.0.0, tag/commit",
   "build": "PASS",
   "typecheck": "PASS",
   "tests": "PASS",
@@ -17,5 +17,6 @@
   "review": "FA310 via LongCare-QA-Engine adapter seam (Evidence-First); no FA310 rules in React",
   "knowledge": "21 practical topics vendored with traceable ids; searchable page + Workspace reference panel",
   "genogram": "prototype placeholder tab with integration checklist, bound to Case ID",
+  "documents": "OneDrive link-first categorized shortcuts (pending links surfaced) + per-case attachments",
   "updated_at": "2026-07-03"
 }

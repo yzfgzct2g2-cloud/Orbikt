@@ -7,7 +7,7 @@ import type {
   TimelineEvent,
 } from "../../adapters/types";
 import { managerName } from "../../config/appConfig";
-import { externalLinks } from "../../config/externalLinks";
+import { caseAttachmentLink } from "../../modules/documents/documents";
 import { visitManager } from "../../modules/visit/visitManager";
 import { dispatchManager } from "../../modules/dispatch/dispatchManager";
 import { generateCaseAA01, planner } from "../../modules/planner/planner";
@@ -532,17 +532,20 @@ export function GenogramTab({ c }: { c: CaseRecord }) {
   );
 }
 
-export function AttachmentsTab() {
+export function AttachmentsTab({ c }: { c: CaseRecord }) {
+  const attach = caseAttachmentLink(c);
   return (
     <IntegrationNotice
       title="附件（Attachments）"
       source="Document Center · OneDrive 共用資料夾捷徑"
-      link={{
-        label: "開啟 OneDrive 共用資料夾",
-        url: externalLinks.onedrive.sharedFolder,
-      }}
+      link={{ label: attach.label, url: attach.url }}
     >
       V1 文件以 OneDrive 共用資料夾捷徑為主，Microsoft Graph API 留待 V1.1。
+      {attach.pendingCaseFolder && (
+        <span className="mt-2 block text-xs text-slate-400">
+          （個案專屬子資料夾連結尚未於 config/external-links.md 提供，先連結至個管共用資料夾。）
+        </span>
+      )}
     </IntegrationNotice>
   );
 }

@@ -146,7 +146,7 @@ export function Workspace() {
       {activeTab === "dispatch" && <DispatchTab c={c} />}
       {activeTab === "visit" && <VisitTab c={c} />}
       {activeTab === "genogram" && <GenogramTab c={c} />}
-      {activeTab === "attachments" && <AttachmentsTab />}
+      {activeTab === "attachments" && <AttachmentsTab c={c} />}
       {activeTab === "timeline" && <TimelineTab caseId={c.id} />}
     </div>
   );
