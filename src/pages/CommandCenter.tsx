@@ -3,10 +3,14 @@ import { Link } from "react-router-dom";
 import { useAppStore } from "../store/useAppStore";
 import { dataAdapter } from "../adapters";
 import { team, managerName } from "../config/appConfig";
-import { externalLinks } from "../config/externalLinks";
 import { Badge, Card, CardHeader, PageHeader } from "../components/ui/primitives";
 import { caseloadByManager } from "../lib/caseload";
 import { bucketVisitWarnings, visitManager } from "../modules/visit/visitManager";
+import {
+  dispatchAttention,
+  dispatchCounts,
+  dispatchManager,
+} from "../modules/dispatch/dispatchManager";
 import {
   dispatchStatusClass,
   dispatchStatusLabel,
@@ -134,19 +138,14 @@ export function CommandCenter() {
   const within30 = visitBuckets.within_30;
   const within60 = visitBuckets.within_60;
   const overdue = visitBuckets.overdue;
-  const dispatchAttention = cases.filter((c) =>
-    ["timeout", "no_capacity", "manual_required"].includes(c.dispatch.status)
-  );
+  const dispatchNeedsAttention = dispatchAttention(cases);
   const openTasks = tasks.filter((t) => !t.done);
   const recentCases = [...cases]
     .sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1))
     .slice(0, 5);
 
-  // Dispatch status breakdown for the Command Center panel.
-  const dispatchCounts = cases.reduce<Record<string, number>>((acc, c) => {
-    acc[c.dispatch.status] = (acc[c.dispatch.status] ?? 0) + 1;
-    return acc;
-  }, {});
+  // Dispatch status breakdown (single dispatch module code path).
+  const dispatchStatusCounts = dispatchCounts(cases);
 
   const caseloads = caseloadByManager(cases, team);
   const maxRef = Math.max(1, ...caseloads.map((c) => c.reference));
@@ -181,7 +180,7 @@ export function CommandCenter() {
         />
         <Stat
           label="派案需關注"
-          value={dispatchAttention.length}
+          value={dispatchNeedsAttention.length}
           tone="warning"
           hint="Timeout／無人力／人工"
         />
@@ -355,10 +354,10 @@ export function CommandCenter() {
         <Card>
           <CardHeader
             title="派案狀態 Dispatch"
-            subtitle="來源：外部派案系統"
+            subtitle={`來源：${dispatchManager.source}（${dispatchManager.status}）`}
             action={
               <a
-                href={externalLinks.googleAppsScript.dispatchConsole}
+                href={dispatchManager.url}
                 target="_blank"
                 rel="noreferrer"
                 className="text-xs font-medium text-orbit-600 hover:underline"
@@ -368,23 +367,13 @@ export function CommandCenter() {
             }
           />
           <div className="space-y-2 px-5 py-4">
-            {Object.entries(dispatchCounts).map(([status, count]) => (
+            {dispatchStatusCounts.map(({ status, count }) => (
               <div
                 key={status}
                 className="flex items-center justify-between text-sm"
               >
-                <Badge
-                  className={
-                    dispatchStatusClass[
-                      status as keyof typeof dispatchStatusClass
-                    ]
-                  }
-                >
-                  {
-                    dispatchStatusLabel[
-                      status as keyof typeof dispatchStatusLabel
-                    ]
-                  }
+                <Badge className={dispatchStatusClass[status]}>
+                  {dispatchStatusLabel[status]}
                 </Badge>
                 <span className="font-medium text-slate-700">{count}</span>
               </div>

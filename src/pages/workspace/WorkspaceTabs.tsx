@@ -9,6 +9,7 @@ import type {
 import { managerName } from "../../config/appConfig";
 import { externalLinks } from "../../config/externalLinks";
 import { visitManager } from "../../modules/visit/visitManager";
+import { dispatchManager } from "../../modules/dispatch/dispatchManager";
 import {
   Badge,
   Card,
@@ -246,11 +247,8 @@ export function DispatchTab({ c }: { c: CaseRecord }) {
       </Card>
       <IntegrationNotice
         title="派案系統（Dispatch）"
-        source="外部派案系統 · Command Center 顯示狀態 + 外部連結"
-        link={{
-          label: "開啟派案主控台",
-          url: externalLinks.googleAppsScript.dispatchConsole,
-        }}
+        source={`${dispatchManager.source}（${dispatchManager.status}，${dispatchManager.future}-ready）`}
+        link={{ label: "開啟派案主控台", url: dispatchManager.url }}
       >
         V1 派案為外部系統，Orbikt 僅顯示派案狀態並提供外部連結，後續再 API 化。
       </IntegrationNotice>
