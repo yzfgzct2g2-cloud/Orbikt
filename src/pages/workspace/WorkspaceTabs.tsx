@@ -16,6 +16,10 @@ import { reviewManager } from "../../modules/review/reviewEngine";
 import type { ReviewResult } from "../../modules/review/reviewTypes";
 import { relatedTopics, knowledgeManager } from "../../modules/knowledge/knowledge";
 import {
+  genogram,
+  genogramIntegrationSteps,
+} from "../../modules/genogram/genogram";
+import {
   Badge,
   Card,
   CardHeader,
@@ -503,13 +507,28 @@ export function VisitTab({ c }: { c: CaseRecord }) {
 
 export function GenogramTab({ c }: { c: CaseRecord }) {
   return (
-    <IntegrationNotice
-      title="家系圖（Genogram）"
-      source="Canvas 原型 · Workspace 整合介面"
-    >
-      互動家系圖目前為畫布原型階段。V1 於 Workspace 建立分頁與整合介面，
-      待原型成熟後嵌入並綁定個案 {c.name}（{c.id}）。此為整合預留位置，非未完成功能。
-    </IntegrationNotice>
+    <div className="space-y-4">
+      <IntegrationNotice
+        title="家系圖（Genogram）"
+        source={`${genogram.source}（${genogram.status}）`}
+      >
+        {genogram.note} 目前綁定個案 {c.name}（{c.id}）。此為整合預留位置，非未完成功能。
+      </IntegrationNotice>
+
+      <Card className="p-5">
+        <div className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+          整合待辦（Integration Checklist）
+        </div>
+        <ul className="mt-2 space-y-1 text-sm text-slate-600">
+          {genogramIntegrationSteps.map((step) => (
+            <li key={step} className="flex items-center gap-2">
+              <span className="inline-block h-2 w-2 rounded-full bg-slate-300" />
+              {step}
+            </li>
+          ))}
+        </ul>
+      </Card>
+    </div>
   );
 }
 
