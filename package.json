@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "seed:cases": "node scripts/buildCaseSeed.mjs",
+    "seed:knowledge": "node scripts/buildKnowledgeIndex.mjs",
     "test": "vitest run",
     "preview": "vite preview"
   },

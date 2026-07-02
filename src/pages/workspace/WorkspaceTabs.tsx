@@ -14,6 +14,7 @@ import { generateCaseAA01, planner } from "../../modules/planner/planner";
 import { reviewAdapter } from "../../modules/review/reviewAdapter";
 import { reviewManager } from "../../modules/review/reviewEngine";
 import type { ReviewResult } from "../../modules/review/reviewTypes";
+import { relatedTopics, knowledgeManager } from "../../modules/knowledge/knowledge";
 import {
   Badge,
   Card,
@@ -42,6 +43,7 @@ function Field({ label, value }: { label: string; value: React.ReactNode }) {
 }
 
 export function OverviewTab({ c }: { c: CaseRecord }) {
+  const references = useMemo(() => relatedTopics(c), [c]);
   const [tasks, setTasks] = useState<TaskItem[]>([]);
   const [timeline, setTimeline] = useState<TimelineEvent[]>([]);
   useEffect(() => {
@@ -201,6 +203,50 @@ export function OverviewTab({ c }: { c: CaseRecord }) {
           </div>
         </Card>
       </div>
+
+      {/* Knowledge references — traceable sources relevant to this case */}
+      <Card>
+        <CardHeader
+          title="相關知識參考 Knowledge References"
+          subtitle="來源：長照法規知識平台（保留可追溯來源）"
+          action={
+            <a
+              href={knowledgeManager.url}
+              target="_blank"
+              rel="noreferrer"
+              className="text-xs font-medium text-orbit-600 hover:underline"
+            >
+              知識平台 ↗
+            </a>
+          }
+        />
+        <div className="divide-y divide-slate-100">
+          {references.map((t) => (
+            <div key={t.id} className="px-5 py-3">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-sm font-medium text-slate-800">
+                  {t.title}
+                </span>
+                <span className="text-[11px] text-slate-400">{t.id}</span>
+              </div>
+              {(t.relatedCodes.length > 0 || t.relatedArticles.length > 0) && (
+                <div className="mt-1 flex flex-wrap gap-1">
+                  {t.relatedCodes.map((code) => (
+                    <Badge key={code} className="bg-orbit-50 text-orbit-700">
+                      {code}
+                    </Badge>
+                  ))}
+                  {t.relatedArticles.map((a) => (
+                    <Badge key={a} className="bg-slate-100 text-slate-600">
+                      第{a}條
+                    </Badge>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </Card>
     </div>
   );
 }
