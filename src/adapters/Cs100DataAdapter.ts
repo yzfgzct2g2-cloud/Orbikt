@@ -37,74 +37,93 @@ interface RankedTask extends TaskItem {
   rank: number;
 }
 
-function deriveTasks(all: CaseRecord[]): TaskItem[] {
+function stripRank(t: RankedTask): TaskItem {
+  return {
+    id: t.id,
+    caseId: t.caseId,
+    title: t.title,
+    due: t.due,
+    type: t.type,
+    done: t.done,
+  };
+}
+
+/** Open tasks implied by a single case's module/visit/dispatch state. */
+function caseTasks(c: CaseRecord): RankedTask[] {
   const out: RankedTask[] = [];
-  for (const c of all) {
-    if (c.visit.status === "overdue") {
-      out.push({
-        id: `T-${c.id}-visit`,
-        caseId: c.id,
-        title: `${c.name} 家訪逾期（剩 ${c.visit.remainingDays} 天）`,
-        due: c.visit.nextDueDate ?? SEED_TODAY,
-        type: "visit",
-        done: false,
-        rank: 0,
-      });
-    } else if (c.visit.status === "within_30") {
-      out.push({
-        id: `T-${c.id}-visit`,
-        caseId: c.id,
-        title: `${c.name} 家訪 30 日內到期`,
-        due: c.visit.nextDueDate ?? SEED_TODAY,
-        type: "visit",
-        done: false,
-        rank: 5,
-      });
-    }
-    if (c.dispatch.status === "timeout") {
-      out.push({
-        id: `T-${c.id}-dispatch`,
-        caseId: c.id,
-        title: `${c.name} 派案 Timeout，需確認`,
-        due: SEED_TODAY,
-        type: "dispatch",
-        done: false,
-        rank: 1,
-      });
-    } else if (c.dispatch.status === "manual_required") {
-      out.push({
-        id: `T-${c.id}-dispatch`,
-        caseId: c.id,
-        title: `${c.name} 派案需人工介入`,
-        due: SEED_TODAY,
-        type: "dispatch",
-        done: false,
-        rank: 2,
-      });
-    }
-    if (c.fa310Status === "returned") {
-      out.push({
-        id: `T-${c.id}-fa310`,
-        caseId: c.id,
-        title: `${c.name} FA310 退件修正`,
-        due: SEED_TODAY,
-        type: "review",
-        done: false,
-        rank: 3,
-      });
-    }
+  if (c.visit.status === "overdue") {
+    out.push({
+      id: `T-${c.id}-visit`,
+      caseId: c.id,
+      title: `${c.name} 家訪逾期（剩 ${c.visit.remainingDays} 天）`,
+      due: c.visit.nextDueDate ?? SEED_TODAY,
+      type: "visit",
+      done: false,
+      rank: 0,
+    });
+  } else if (c.visit.status === "within_30") {
+    out.push({
+      id: `T-${c.id}-visit`,
+      caseId: c.id,
+      title: `${c.name} 家訪 30 日內到期`,
+      due: c.visit.nextDueDate ?? SEED_TODAY,
+      type: "visit",
+      done: false,
+      rank: 5,
+    });
   }
-  return out
+  if (c.dispatch.status === "timeout") {
+    out.push({
+      id: `T-${c.id}-dispatch`,
+      caseId: c.id,
+      title: `${c.name} 派案 Timeout，需確認`,
+      due: SEED_TODAY,
+      type: "dispatch",
+      done: false,
+      rank: 1,
+    });
+  } else if (c.dispatch.status === "manual_required") {
+    out.push({
+      id: `T-${c.id}-dispatch`,
+      caseId: c.id,
+      title: `${c.name} 派案需人工介入`,
+      due: SEED_TODAY,
+      type: "dispatch",
+      done: false,
+      rank: 2,
+    });
+  }
+  if (c.fa310Status === "returned") {
+    out.push({
+      id: `T-${c.id}-fa310`,
+      caseId: c.id,
+      title: `${c.name} FA310 退件修正`,
+      due: SEED_TODAY,
+      type: "review",
+      done: false,
+      rank: 3,
+    });
+  }
+  if (c.aa01Status === "returned") {
+    out.push({
+      id: `T-${c.id}-aa01`,
+      caseId: c.id,
+      title: `${c.name} AA01 退件修正`,
+      due: SEED_TODAY,
+      type: "review",
+      done: false,
+      rank: 4,
+    });
+  }
+  return out;
+}
+
+function deriveTasks(all: CaseRecord[]): TaskItem[] {
+  return all
+    .flatMap(caseTasks)
     .sort((a, b) => a.rank - b.rank || (a.due < b.due ? -1 : 1))
     .slice(0, 15)
-    .map((t) => ({
-      id: t.id,
-      caseId: t.caseId,
-      title: t.title,
-      due: t.due,
-      type: t.type,
-      done: t.done,
-    }));
+    .map(stripRank);
 }
 
 function deriveNotifications(all: CaseRecord[]): NotificationItem[] {
@@ -257,6 +276,15 @@ export class Cs100DataAdapter implements DataAdapter {
 
   async listTasks(): Promise<TaskItem[]> {
     return deriveTasks(cases);
+  }
+
+  async listCaseTasks(caseId: string): Promise<TaskItem[]> {
+    const found = cases.find((c) => c.id === caseId);
+    return found
+      ? caseTasks(found)
+          .sort((a, b) => a.rank - b.rank)
+          .map(stripRank)
+      : [];
   }
 
   async listNotifications(): Promise<NotificationItem[]> {

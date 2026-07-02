@@ -6,6 +6,34 @@ import { managerName } from "../config/appConfig";
 import { Badge, Card } from "../components/ui/primitives";
 import { caseStatusLabel } from "../lib/labels";
 import { defaultTab, workspaceTabs } from "./workspace/tabs";
+
+// A small status dot per module tab, so the case's state is visible without
+// opening each tab. Reads the case's stored status (no recomputation).
+function tabDotClass(key: string, c: CaseRecord): string | null {
+  if (key === "aa01" || key === "fa310") {
+    const s = key === "aa01" ? c.aa01Status : c.fa310Status;
+    if (s === "returned") return "bg-red-500";
+    if (s === "approved") return "bg-emerald-500";
+    if (s === "submitted" || s === "in_progress") return "bg-amber-500";
+    return null;
+  }
+  if (key === "visit") {
+    const s = c.visit.status;
+    if (s === "overdue") return "bg-red-500";
+    if (s === "within_30") return "bg-orange-500";
+    if (s === "within_60") return "bg-amber-500";
+    if (s === "scheduled") return "bg-sky-500";
+    return null;
+  }
+  if (key === "dispatch") {
+    const s = c.dispatch.status;
+    if (s === "timeout" || s === "no_capacity") return "bg-red-500";
+    if (s === "manual_required") return "bg-purple-500";
+    if (s === "waiting" || s === "dispatching") return "bg-amber-500";
+    return null;
+  }
+  return null;
+}
 import {
   AA01Tab,
   AttachmentsTab,
@@ -93,16 +121,18 @@ export function Workspace() {
       <div className="mb-5 flex flex-wrap gap-1 border-b border-slate-200">
         {workspaceTabs.map((t) => {
           const isActive = t.key === activeTab;
+          const dot = tabDotClass(t.key, c);
           return (
             <Link
               key={t.key}
               to={`/workspace/${c.id}/${t.key}`}
-              className={`-mb-px border-b-2 px-3 py-2 text-sm font-medium transition-colors ${
+              className={`-mb-px flex items-center gap-1.5 border-b-2 px-3 py-2 text-sm font-medium transition-colors ${
                 isActive
                   ? "border-orbit-500 text-orbit-700"
                   : "border-transparent text-slate-500 hover:text-slate-800"
               }`}
             >
+              {dot && <span className={`h-2 w-2 rounded-full ${dot}`} />}
               {t.label}
             </Link>
           );

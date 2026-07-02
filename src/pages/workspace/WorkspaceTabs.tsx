@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { dataAdapter } from "../../adapters";
-import type { CaseRecord, TimelineEvent } from "../../adapters/types";
+import type {
+  CaseRecord,
+  TaskItem,
+  TimelineEvent,
+} from "../../adapters/types";
 import { managerName } from "../../config/appConfig";
 import { externalLinks } from "../../config/externalLinks";
 import {
@@ -31,6 +36,17 @@ function Field({ label, value }: { label: string; value: React.ReactNode }) {
 }
 
 export function OverviewTab({ c }: { c: CaseRecord }) {
+  const [tasks, setTasks] = useState<TaskItem[]>([]);
+  const [timeline, setTimeline] = useState<TimelineEvent[]>([]);
+  useEffect(() => {
+    let active = true;
+    void dataAdapter.listCaseTasks(c.id).then((t) => active && setTasks(t));
+    void dataAdapter.listTimeline(c.id).then((e) => active && setTimeline(e));
+    return () => {
+      active = false;
+    };
+  }, [c.id]);
+
   return (
     <div className="space-y-4">
       <Card className="p-5">
@@ -122,6 +138,60 @@ export function OverviewTab({ c }: { c: CaseRecord }) {
             <Badge className={moduleStatusClass[c.fa310Status]}>
               {moduleStatusLabel[c.fa310Status]}
             </Badge>
+          </div>
+        </Card>
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {/* Case tasks (Overview = Case + Task + Timeline) */}
+        <Card>
+          <CardHeader title="個案待辦 Case Tasks" subtitle={`${tasks.length} 項`} />
+          <div className="divide-y divide-slate-100">
+            {tasks.map((t) => (
+              <div key={t.id} className="flex items-center justify-between px-5 py-3">
+                <div className="min-w-0">
+                  <div className="truncate text-sm text-slate-800">{t.title}</div>
+                  <div className="text-xs text-slate-400">到期 {t.due}</div>
+                </div>
+                <Badge className="bg-slate-100 text-slate-600">{t.type}</Badge>
+              </div>
+            ))}
+            {tasks.length === 0 && (
+              <div className="px-5 py-6 text-sm text-slate-400">
+                目前沒有待辦事項。
+              </div>
+            )}
+          </div>
+        </Card>
+
+        {/* Recent timeline preview */}
+        <Card>
+          <CardHeader
+            title="近期時間軸 Recent Timeline"
+            action={
+              <Link
+                to={`/workspace/${c.id}/timeline`}
+                className="text-xs font-medium text-orbit-600 hover:underline"
+              >
+                全部
+              </Link>
+            }
+          />
+          <div className="px-5 py-4">
+            <ol className="relative border-l border-slate-200">
+              {timeline.slice(0, 4).map((e) => (
+                <li key={e.id} className="mb-4 ml-4">
+                  <div className="absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full bg-orbit-500" />
+                  <time className="text-xs text-slate-400">
+                    {new Date(e.at).toLocaleDateString("zh-TW")}
+                  </time>
+                  <div className="mt-0.5 text-sm text-slate-800">{e.summary}</div>
+                </li>
+              ))}
+            </ol>
+            {timeline.length === 0 && (
+              <div className="text-sm text-slate-400">尚無事件紀錄。</div>
+            )}
           </div>
         </Card>
       </div>

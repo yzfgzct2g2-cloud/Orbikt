@@ -36,6 +36,8 @@ export interface DataAdapter {
 
   // Command Center / cross-case
   listTasks(): Promise<TaskItem[]>;
+  // Workspace: open tasks for a single case (uncapped).
+  listCaseTasks(caseId: string): Promise<TaskItem[]>;
   listNotifications(): Promise<NotificationItem[]>;
   listDocuments(): Promise<DocumentLink[]>;
 

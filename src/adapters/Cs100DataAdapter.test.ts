@@ -56,6 +56,24 @@ describe("Cs100DataAdapter", () => {
     }
   });
 
+  it("returns per-case tasks scoped to one case (uncapped)", async () => {
+    const cases = await adapter.listCases();
+    // find a case that should generate at least one task
+    const target =
+      cases.find(
+        (c) =>
+          c.visit.status === "overdue" ||
+          c.dispatch.status === "timeout" ||
+          c.fa310Status === "returned"
+      ) ?? cases[0];
+    const tasks = await adapter.listCaseTasks(target.id);
+    for (const t of tasks) {
+      expect(t.caseId).toBe(target.id);
+    }
+    // unknown case -> no tasks
+    expect(await adapter.listCaseTasks("C-9999")).toEqual([]);
+  });
+
   it("derives notifications with a bounded, sorted list", async () => {
     const notes = await adapter.listNotifications();
     expect(notes.length).toBeLessThanOrEqual(12);
