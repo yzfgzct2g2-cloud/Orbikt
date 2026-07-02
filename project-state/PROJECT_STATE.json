@@ -4,7 +4,7 @@
   "current_phase": "Phase 12",
   "current_checkpoint": "CP-0014",
   "status": "V1_RELEASE_READY",
-  "last_commit": "2e395f9",
+  "last_commit": "ed7ef9a",
   "next_phase": "V1.1 (post-release)",
   "next_task": "Push to remote (needs remote + credentials); V1.1: live integrations (Visit/Dispatch/AA01/FA310), Microsoft Graph, Supabase",
   "build": "PASS",
@@ -18,5 +18,6 @@
   "knowledge": "21 practical topics vendored with traceable ids; searchable page + Workspace reference panel",
   "genogram": "prototype placeholder tab with integration checklist, bound to Case ID",
   "documents": "OneDrive link-first categorized shortcuts + per-case attachments",
-  "updated_at": "2026-07-03"
+  "updated_at": "2026-07-03",
+  "tag": "v1.0.0"
 }
