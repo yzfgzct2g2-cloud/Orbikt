@@ -5,13 +5,18 @@ import { dataAdapter } from "../adapters";
 import { team, managerName } from "../config/appConfig";
 import { externalLinks } from "../config/externalLinks";
 import { Badge, Card, CardHeader, PageHeader } from "../components/ui/primitives";
+import { caseloadByManager } from "../lib/caseload";
 import {
   dispatchStatusClass,
   dispatchStatusLabel,
   visitStatusClass,
   visitStatusLabel,
 } from "../lib/labels";
-import type { CaseRecord, ScheduleEvent } from "../adapters/types";
+import type {
+  CaseRecord,
+  DocumentLink,
+  ScheduleEvent,
+} from "../adapters/types";
 
 const scheduleKindClass: Record<string, string> = {
   visit: "bg-orange-100 text-orange-700",
@@ -33,11 +38,13 @@ function Stat({
   value,
   hint,
   tone = "default",
+  title,
 }: {
   label: string;
   value: string | number;
   hint?: string;
   tone?: "default" | "warning" | "danger";
+  title?: string;
 }) {
   const toneClass =
     tone === "danger"
@@ -47,7 +54,10 @@ function Stat({
         : "text-slate-900";
   return (
     <Card className="p-5">
-      <div className="text-xs font-medium uppercase tracking-wide text-slate-400">
+      <div
+        className="text-xs font-medium uppercase tracking-wide text-slate-400"
+        title={title}
+      >
         {label}
       </div>
       <div className={`mt-2 text-3xl font-bold ${toneClass}`}>{value}</div>
@@ -84,9 +94,13 @@ export function CommandCenter() {
   const notifications = useAppStore((s) => s.notifications);
   const loaded = useAppStore((s) => s.loaded);
 
+  const userName = useAppStore((s) => s.currentUser.name);
+
   const [schedule, setSchedule] = useState<ScheduleEvent[]>([]);
+  const [documents, setDocuments] = useState<DocumentLink[]>([]);
   useEffect(() => {
     void dataAdapter.listSchedule().then(setSchedule);
+    void dataAdapter.listDocuments().then(setDocuments);
   }, []);
 
   const totalCaseload = team.reduce((sum, m) => sum + m.caseload, 0);
@@ -107,11 +121,17 @@ export function CommandCenter() {
     return acc;
   }, {});
 
+  const caseloads = caseloadByManager(cases, team);
+  const maxRef = Math.max(1, ...caseloads.map((c) => c.reference));
+  const caseloadHint = caseloads
+    .map((c) => `${c.name} ${c.assigned}`)
+    .join(" · ");
+
   return (
     <div>
       <PageHeader
         title="Command Center"
-        description="今天該做什麼？逾期訪視、派案異常與待辦一次掌握。"
+        description={`${userName}，今天該做什麼？逾期訪視、派案異常與待辦一次掌握。`}
       />
 
       {!loaded && (
@@ -123,6 +143,7 @@ export function CommandCenter() {
           label="總個案量"
           value={cases.length}
           hint={`${team.length} 位個管員 · team.json 參考 ${totalCaseload}`}
+          title={caseloadHint}
         />
         <Stat label="訪視逾期" value={overdue.length} tone="danger" hint="需儘速安排" />
         <Stat
@@ -361,6 +382,72 @@ export function CommandCenter() {
             {recentCases.map((c) => (
               <CaseRow key={c.id} c={c} />
             ))}
+          </div>
+        </Card>
+      </div>
+
+      <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
+        {/* Caseload by manager — Case data vs team.json reference */}
+        <Card className="lg:col-span-2">
+          <CardHeader
+            title="團隊案量 Caseload by Manager"
+            subtitle="來源：個案資料（實際）vs team.json（參考）"
+          />
+          <div className="space-y-3 px-5 py-4">
+            {caseloads.map((m) => (
+              <div key={m.managerId}>
+                <div className="mb-1 flex items-center justify-between text-sm">
+                  <span className="font-medium text-slate-700">{m.name}</span>
+                  <span className="text-slate-500">
+                    {m.assigned}
+                    <span className="text-slate-300"> / {m.reference}</span>
+                  </span>
+                </div>
+                <div className="h-2 overflow-hidden rounded-full bg-slate-100">
+                  <div
+                    className="h-full rounded-full bg-orbit-500"
+                    style={{
+                      width: `${Math.min(100, (m.assigned / maxRef) * 100)}%`,
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        {/* Documents — OneDrive link-first */}
+        <Card>
+          <CardHeader
+            title="文件 Documents"
+            subtitle="來源：OneDrive 共用資料夾"
+            action={
+              <Link
+                to="/documents"
+                className="text-xs font-medium text-orbit-600 hover:underline"
+              >
+                全部
+              </Link>
+            }
+          />
+          <div className="divide-y divide-slate-100">
+            {documents.map((d) => (
+              <a
+                key={d.id}
+                href={d.url}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center justify-between px-5 py-3 text-sm hover:bg-slate-50"
+              >
+                <span className="truncate text-slate-700">{d.label}</span>
+                <span className="shrink-0 text-orbit-600">開啟 ↗</span>
+              </a>
+            ))}
+            {documents.length === 0 && (
+              <div className="px-5 py-6 text-sm text-slate-400">
+                尚無文件捷徑。
+              </div>
+            )}
           </div>
         </Card>
       </div>
