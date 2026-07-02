@@ -15,6 +15,7 @@ import type {
   DispatchInfo,
   DocumentLink,
   NotificationItem,
+  ScheduleEvent,
   TaskItem,
   TimelineEvent,
   VisitInfo,
@@ -37,6 +38,9 @@ export interface DataAdapter {
   listTasks(): Promise<TaskItem[]>;
   listNotifications(): Promise<NotificationItem[]>;
   listDocuments(): Promise<DocumentLink[]>;
+
+  // Calendar (Google Calendar / ICS-ready). `dayISO` defaults to "today".
+  listSchedule(dayISO?: string): Promise<ScheduleEvent[]>;
 
   // Workspace
   listTimeline(caseId: string): Promise<TimelineEvent[]>;

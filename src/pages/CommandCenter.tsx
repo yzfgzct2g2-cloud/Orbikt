@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppStore } from "../store/useAppStore";
+import { dataAdapter } from "../adapters";
 import { team, managerName } from "../config/appConfig";
 import { externalLinks } from "../config/externalLinks";
 import { Badge, Card, CardHeader, PageHeader } from "../components/ui/primitives";
@@ -9,7 +11,22 @@ import {
   visitStatusClass,
   visitStatusLabel,
 } from "../lib/labels";
-import type { CaseRecord } from "../adapters/types";
+import type { CaseRecord, ScheduleEvent } from "../adapters/types";
+
+const scheduleKindClass: Record<string, string> = {
+  visit: "bg-orange-100 text-orange-700",
+  meeting: "bg-sky-100 text-sky-700",
+  review: "bg-amber-100 text-amber-700",
+  personal: "bg-slate-100 text-slate-600",
+};
+
+function hhmm(iso: string): string {
+  return new Date(iso).toLocaleTimeString("zh-TW", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+}
 
 function Stat({
   label,
@@ -66,6 +83,11 @@ export function CommandCenter() {
   const tasks = useAppStore((s) => s.tasks);
   const notifications = useAppStore((s) => s.notifications);
   const loaded = useAppStore((s) => s.loaded);
+
+  const [schedule, setSchedule] = useState<ScheduleEvent[]>([]);
+  useEffect(() => {
+    void dataAdapter.listSchedule().then(setSchedule);
+  }, []);
 
   const totalCaseload = team.reduce((sum, m) => sum + m.caseload, 0);
   const within30 = cases.filter((c) => c.visit.status === "within_30");
@@ -187,6 +209,53 @@ export function CommandCenter() {
                 <p className="mt-1 text-xs text-slate-500">{n.body}</p>
               </div>
             ))}
+          </div>
+        </Card>
+      </div>
+
+      {/* Today schedule — Calendar adapter (Google Calendar / ICS-ready) */}
+      <div className="mt-6">
+        <Card>
+          <CardHeader
+            title="今日行程 Today Schedule"
+            subtitle="來源：行事曆（Google Calendar / ICS-ready）"
+          />
+          <div className="divide-y divide-slate-100">
+            {schedule.map((ev) => (
+              <div
+                key={ev.id}
+                className="flex items-center gap-4 px-5 py-3"
+              >
+                <div className="w-14 shrink-0 text-sm font-semibold text-slate-700">
+                  {hhmm(ev.start)}
+                </div>
+                <Badge className={scheduleKindClass[ev.kind]}>{ev.kind}</Badge>
+                <div className="min-w-0 flex-1">
+                  <div className="truncate text-sm text-slate-800">
+                    {ev.caseId ? (
+                      <Link
+                        to={`/workspace/${ev.caseId}`}
+                        className="hover:text-orbit-600"
+                      >
+                        {ev.title}
+                      </Link>
+                    ) : (
+                      ev.title
+                    )}
+                  </div>
+                  {ev.location && (
+                    <div className="truncate text-xs text-slate-400">
+                      {ev.location}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+            {schedule.length === 0 && (
+              <div className="px-5 py-6 text-sm text-slate-400">
+                今日沒有行程。
+              </div>
+            )}
           </div>
         </Card>
       </div>

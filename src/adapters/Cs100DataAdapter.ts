@@ -15,6 +15,7 @@ import type {
   DispatchInfo,
   DocumentLink,
   NotificationItem,
+  ScheduleEvent,
   TaskItem,
   TimelineEvent,
   VisitInfo,
@@ -150,6 +151,47 @@ function deriveNotifications(all: CaseRecord[]): NotificationItem[] {
   return sorted.map((n, i) => (i < 5 ? n : { ...n, read: true }));
 }
 
+/**
+ * Build the schedule for a given day. Two standing team meetings plus a visit
+ * entry for every case whose next visit falls on that day. This is a mock
+ * Calendar source (ICS-ready shape); a real Google Calendar / ICS adapter can
+ * replace it without UI changes.
+ */
+function deriveSchedule(all: CaseRecord[], dayISO: string): ScheduleEvent[] {
+  const events: ScheduleEvent[] = [
+    {
+      id: `S-${dayISO}-standup`,
+      caseId: null,
+      title: "個管晨會",
+      start: `${dayISO}T09:00:00+08:00`,
+      end: `${dayISO}T09:30:00+08:00`,
+      kind: "meeting",
+    },
+    {
+      id: `S-${dayISO}-review`,
+      caseId: null,
+      title: "個案研討會",
+      start: `${dayISO}T14:00:00+08:00`,
+      end: `${dayISO}T15:00:00+08:00`,
+      kind: "review",
+    },
+  ];
+  for (const c of all) {
+    if (c.visit.nextDueDate === dayISO) {
+      events.push({
+        id: `S-${dayISO}-${c.id}`,
+        caseId: c.id,
+        title: `${c.name} 家訪`,
+        start: `${dayISO}T10:00:00+08:00`,
+        end: `${dayISO}T11:00:00+08:00`,
+        kind: "visit",
+        location: c.area,
+      });
+    }
+  }
+  return events.sort((a, b) => (a.start < b.start ? -1 : 1));
+}
+
 function deriveTimeline(c: CaseRecord): TimelineEvent[] {
   const events: TimelineEvent[] = [];
   if (c.openDate) {
@@ -230,6 +272,10 @@ export class Cs100DataAdapter implements DataAdapter {
         scope: "shared",
       },
     ];
+  }
+
+  async listSchedule(dayISO: string = SEED_TODAY): Promise<ScheduleEvent[]> {
+    return deriveSchedule(cases, dayISO);
   }
 
   async listTimeline(caseId: string): Promise<TimelineEvent[]> {

@@ -135,3 +135,21 @@ export interface DocumentLink {
   url: string;
   scope: DocumentScope;
 }
+
+export type ScheduleKind = "visit" | "meeting" | "review" | "personal";
+
+/**
+ * A calendar event. Modeled ICS/Google-Calendar-ready (start/end ISO datetimes)
+ * so the mock schedule can be swapped for a real Calendar adapter without
+ * changing the UI. SSOT for visit *warnings* remains Visit Manager; a scheduled
+ * visit here is a calendar entry, not a warning recalculation.
+ */
+export interface ScheduleEvent {
+  id: string;
+  caseId: string | null;
+  title: string;
+  start: string; // ISO datetime
+  end: string | null; // ISO datetime
+  kind: ScheduleKind;
+  location?: string;
+}

@@ -54,6 +54,25 @@ describe("Cs100DataAdapter", () => {
     expect(times).toEqual(sorted);
   });
 
+  it("returns a sorted schedule with standing meetings for a day", async () => {
+    const events = await adapter.listSchedule("2026-07-02");
+    expect(events.length).toBeGreaterThanOrEqual(2); // two standing meetings
+    const kinds = events.map((e) => e.kind);
+    expect(kinds).toContain("meeting");
+    const starts = events.map((e) => e.start);
+    const sorted = [...starts].sort();
+    expect(starts).toEqual(sorted);
+    // Any visit events must reference a real case and fall on the day.
+    const cases = await adapter.listCases();
+    const ids = new Set(cases.map((c) => c.id));
+    for (const e of events) {
+      if (e.kind === "visit") {
+        expect(e.caseId && ids.has(e.caseId)).toBe(true);
+        expect(e.start.startsWith("2026-07-02")).toBe(true);
+      }
+    }
+  });
+
   it("builds a newest-first timeline for a case", async () => {
     const cases = await adapter.listCases();
     const events = await adapter.listTimeline(cases[0].id);
