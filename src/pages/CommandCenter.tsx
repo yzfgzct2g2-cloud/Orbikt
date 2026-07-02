@@ -6,6 +6,7 @@ import { team, managerName } from "../config/appConfig";
 import { externalLinks } from "../config/externalLinks";
 import { Badge, Card, CardHeader, PageHeader } from "../components/ui/primitives";
 import { caseloadByManager } from "../lib/caseload";
+import { bucketVisitWarnings, visitManager } from "../modules/visit/visitManager";
 import {
   dispatchStatusClass,
   dispatchStatusLabel,
@@ -88,6 +89,30 @@ function CaseRow({ c }: { c: CaseRecord }) {
   );
 }
 
+function VisitWarningRow({ c }: { c: CaseRecord }) {
+  return (
+    <Link
+      to={`/workspace/${c.id}/visit`}
+      className="flex items-center justify-between gap-3 rounded-lg px-3 py-2 hover:bg-slate-50"
+    >
+      <div className="min-w-0">
+        <div className="truncate text-sm font-medium text-slate-900">
+          {c.name}
+          <span className="ml-2 text-xs text-slate-400">
+            {managerName(c.managerId)}
+          </span>
+        </div>
+        <div className="truncate text-xs text-slate-500">
+          下次 {c.visit.nextDueDate ?? "—"} · 剩 {c.visit.remainingDays ?? "—"} 天
+        </div>
+      </div>
+      <Badge className={visitStatusClass[c.visit.status]}>
+        {visitStatusLabel[c.visit.status]}
+      </Badge>
+    </Link>
+  );
+}
+
 export function CommandCenter() {
   const cases = useAppStore((s) => s.cases);
   const tasks = useAppStore((s) => s.tasks);
@@ -104,9 +129,11 @@ export function CommandCenter() {
   }, []);
 
   const totalCaseload = team.reduce((sum, m) => sum + m.caseload, 0);
-  const within30 = cases.filter((c) => c.visit.status === "within_30");
-  const within60 = cases.filter((c) => c.visit.status === "within_60");
-  const overdue = cases.filter((c) => c.visit.status === "overdue");
+  // Visit warnings come from the Visit Manager module (single SSOT code path).
+  const visitBuckets = bucketVisitWarnings(cases);
+  const within30 = visitBuckets.within_30;
+  const within60 = visitBuckets.within_60;
+  const overdue = visitBuckets.overdue;
   const dispatchAttention = cases.filter((c) =>
     ["timeout", "no_capacity", "manual_required"].includes(c.dispatch.status)
   );
@@ -286,10 +313,10 @@ export function CommandCenter() {
         <Card>
           <CardHeader
             title="訪視警戒 Visit Warnings"
-            subtitle="來源：Visit Manager（僅讀取）"
+            subtitle={`SSOT：${visitManager.source}（僅讀取）`}
             action={
               <a
-                href={externalLinks.googleAppsScript.visitManager}
+                href={visitManager.url}
                 target="_blank"
                 rel="noreferrer"
                 className="text-xs font-medium text-orbit-600 hover:underline"
@@ -303,7 +330,7 @@ export function CommandCenter() {
               30 日內（{within30.length}）
             </div>
             {within30.slice(0, 6).map((c) => (
-              <CaseRow key={c.id} c={c} />
+              <VisitWarningRow key={c.id} c={c} />
             ))}
             {within30.length > 6 && (
               <div className="px-3 pt-1 text-xs text-slate-400">
@@ -314,7 +341,7 @@ export function CommandCenter() {
               60 日內（{within60.length}）
             </div>
             {within60.slice(0, 6).map((c) => (
-              <CaseRow key={c.id} c={c} />
+              <VisitWarningRow key={c.id} c={c} />
             ))}
             {within60.length > 6 && (
               <div className="px-3 pt-1 text-xs text-slate-400">

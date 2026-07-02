@@ -8,6 +8,7 @@ import type {
 } from "../../adapters/types";
 import { managerName } from "../../config/appConfig";
 import { externalLinks } from "../../config/externalLinks";
+import { visitManager } from "../../modules/visit/visitManager";
 import {
   Badge,
   Card,
@@ -280,11 +281,8 @@ export function VisitTab({ c }: { c: CaseRecord }) {
       </Card>
       <IntegrationNotice
         title="訪視管理（Visit Manager）"
-        source="Google Apps Script · 訪視警戒 SSOT（僅讀取）"
-        link={{
-          label: "開啟家訪倒數網頁",
-          url: externalLinks.googleAppsScript.visitManager,
-        }}
+        source={`${visitManager.source} · 訪視警戒 SSOT（僅讀取）`}
+        link={{ label: "開啟家訪倒數網頁", url: visitManager.url }}
       >
         訪視警戒的唯一真實來源為 Visit Manager，Orbikt 僅讀取或連結，
         <span className="font-medium text-slate-700"> 不重建第二套倒數邏輯</span>。
