@@ -7,9 +7,21 @@
 // engine is wired via its adapter/API, `reviewFromStatus` is replaced by the
 // real engine call — the ReviewResult contract stays the same.
 
-import type { ModuleStatus } from "../../adapters/types";
+import type { CaseRecord, ModuleStatus } from "../../adapters/types";
 import { externalLinks } from "../../config/externalLinks";
 import type { ReviewResult } from "./reviewTypes";
+
+/**
+ * Identity label for FA310 identity verification. Consumes the MASKED national
+ * ID only (never the raw value, which is not available browser-side). Used by
+ * the FA310 tab so a reviewer can confirm they are looking at the right person
+ * without exposing the full ID.
+ */
+export function fa310IdentityLabel(
+  c: Pick<CaseRecord, "name" | "id" | "maskedNationalId">
+): string {
+  return `${c.name}（${c.id}）· 身分證 ${c.maskedNationalId ?? "—"}`;
+}
 
 export const reviewManager = {
   source: "LongCare-QA-Engine · Python（Evidence-First）",

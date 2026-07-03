@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { reviewFromStatus, reviewManager } from "./reviewEngine";
+import {
+  fa310IdentityLabel,
+  reviewFromStatus,
+  reviewManager,
+} from "./reviewEngine";
 import { MockReviewAdapter } from "./reviewAdapter";
 
 describe("reviewFromStatus (FA310 result representation, not rules)", () => {
@@ -34,6 +38,30 @@ describe("reviewFromStatus (FA310 result representation, not rules)", () => {
   it("reports the QA Engine as the source (rules not in React)", () => {
     expect(reviewManager.mode).toBe("adapter");
     expect(reviewManager.engine).toContain("LongCare-QA-Engine");
+  });
+});
+
+describe("fa310IdentityLabel (masked ID only, never raw)", () => {
+  it("uses maskedNationalId, not a raw national ID", () => {
+    const label = fa310IdentityLabel({
+      name: "王小明",
+      id: "C-0001",
+      maskedNationalId: "A*****6789",
+    });
+    expect(label).toContain("A*****6789");
+    expect(label).toContain("C-0001");
+    // must never contain a raw national ID (letter + 9 digits)
+    expect(label).not.toMatch(/[A-Z][0-9]{9}/);
+  });
+
+  it("degrades to — when no masked ID is present", () => {
+    const label = fa310IdentityLabel({
+      name: "李四",
+      id: "C-0002",
+      maskedNationalId: null,
+    });
+    expect(label).toContain("身分證 —");
+    expect(label).not.toMatch(/[A-Z][0-9]{9}/);
   });
 });
 

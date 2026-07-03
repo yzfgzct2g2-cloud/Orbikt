@@ -19,8 +19,8 @@ export function Knowledge() {
   return (
     <div>
       <PageHeader
-        title="Knowledge 知識庫"
-        description="長照法規知識平台，七層知識架構，保留可追溯來源。"
+        title="Knowledge 知識庫（實務索引）"
+        description="V1 範圍：實務主題索引（21 主題，含可追溯引用）＋ 完整知識平台外部連結。完整法規／附表／輔具／知識圖譜／AI 問答仍在外部知識平台。"
         action={
           <input
             value={query}
@@ -33,10 +33,11 @@ export function Knowledge() {
 
       <div className="mb-4">
         <IntegrationNotice
-          title="長照法規知識平台"
+          title="Knowledge practical index + external full platform link"
           source={`${knowledgeManager.source} · source-systems/knowledge`}
-          link={{ label: "開啟知識平台", url: knowledgeManager.url }}
+          link={{ label: "開啟完整知識平台", url: knowledgeManager.url }}
         >
+          目前狀態為「實務主題索引 ＋ 完整平台外部連結」，非完整內嵌 Knowledge Hub。
           {knowledgeManager.note} Workspace 會依個案顯示相關主題引用。
         </IntegrationNotice>
       </div>

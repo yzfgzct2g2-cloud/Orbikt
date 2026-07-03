@@ -1,0 +1,17 @@
+{
+  "_note": "Machine-readable single source of truth for external links. The UI reads this via src/config/externalLinks.ts. config/external-links.md is the human-readable companion; keep the two in sync.",
+  "onedrive": {
+    "sharedFolder": "https://eden365-my.sharepoint.com/shared?listurl=https%3A%2F%2Feden365%2Dmy%2Esharepoint%2Ecom%2Fpersonal%2F7428%5Feden%5Forg%5Ftw%2FDocuments&id=%2Fpersonal%2F7428%5Feden%5Forg%5Ftw%2FDocuments%2FA%E5%80%8B%E7%AE%A1&viewid=39d6e591%2D68fc%2D4085%2Da0e6%2D629cfd94cc56"
+  },
+  "googleAppsScript": {
+    "visitManager": "https://script.google.com/macros/s/AKfycbzwseScW25fZtSBJtxd4EsckqkSTtQejpuISBrkGlzmnGvBGiFk2kxKC5gb1ot7Z7WC/exec",
+    "dispatchConsole": "https://longcare-dispatch-api-604629567534.asia-east1.run.app/dashboard"
+  },
+  "github": {
+    "orbikt": "https://github.com/yzfgzct2g2-cloud/Orbikt.git",
+    "aa01": "https://yzfgzct2g2-cloud.github.io/aa01-ai-system/",
+    "knowledge": "https://yzfgzct2g2-cloud.github.io/longcare-knowledge-platform/",
+    "qaEngine": "https://github.com/yzfgzct2g2-cloud/longcare-qa-engine",
+    "authTest": "https://github.com/yzfgzct2g2-cloud/longcare-user-auth"
+  }
+}

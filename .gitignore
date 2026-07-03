@@ -13,3 +13,8 @@ node_modules/.tmp
 # Never commit credentials or service-account keys
 serviceAccountKey.json
 **/serviceAccountKey.json
+
+# source-systems/ are LOCAL reference copies only (their own git repos, node_modules,
+# dist, runtime output, and PII). They must never be committed into the Orbikt repo.
+# See docs/SOURCE_SYSTEMS.md.
+source-systems/

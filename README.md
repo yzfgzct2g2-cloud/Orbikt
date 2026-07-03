@@ -60,4 +60,32 @@ npm run seed:knowledge  # source-systems/knowledge topics -> src/modules/knowled
 - **Privacy:** raw national IDs are read only transiently at import; browser-facing
   data carries `maskedNationalId` only.
 
-Development history is recorded under `project-state/` (checkpoints + phase reviews).
+Development history is recorded under `project-state/` (checkpoints + phase
+reviews); user-facing changes in `CHANGELOG.md`.
+
+## V1.0.1 scope & known limitations
+
+**In scope (working in-app):** Command Center (caseload, today tasks, 30/60-day
+visit warnings, overdue, dispatch status, schedule, documents, notifications);
+Cases list with masked-ID search; Case Workspace with all 8 tabs; AA01 draft
+generation; FA310 review result display with masked-ID identity; Visit/Dispatch
+status; per-case knowledge references; OneDrive document shortcuts.
+
+**Known limitations (external / deferred to V1.1):**
+- **AA01** — engine-integrated **draft mode** only; the full 8-step authoring UI
+  (assessment entry, PDF import, service planning) remains in the external AA01
+  app (linked from the tab).
+- **Knowledge** — a **practical-topics index (21)** with traceable citations plus
+  a link to the **full external knowledge platform**; the full platform
+  (regulations, appendices, assistive devices, knowledge graph, AI Q&A) is not
+  embedded in V1.
+- **Visit Manager / Dispatch / FA310** — read-or-link + adapter seams; live GAS /
+  Dispatch API / QA-Engine calls need external runtime/auth (V1.1).
+- **Documents** — OneDrive link-first; Microsoft Graph deferred to V1.1; some
+  OneDrive sub-folder and Google Calendar links are still pending.
+- **Genogram** — prototype placeholder tab (Case-ID hook ready), not yet embedded.
+- **Auth** — mock auth with the role model; real Firebase/LINE auth is V1.1.
+
+**Archived:** `archive/finance-module/` holds an alternate module-dashboard
+prototype that conflicts with the Blueprint; it is archived (not deleted) and not
+part of the build. See `archive/finance-module/README.md`.

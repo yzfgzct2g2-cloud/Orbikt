@@ -12,7 +12,7 @@ import { visitManager } from "../../modules/visit/visitManager";
 import { dispatchManager } from "../../modules/dispatch/dispatchManager";
 import { generateCaseAA01, planner } from "../../modules/planner/planner";
 import { reviewAdapter } from "../../modules/review/reviewAdapter";
-import { reviewManager } from "../../modules/review/reviewEngine";
+import { reviewManager, fa310IdentityLabel } from "../../modules/review/reviewEngine";
 import type { ReviewResult } from "../../modules/review/reviewTypes";
 import { relatedTopics, knowledgeManager } from "../../modules/knowledge/knowledge";
 import {
@@ -283,6 +283,7 @@ export function AA01Tab({ c }: { c: CaseRecord }) {
             </div>
           </div>
           <div className="flex items-center gap-2">
+            <Badge className="bg-sky-100 text-sky-700">草稿模式 Draft mode</Badge>
             <Badge className={moduleStatusClass[c.aa01Status]}>
               {moduleStatusLabel[c.aa01Status]}
             </Badge>
@@ -297,8 +298,11 @@ export function AA01Tab({ c }: { c: CaseRecord }) {
           </div>
         </div>
         <p className="mt-3 text-xs leading-relaxed text-slate-500">
-          以下草稿由既有 AA01 產生器（vendored，未改寫規則）依 Orbikt 個案資料即時產出。
-          完整評估與服務規劃請於 AA01 撰寫系統進行；此處保留業務邏輯並綁定 Case ID。
+          <span className="font-medium text-slate-700">
+            AA01 engine-integrated draft mode；完整撰寫 UI 仍在外部 AA01 系統。
+          </span>{" "}
+          以下草稿由既有 AA01 產生器（vendored，未改寫規則）依 Orbikt 個案資料即時產出，並綁定
+          Case ID。完整評估輸入、PDF 匯入與服務規劃請於外部 AA01 撰寫系統進行（此處非完整 in-app 撰寫）。
         </p>
       </Card>
 
@@ -378,7 +382,10 @@ export function FA310Tab({ c }: { c: CaseRecord }) {
               FA310 審查（Review）
             </div>
             <div className="mt-0.5 text-xs text-slate-500">
-              審查引擎：{reviewManager.source} · 綁定個案 {c.name}（{c.id}）
+              審查引擎：{reviewManager.source}
+            </div>
+            <div className="mt-0.5 text-xs text-slate-500">
+              身分核對：{fa310IdentityLabel(c)}
             </div>
           </div>
           <div className="flex items-center gap-2">

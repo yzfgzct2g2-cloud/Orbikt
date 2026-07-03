@@ -164,6 +164,7 @@ export function CommandCenter() {
         <div className="mb-4 text-sm text-slate-400">載入中…</div>
       )}
 
+      {/* Required first row: Total Caseload · Today Tasks · 30-Day · 60-Day */}
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Stat
           label="總個案量"
@@ -171,13 +172,28 @@ export function CommandCenter() {
           hint={`${team.length} 位個管員 · team.json 參考 ${totalCaseload}`}
           title={caseloadHint}
         />
-        <Stat label="訪視逾期" value={overdue.length} tone="danger" hint="需儘速安排" />
         <Stat
-          label="30 日內到期"
+          label="今日待辦 Today Tasks"
+          value={openTasks.length}
+          hint="待處理事項"
+        />
+        <Stat
+          label="30 日內訪視"
           value={within30.length}
           tone="warning"
-          hint="即將到期訪視"
+          hint="30-Day Visit Warning"
         />
+        <Stat
+          label="60 日內訪視"
+          value={within60.length}
+          tone="warning"
+          hint="60-Day Visit Warning"
+        />
+      </div>
+
+      {/* Secondary row: overdue stays visible + dispatch attention */}
+      <div className="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <Stat label="訪視逾期" value={overdue.length} tone="danger" hint="需儘速安排" />
         <Stat
           label="派案需關注"
           value={dispatchNeedsAttention.length}
