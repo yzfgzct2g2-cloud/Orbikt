@@ -2,7 +2,7 @@
 
 All notable changes to Orbikt are documented here.
 
-## [Unreleased] — UI upgrade (Codex component library)
+## [1.0.2] - 2026-07-04 — UI upgrade (Codex component library)
 
 Adopted the Codex UI handoff as a **component library only** — the Blueprint
 architecture is unchanged (Command Center homepage, routing/IA, DataAdapters,
@@ -20,6 +20,9 @@ Workspace all preserved).
   `.orbikt-card`, upgrading every page consistently.
 - Command Center KPI row rebuilt with `KpiCard` (30/60 split preserved) and a
   `DonutChart` for dispatch status.
+- The `TopHeader` global search is now functional: submitting navigates to
+  `/cases?q=…`; the Cases page reads `?q=` (via `useSearchParams`) and prefilters
+  (name / caseId / manager / maskedNationalId / last-4). Cases still owns search.
 
 ### Removed
 - The alternate module-dashboard architecture that was NOT adopted:

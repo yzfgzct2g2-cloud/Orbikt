@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { selectUnreadCount, useAppStore } from "../../store/useAppStore";
 
 const roleLabel: Record<string, string> = {
@@ -16,6 +17,14 @@ export function TopHeader() {
   const activeCount = useAppStore(
     (s) => s.cases.filter((c) => c.status === "active").length
   );
+  const navigate = useNavigate();
+  const [q, setQ] = useState("");
+
+  // Global search delegates to the Cases page (which owns the actual filtering).
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    navigate(`/cases?q=${encodeURIComponent(q.trim())}`);
+  };
 
   return (
     <header className="flex min-h-16 items-center justify-between gap-4 border-b border-slate-200 bg-white/85 px-4 backdrop-blur sm:px-6 lg:px-8">
@@ -23,14 +32,16 @@ export function TopHeader() {
         <span className="rounded-xl bg-blue-50 px-3 py-2 text-sm font-bold text-blue-700">
           服務中 {activeCount}
         </span>
-        <label className="min-w-0 flex-1">
-          <span className="sr-only">搜尋</span>
+        <form className="min-w-0 flex-1" onSubmit={submit} role="search">
+          <span className="sr-only">搜尋個案</span>
           <input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
             className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2 text-sm outline-none transition placeholder:text-slate-400 focus:border-blue-300 focus:bg-white"
-            placeholder="搜尋個案 · 姓名 / 編號 / 身分證末四碼（前往 Cases 搜尋）"
+            placeholder="搜尋個案 · 姓名 / 編號 / 身分證末四碼（Enter 進入 Cases）"
             type="search"
           />
-        </label>
+        </form>
       </div>
 
       <div className="flex flex-1 items-center justify-between gap-3 md:flex-none md:justify-end">

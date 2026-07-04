@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { useAppStore } from "../store/useAppStore";
 import { managerName } from "../config/appConfig";
 import { Badge, Card, PageHeader } from "../components/ui/primitives";
@@ -15,7 +15,14 @@ import {
 
 export function Cases() {
   const cases = useAppStore((s) => s.cases);
-  const [query, setQuery] = useState("");
+  // The header search box navigates here with ?q=; Cases owns the actual search.
+  const [searchParams] = useSearchParams();
+  const [query, setQuery] = useState(searchParams.get("q") ?? "");
+
+  useEffect(() => {
+    const q = searchParams.get("q");
+    if (q !== null) setQuery(q);
+  }, [searchParams]);
 
   const filtered = useMemo(() => {
     const q = query.trim();
