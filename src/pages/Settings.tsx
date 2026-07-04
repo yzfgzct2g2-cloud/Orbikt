@@ -1,6 +1,7 @@
 import { useAppStore } from "../store/useAppStore";
 import { team, sourceSystems } from "../config/appConfig";
 import { Badge, Card, CardHeader, PageHeader } from "../components/ui/primitives";
+import { DataSourcesSection } from "./settings/DataSourcesSection";
 import type { Role } from "../adapters/types";
 
 const roles: { value: Role; label: string }[] = [
@@ -22,6 +23,8 @@ export function Settings() {
       />
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <DataSourcesSection />
+
         <Card>
           <CardHeader
             title="目前使用者（Mock Auth）"

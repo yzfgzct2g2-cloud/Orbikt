@@ -11,6 +11,7 @@
 
 import type { DataAdapter } from "./DataAdapter";
 import type {
+  AbnormalItem,
   CaseRecord,
   DispatchInfo,
   DocumentLink,
@@ -22,8 +23,9 @@ import type {
 } from "./types";
 import seed from "../data/seed/cases.generated.json";
 import { availableDocumentLinks } from "../modules/documents/documents";
-
-const SEED_TODAY = "2026-07-02";
+import { SEED_TODAY } from "../config/appTime";
+import { deriveTodayTasks } from "../modules/dashboard/tasks";
+import { deriveAbnormal } from "../modules/dashboard/abnormal";
 
 const cases: CaseRecord[] = seed as CaseRecord[];
 
@@ -116,14 +118,6 @@ function caseTasks(c: CaseRecord): RankedTask[] {
     });
   }
   return out;
-}
-
-function deriveTasks(all: CaseRecord[]): TaskItem[] {
-  return all
-    .flatMap(caseTasks)
-    .sort((a, b) => a.rank - b.rank || (a.due < b.due ? -1 : 1))
-    .slice(0, 15)
-    .map(stripRank);
 }
 
 function deriveNotifications(all: CaseRecord[]): NotificationItem[] {
@@ -275,7 +269,12 @@ export class Cs100DataAdapter implements DataAdapter {
   }
 
   async listTasks(): Promise<TaskItem[]> {
-    return deriveTasks(cases);
+    // Forward-looking planned work for today (not overdue items).
+    return deriveTodayTasks(cases, deriveSchedule(cases, SEED_TODAY), SEED_TODAY);
+  }
+
+  async listAbnormal(): Promise<AbnormalItem[]> {
+    return deriveAbnormal(cases);
   }
 
   async listCaseTasks(caseId: string): Promise<TaskItem[]> {

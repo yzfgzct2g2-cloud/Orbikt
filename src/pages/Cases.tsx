@@ -24,6 +24,10 @@ export function Cases() {
     if (q !== null) setQuery(q);
   }, [searchParams]);
 
+  const [sortKey, setSortKey] = useState<"name" | "cms" | "visit" | "manager">(
+    "visit"
+  );
+
   const filtered = useMemo(() => {
     const q = query.trim();
     if (!q) return cases;
@@ -43,18 +47,59 @@ export function Cases() {
     });
   }, [cases, query]);
 
+  // Triage-oriented sort (registry). Default = visit urgency for triage.
+  const visitRank: Record<string, number> = {
+    overdue: 0,
+    within_30: 1,
+    within_60: 2,
+    scheduled: 3,
+    normal: 4,
+    completed: 5,
+  };
+  const sorted = useMemo(() => {
+    const list = [...filtered];
+    list.sort((a, b) => {
+      if (sortKey === "name") return a.name.localeCompare(b.name);
+      if (sortKey === "cms") return (b.cmsLevel ?? -1) - (a.cmsLevel ?? -1);
+      if (sortKey === "manager")
+        return managerName(a.managerId).localeCompare(managerName(b.managerId));
+      // visit urgency
+      return (
+        (visitRank[a.visit.status] ?? 9) - (visitRank[b.visit.status] ?? 9) ||
+        (a.visit.remainingDays ?? 0) - (b.visit.remainingDays ?? 0)
+      );
+    });
+    return list;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filtered, sortKey]);
+
   return (
     <div>
       <PageHeader
-        title="Cases 個案"
-        description="所有個案的單一清單。點選任一個案進入其 Workspace。"
+        title="Cases 個案登記冊"
+        description={`個案登記與分流（registry / triage）· 共 ${sorted.length} 筆。搜尋、排序後點選個案進入其 Workspace。`}
         action={
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="搜尋姓名 / 編號 / 個管員 / 身分證末四碼"
-            className="w-64 rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-orbit-500"
-          />
+          <div className="flex items-center gap-2">
+            <select
+              value={sortKey}
+              onChange={(e) =>
+                setSortKey(e.target.value as typeof sortKey)
+              }
+              className="rounded-lg border border-slate-200 px-2 py-2 text-sm outline-none focus:border-blue-500"
+              aria-label="排序"
+            >
+              <option value="visit">排序：訪視急迫</option>
+              <option value="cms">排序：CMS 高到低</option>
+              <option value="name">排序：姓名</option>
+              <option value="manager">排序：個管員</option>
+            </select>
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="搜尋姓名 / 編號 / 個管員 / 身分證末四碼"
+              className="w-64 rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-blue-500"
+            />
+          </div>
         }
       />
 
@@ -76,7 +121,7 @@ export function Cases() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
-              {filtered.map((c) => (
+              {sorted.map((c) => (
                 <tr key={c.id} className="hover:bg-slate-50">
                   <td className="px-5 py-3">
                     <Link
@@ -122,7 +167,7 @@ export function Cases() {
                   </td>
                 </tr>
               ))}
-              {filtered.length === 0 && (
+              {sorted.length === 0 && (
                 <tr>
                   <td colSpan={10} className="px-5 py-8 text-center text-slate-400">
                     找不到符合條件的個案。

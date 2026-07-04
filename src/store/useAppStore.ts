@@ -5,6 +5,7 @@
 import { create } from "zustand";
 import { dataAdapter } from "../adapters";
 import type {
+  AbnormalItem,
   CaseRecord,
   NotificationItem,
   Role,
@@ -30,6 +31,7 @@ interface AppState {
   currentUser: SessionUser;
   cases: CaseRecord[];
   tasks: TaskItem[];
+  abnormal: AbnormalItem[];
   notifications: NotificationItem[];
   loaded: boolean;
   loading: boolean;
@@ -45,6 +47,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   currentUser: defaultUser,
   cases: [],
   tasks: [],
+  abnormal: [],
   notifications: [],
   loaded: false,
   loading: false,
@@ -54,12 +57,13 @@ export const useAppStore = create<AppState>((set, get) => ({
     if (get().loading) return;
     set({ loading: true, error: null });
     try {
-      const [cases, tasks, notifications] = await Promise.all([
+      const [cases, tasks, abnormal, notifications] = await Promise.all([
         dataAdapter.listCases(),
         dataAdapter.listTasks(),
+        dataAdapter.listAbnormal(),
         dataAdapter.listNotifications(),
       ]);
-      set({ cases, tasks, notifications, loaded: true, loading: false });
+      set({ cases, tasks, abnormal, notifications, loaded: true, loading: false });
     } catch (err) {
       set({
         loading: false,

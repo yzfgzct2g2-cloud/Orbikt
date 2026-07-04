@@ -2,10 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppStore } from "../store/useAppStore";
 import { dataAdapter } from "../adapters";
-import { team, managerName } from "../config/appConfig";
-import { Badge, Card, CardHeader, PageHeader } from "../components/ui/primitives";
-import { KpiCard } from "../components/dashboard/KpiCard";
-import { DashboardSection } from "../components/dashboard/DashboardSection";
+import { team } from "../config/appConfig";
+import { EisenhowerMatrix } from "../components/dashboard/EisenhowerMatrix";
 import { DonutChart } from "../components/charts/DonutChart";
 import type { DonutSlice } from "../components/charts/chartTypes";
 import { caseloadByManager } from "../lib/caseload";
@@ -16,25 +14,76 @@ import {
   dispatchManager,
 } from "../modules/dispatch/dispatchManager";
 import {
-  dispatchStatusClass,
   dispatchStatusLabel,
   visitStatusClass,
   visitStatusLabel,
 } from "../lib/labels";
-import type {
-  CaseRecord,
-  DocumentLink,
-  ScheduleEvent,
-} from "../adapters/types";
+import type { ScheduleEvent } from "../adapters/types";
 
-const scheduleKindClass: Record<string, string> = {
-  visit: "bg-orange-100 text-orange-700",
-  meeting: "bg-sky-100 text-sky-700",
-  review: "bg-amber-100 text-amber-700",
-  personal: "bg-slate-100 text-slate-600",
-};
+// --- compact building blocks ---------------------------------------------
 
-function hhmm(iso: string): string {
+function StatChip({
+  label,
+  value,
+  tone = "default",
+  to,
+  title,
+}: {
+  label: string;
+  value: number | string;
+  tone?: "default" | "primary" | "warning" | "danger";
+  to?: string;
+  title?: string;
+}) {
+  const toneClass = {
+    default: "text-slate-900",
+    primary: "text-blue-700",
+    warning: "text-orange-600",
+    danger: "text-red-600",
+  }[tone];
+  const inner = (
+    <div className="orbikt-card orbikt-card-hover px-3 py-2" title={title}>
+      <div className="text-[11px] font-semibold text-slate-500">{label}</div>
+      <div className={`mt-0.5 text-2xl font-bold leading-none ${toneClass}`}>
+        {value}
+      </div>
+    </div>
+  );
+  return to ? <Link to={to}>{inner}</Link> : inner;
+}
+
+function Panel({
+  title,
+  count,
+  action,
+  children,
+  bodyClass = "max-h-56 overflow-y-auto",
+}: {
+  title: string;
+  count?: number;
+  action?: React.ReactNode;
+  children: React.ReactNode;
+  bodyClass?: string;
+}) {
+  return (
+    <section className="orbikt-card flex flex-col">
+      <div className="flex items-center justify-between border-b border-slate-100 px-3 py-2">
+        <div className="text-sm font-bold text-slate-900">
+          {title}
+          {count !== undefined && (
+            <span className="ml-1.5 text-xs font-semibold text-slate-400">
+              {count}
+            </span>
+          )}
+        </div>
+        {action}
+      </div>
+      <div className={`p-2 ${bodyClass}`}>{children}</div>
+    </section>
+  );
+}
+
+function hhmm(iso: string) {
   return new Date(iso).toLocaleTimeString("zh-TW", {
     hour: "2-digit",
     minute: "2-digit",
@@ -42,81 +91,37 @@ function hhmm(iso: string): string {
   });
 }
 
-function CaseRow({ c }: { c: CaseRecord }) {
-  return (
-    <Link
-      to={`/workspace/${c.id}`}
-      className="flex items-center justify-between gap-3 rounded-lg px-3 py-2 hover:bg-slate-50"
-    >
-      <div className="min-w-0">
-        <div className="truncate text-sm font-medium text-slate-900">
-          {c.name}
-          <span className="ml-2 text-xs text-slate-400">{c.id}</span>
-        </div>
-        <div className="truncate text-xs text-slate-500">
-          {managerName(c.managerId)} · CMS {c.cmsLevel ?? "—"}
-        </div>
-      </div>
-      <Badge className={visitStatusClass[c.visit.status]}>
-        {visitStatusLabel[c.visit.status]}
-      </Badge>
-    </Link>
-  );
-}
+const abnormalTone: Record<string, string> = {
+  high: "bg-red-500",
+  medium: "bg-amber-500",
+  low: "bg-slate-400",
+};
 
-function VisitWarningRow({ c }: { c: CaseRecord }) {
-  return (
-    <Link
-      to={`/workspace/${c.id}/visit`}
-      className="flex items-center justify-between gap-3 rounded-lg px-3 py-2 hover:bg-slate-50"
-    >
-      <div className="min-w-0">
-        <div className="truncate text-sm font-medium text-slate-900">
-          {c.name}
-          <span className="ml-2 text-xs text-slate-400">
-            {managerName(c.managerId)}
-          </span>
-        </div>
-        <div className="truncate text-xs text-slate-500">
-          下次 {c.visit.nextDueDate ?? "—"} · 剩 {c.visit.remainingDays ?? "—"} 天
-        </div>
-      </div>
-      <Badge className={visitStatusClass[c.visit.status]}>
-        {visitStatusLabel[c.visit.status]}
-      </Badge>
-    </Link>
-  );
-}
+// --- page -----------------------------------------------------------------
 
 export function CommandCenter() {
   const cases = useAppStore((s) => s.cases);
   const tasks = useAppStore((s) => s.tasks);
-  const notifications = useAppStore((s) => s.notifications);
+  const abnormal = useAppStore((s) => s.abnormal);
+  const userName = useAppStore((s) => s.currentUser.name);
   const loaded = useAppStore((s) => s.loaded);
 
-  const userName = useAppStore((s) => s.currentUser.name);
-
   const [schedule, setSchedule] = useState<ScheduleEvent[]>([]);
-  const [documents, setDocuments] = useState<DocumentLink[]>([]);
   useEffect(() => {
     void dataAdapter.listSchedule().then(setSchedule);
-    void dataAdapter.listDocuments().then(setDocuments);
   }, []);
 
   const totalCaseload = team.reduce((sum, m) => sum + m.caseload, 0);
-  // Visit warnings come from the Visit Manager module (single SSOT code path).
-  const visitBuckets = bucketVisitWarnings(cases);
-  const within30 = visitBuckets.within_30;
-  const within60 = visitBuckets.within_60;
-  const overdue = visitBuckets.overdue;
+  const buckets = bucketVisitWarnings(cases);
   const dispatchNeedsAttention = dispatchAttention(cases);
   const openTasks = tasks.filter((t) => !t.done);
-  const recentCases = [...cases]
-    .sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1))
-    .slice(0, 5);
 
-  // Dispatch status breakdown (single dispatch module code path).
-  const dispatchStatusCounts = dispatchCounts(cases);
+  const caseloadHint =
+    `team.json 參考 ${totalCaseload} · ` +
+    caseloadByManager(cases, team)
+      .map((c) => `${c.name} ${c.assigned}`)
+      .join(" · ");
+
   const dispatchColor: Record<string, string> = {
     dispatching: "#0ea5e9",
     waiting: "#f59e0b",
@@ -126,7 +131,7 @@ export function CommandCenter() {
     accepted: "#22c55e",
     closed: "#64748b",
   };
-  const dispatchDonut: DonutSlice[] = dispatchStatusCounts.map(
+  const dispatchDonut: DonutSlice[] = dispatchCounts(cases).map(
     ({ status, count }) => ({
       id: status,
       label: dispatchStatusLabel[status],
@@ -135,350 +140,206 @@ export function CommandCenter() {
     })
   );
 
-  const caseloads = caseloadByManager(cases, team);
-  const maxRef = Math.max(1, ...caseloads.map((c) => c.reference));
-  const caseloadHint = caseloads
-    .map((c) => `${c.name} ${c.assigned}`)
-    .join(" · ");
+  const visitQuick = [...buckets.within_30, ...buckets.within_60];
 
   return (
-    <div>
-      <PageHeader
-        title="Command Center"
-        description={`${userName}，今天該做什麼？逾期訪視、派案異常與待辦一次掌握。`}
-      />
+    <div className="flex flex-col gap-3">
+      <div className="flex items-baseline justify-between">
+        <h1 className="text-xl font-bold text-slate-900">Command Center</h1>
+        <span className="text-xs text-slate-500">
+          {userName} · 今天該做什麼？{!loaded && "載入中…"}
+        </span>
+      </div>
 
-      {!loaded && (
-        <div className="mb-4 text-sm text-slate-400">載入中…</div>
-      )}
-
-      {/* Required first row: Total Caseload · Today Tasks · 30-Day · 60-Day */}
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <KpiCard
-          label="總個案量"
+      {/* KPI strip — compact, single row */}
+      <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
+        <StatChip
+          label="總案量"
           value={cases.length}
           tone="primary"
-          hint={`${team.length} 位個管員 · team.json 參考 ${totalCaseload}`}
           title={caseloadHint}
         />
-        <KpiCard
-          label="今日待辦 Today Tasks"
-          value={openTasks.length}
-          hint="待處理事項"
-        />
-        <KpiCard
-          label="30 日內訪視"
-          value={within30.length}
+        <StatChip label="逾期" value={buckets.overdue.length} tone="danger" />
+        <StatChip
+          label="30 日訪視"
+          value={buckets.within_30.length}
           tone="warning"
-          hint="30-Day Visit Warning"
         />
-        <KpiCard
-          label="60 日內訪視"
-          value={within60.length}
+        <StatChip
+          label="60 日訪視"
+          value={buckets.within_60.length}
           tone="warning"
-          hint="60-Day Visit Warning"
         />
-      </div>
-
-      {/* Secondary row: overdue stays visible + dispatch attention */}
-      <div className="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <KpiCard
-          label="訪視逾期"
-          value={overdue.length}
-          tone="danger"
-          hint="需儘速安排"
-        />
-        <KpiCard
-          label="派案需關注"
+        <StatChip
+          label="派案關注"
           value={dispatchNeedsAttention.length}
           tone="warning"
-          hint="Timeout／無人力／人工"
         />
+        <StatChip label="今日待辦" value={openTasks.length} tone="primary" />
       </div>
 
-      <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {/* Today tasks */}
-        <Card className="lg:col-span-2">
-          <CardHeader
-            title="今日待辦 Today Tasks"
-            subtitle={`${openTasks.length} 項待處理`}
-          />
-          <div className="divide-y divide-slate-100">
-            {openTasks.map((t) => (
-              <div
-                key={t.id}
-                className="flex items-center justify-between gap-3 px-5 py-3"
-              >
-                <div className="min-w-0">
-                  <div className="truncate text-sm text-slate-800">
-                    {t.title}
-                  </div>
-                  <div className="text-xs text-slate-400">
-                    到期 {t.due}
-                    {t.caseId && (
-                      <>
-                        {" · "}
-                        <Link
-                          to={`/workspace/${t.caseId}`}
-                          className="text-orbit-600 hover:underline"
-                        >
-                          進入 Workspace
-                        </Link>
-                      </>
-                    )}
-                  </div>
-                </div>
-                <Badge className="bg-slate-100 text-slate-600">{t.type}</Badge>
-              </div>
-            ))}
-            {openTasks.length === 0 && (
-              <div className="px-5 py-6 text-sm text-slate-400">
-                目前沒有待辦事項。
-              </div>
-            )}
-          </div>
-        </Card>
+      {/* Main dense grid — panels scroll internally, page stays ~one screen */}
+      <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
+        {/* Today Tasks (forward-looking) */}
+        <Panel title="今日待辦 Today Tasks" count={openTasks.length}>
+          {openTasks.map((t) => (
+            <TaskRow key={t.id} to={t.to} type={t.type} title={t.title} due={t.due} />
+          ))}
+          {openTasks.length === 0 && <Empty text="今日暫無安排的工作。" />}
+        </Panel>
 
-        {/* Notifications preview */}
-        <Card>
-          <CardHeader
-            title="通知 Notifications"
-            action={
-              <Link
-                to="/notifications"
-                className="text-xs font-medium text-orbit-600 hover:underline"
-              >
-                全部
-              </Link>
-            }
-          />
-          <div className="divide-y divide-slate-100">
-            {notifications.slice(0, 4).map((n) => (
-              <div key={n.id} className="px-5 py-3">
-                <div className="flex items-center gap-2">
-                  {!n.read && (
-                    <span className="h-2 w-2 rounded-full bg-orbit-500" />
-                  )}
-                  <span className="text-sm font-medium text-slate-800">
-                    {n.title}
-                  </span>
-                </div>
-                <p className="mt-1 text-xs text-slate-500">{n.body}</p>
-              </div>
-            ))}
-          </div>
-        </Card>
+        {/* Abnormal notifications */}
+        <Panel
+          title="異常通知 Abnormal"
+          count={abnormal.length}
+          action={
+            <Link
+              to="/notifications"
+              className="text-[11px] font-medium text-blue-600 hover:underline"
+            >
+              通知中心
+            </Link>
+          }
+        >
+          {abnormal.map((a) => (
+            <Link
+              key={a.id}
+              to={a.to}
+              className="flex items-center gap-2 rounded-md px-2 py-1 hover:bg-slate-50"
+            >
+              <span className={`h-2 w-2 shrink-0 rounded-full ${abnormalTone[a.severity]}`} />
+              <span className="min-w-0 flex-1">
+                <span className="text-xs font-medium text-slate-800">{a.title}</span>
+                <span className="ml-1 truncate text-[11px] text-slate-400">{a.body}</span>
+              </span>
+            </Link>
+          ))}
+          {abnormal.length === 0 && <Empty text="目前沒有異常。" />}
+        </Panel>
+
+        {/* Eisenhower Matrix */}
+        <Panel title="艾森豪矩陣 Eisenhower" bodyClass="max-h-72 overflow-y-auto">
+          <EisenhowerMatrix cases={cases} />
+        </Panel>
       </div>
 
-      {/* Today schedule — Calendar adapter (Google Calendar / ICS-ready) */}
-      <div className="mt-6">
-        <Card>
-          <CardHeader
-            title="今日行程 Today Schedule"
-            subtitle="來源：行事曆（Google Calendar / ICS-ready）"
-          />
-          <div className="divide-y divide-slate-100">
-            {schedule.map((ev) => (
-              <div
-                key={ev.id}
-                className="flex items-center gap-4 px-5 py-3"
-              >
-                <div className="w-14 shrink-0 text-sm font-semibold text-slate-700">
-                  {hhmm(ev.start)}
-                </div>
-                <Badge className={scheduleKindClass[ev.kind]}>{ev.kind}</Badge>
-                <div className="min-w-0 flex-1">
-                  <div className="truncate text-sm text-slate-800">
-                    {ev.caseId ? (
-                      <Link
-                        to={`/workspace/${ev.caseId}`}
-                        className="hover:text-orbit-600"
-                      >
-                        {ev.title}
-                      </Link>
-                    ) : (
-                      ev.title
-                    )}
-                  </div>
-                  {ev.location && (
-                    <div className="truncate text-xs text-slate-400">
-                      {ev.location}
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
-            {schedule.length === 0 && (
-              <div className="px-5 py-6 text-sm text-slate-400">
-                今日沒有行程。
-              </div>
-            )}
-          </div>
-        </Card>
-      </div>
-
-      <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {/* Visit warnings — SSOT: Visit Manager */}
-        <Card>
-          <CardHeader
-            title="訪視警戒 Visit Warnings"
-            subtitle={`SSOT：${visitManager.source}（僅讀取）`}
-            action={
-              <a
-                href={visitManager.url}
-                target="_blank"
-                rel="noreferrer"
-                className="text-xs font-medium text-orbit-600 hover:underline"
-              >
-                開啟 ↗
-              </a>
-            }
-          />
-          <div className="px-5 py-4">
-            <div className="mb-2 text-xs font-semibold text-orange-600">
-              30 日內（{within30.length}）
-            </div>
-            {within30.slice(0, 6).map((c) => (
-              <VisitWarningRow key={c.id} c={c} />
-            ))}
-            {within30.length > 6 && (
-              <div className="px-3 pt-1 text-xs text-slate-400">
-                …另有 {within30.length - 6} 筆
-              </div>
-            )}
-            <div className="mb-2 mt-4 text-xs font-semibold text-amber-600">
-              60 日內（{within60.length}）
-            </div>
-            {within60.slice(0, 6).map((c) => (
-              <VisitWarningRow key={c.id} c={c} />
-            ))}
-            {within60.length > 6 && (
-              <div className="px-3 pt-1 text-xs text-slate-400">
-                …另有 {within60.length - 6} 筆
-              </div>
-            )}
-          </div>
-        </Card>
-
-        {/* Dispatch status — external */}
-        <DashboardSection
+      {/* Secondary dense row */}
+      <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
+        {/* Dispatch status */}
+        <Panel
           title="派案狀態 Dispatch"
-          subtitle={`來源：${dispatchManager.source}（${dispatchManager.status}）`}
           action={
             <a
               href={dispatchManager.url}
               target="_blank"
               rel="noreferrer"
-              className="text-xs font-medium text-blue-600 hover:underline"
+              className="text-[11px] font-medium text-blue-600 hover:underline"
             >
-              開啟 ↗
+              主控台 ↗
             </a>
           }
         >
-          <div className="mb-4">
+          <div className="scale-90">
             <DonutChart slices={dispatchDonut} />
           </div>
-          <div className="space-y-2">
-            {dispatchStatusCounts.map(({ status, count }) => (
-              <div
-                key={status}
-                className="flex items-center justify-between text-sm"
-              >
-                <Badge className={dispatchStatusClass[status]}>
-                  {dispatchStatusLabel[status]}
-                </Badge>
-                <span className="font-medium text-slate-700">{count}</span>
-              </div>
-            ))}
-          </div>
-        </DashboardSection>
+        </Panel>
 
-        {/* Recent cases */}
-        <Card>
-          <CardHeader
-            title="近期個案 Recent Cases"
-            action={
-              <Link
-                to="/cases"
-                className="text-xs font-medium text-orbit-600 hover:underline"
-              >
-                全部
-              </Link>
-            }
-          />
-          <div className="px-3 py-3">
-            {recentCases.map((c) => (
-              <CaseRow key={c.id} c={c} />
-            ))}
-          </div>
-        </Card>
-      </div>
+        {/* Schedule */}
+        <Panel title="今日行程 Schedule" count={schedule.length}>
+          {schedule.map((ev) => (
+            <div key={ev.id} className="flex items-center gap-2 px-2 py-1">
+              <span className="w-10 shrink-0 text-[11px] font-semibold text-slate-600">
+                {hhmm(ev.start)}
+              </span>
+              {ev.caseId ? (
+                <Link
+                  to={`/workspace/${ev.caseId}`}
+                  className="truncate text-xs text-slate-800 hover:text-blue-600"
+                >
+                  {ev.title}
+                </Link>
+              ) : (
+                <span className="truncate text-xs text-slate-800">{ev.title}</span>
+              )}
+            </div>
+          ))}
+          {schedule.length === 0 && <Empty text="今日沒有行程。" />}
+        </Panel>
 
-      <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {/* Caseload by manager — Case data vs team.json reference */}
-        <Card className="lg:col-span-2">
-          <CardHeader
-            title="團隊案量 Caseload by Manager"
-            subtitle="來源：個案資料（實際）vs team.json（參考）"
-          />
-          <div className="space-y-3 px-5 py-4">
-            {caseloads.map((m) => (
-              <div key={m.managerId}>
-                <div className="mb-1 flex items-center justify-between text-sm">
-                  <span className="font-medium text-slate-700">{m.name}</span>
-                  <span className="text-slate-500">
-                    {m.assigned}
-                    <span className="text-slate-300"> / {m.reference}</span>
-                  </span>
-                </div>
-                <div className="h-2 overflow-hidden rounded-full bg-slate-100">
-                  <div
-                    className="h-full rounded-full bg-orbit-500"
-                    style={{
-                      width: `${Math.min(100, (m.assigned / maxRef) * 100)}%`,
-                    }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </Card>
-
-        {/* Documents — OneDrive link-first */}
-        <Card>
-          <CardHeader
-            title="文件 Documents"
-            subtitle="來源：OneDrive 共用資料夾"
-            action={
-              <Link
-                to="/documents"
-                className="text-xs font-medium text-orbit-600 hover:underline"
+        {/* Visit warnings quick list (SSOT: Visit Manager) */}
+        <Panel
+          title="訪視警戒 Visit"
+          count={visitQuick.length}
+          action={
+            <a
+              href={visitManager.url}
+              target="_blank"
+              rel="noreferrer"
+              className="text-[11px] font-medium text-blue-600 hover:underline"
+            >
+              SSOT ↗
+            </a>
+          }
+        >
+          {visitQuick.slice(0, 12).map((c) => (
+            <Link
+              key={c.id}
+              to={`/workspace/${c.id}/visit`}
+              className="flex items-center justify-between gap-2 rounded-md px-2 py-1 hover:bg-slate-50"
+            >
+              <span className="truncate text-xs text-slate-800">
+                {c.name}
+                <span className="ml-1 text-[11px] text-slate-400">
+                  剩 {c.visit.remainingDays ?? "—"} 天
+                </span>
+              </span>
+              <span
+                className={`shrink-0 rounded-full px-1.5 py-0.5 text-[10px] font-medium ${visitStatusClass[c.visit.status]}`}
               >
-                全部
-              </Link>
-            }
-          />
-          <div className="divide-y divide-slate-100">
-            {documents.map((d) => (
-              <a
-                key={d.id}
-                href={d.url}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center justify-between px-5 py-3 text-sm hover:bg-slate-50"
-              >
-                <span className="truncate text-slate-700">{d.label}</span>
-                <span className="shrink-0 text-orbit-600">開啟 ↗</span>
-              </a>
-            ))}
-            {documents.length === 0 && (
-              <div className="px-5 py-6 text-sm text-slate-400">
-                尚無文件捷徑。
-              </div>
-            )}
-          </div>
-        </Card>
+                {visitStatusLabel[c.visit.status]}
+              </span>
+            </Link>
+          ))}
+          {visitQuick.length === 0 && <Empty text="無 30/60 日內訪視。" />}
+        </Panel>
       </div>
     </div>
   );
+}
+
+const taskTypeLabel: Record<string, string> = {
+  meeting: "會議",
+  visit: "家訪",
+  plan: "計畫",
+  dispatch: "派案",
+  review: "審查",
+  document: "文件",
+  general: "一般",
+};
+
+function TaskRow({
+  to,
+  type,
+  title,
+  due,
+}: {
+  to?: string;
+  type: string;
+  title: string;
+  due: string;
+}) {
+  const body = (
+    <div className="flex items-center gap-2 rounded-md px-2 py-1 hover:bg-slate-50">
+      <span className="shrink-0 rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-600">
+        {taskTypeLabel[type] ?? type}
+      </span>
+      <span className="min-w-0 flex-1 truncate text-xs text-slate-800">{title}</span>
+      <span className="shrink-0 text-[10px] text-slate-400">{due}</span>
+    </div>
+  );
+  return to ? <Link to={to}>{body}</Link> : body;
+}
+
+function Empty({ text }: { text: string }) {
+  return <div className="px-2 py-3 text-xs text-slate-400">{text}</div>;
 }

@@ -46,14 +46,31 @@ describe("Cs100DataAdapter", () => {
     expect(visit).toEqual(sample.visit);
   });
 
-  it("derives tasks that reference real cases", async () => {
+  it("returns forward-looking Today Tasks (no overdue-day items) referencing real cases", async () => {
     const cases = await adapter.listCases();
     const ids = new Set(cases.map((c) => c.id));
     const tasks = await adapter.listTasks();
     expect(tasks.length).toBeGreaterThan(0);
     for (const t of tasks) {
       expect(t.caseId === null || ids.has(t.caseId)).toBe(true);
+      // Today Tasks must NOT be defined as "overdue X days".
+      expect(t.title).not.toMatch(/逾期/);
+      expect(["visit", "meeting", "plan", "dispatch", "general"]).toContain(t.type);
     }
+  });
+
+  it("returns abnormal notifications (異常通知) that reference real cases", async () => {
+    const cases = await adapter.listCases();
+    const ids = new Set(cases.map((c) => c.id));
+    const abnormal = await adapter.listAbnormal();
+    expect(abnormal.length).toBeGreaterThan(0);
+    for (const a of abnormal) {
+      expect(a.caseId === null || ids.has(a.caseId)).toBe(true);
+      expect(["high", "medium", "low"]).toContain(a.severity);
+      expect(a.to).toMatch(/^\//);
+    }
+    // overdue lives in abnormal, not tasks
+    expect(abnormal.some((a) => a.kind === "overdue_visit")).toBe(true);
   });
 
   it("returns per-case tasks scoped to one case (uncapped)", async () => {

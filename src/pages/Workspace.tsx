@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { dataAdapter } from "../adapters";
 import type { CaseRecord } from "../adapters/types";
 import { managerName } from "../config/appConfig";
-import { Badge, Card } from "../components/ui/primitives";
+import { Card } from "../components/ui/primitives";
 import { caseStatusLabel } from "../lib/labels";
 import { defaultTab, workspaceTabs } from "./workspace/tabs";
 
@@ -93,28 +93,35 @@ export function Workspace() {
 
   return (
     <div>
-      {/* Case header — the constant context for all Workspace work */}
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-              {c.name}
-            </h1>
-            <Badge className="bg-orbit-50 text-orbit-700">{c.id}</Badge>
-            <Badge className="bg-slate-100 text-slate-600">
-              {caseStatusLabel[c.status]}
-            </Badge>
+      {/* Case-file banner — visually distinct from the Cases registry; signals
+          "you are inside a case file", the operating surface for one case. */}
+      <div className="mb-4 rounded-2xl bg-gradient-to-r from-orbit-900 to-orbit-700 px-5 py-4 text-white shadow-sm">
+        <div className="flex items-center justify-between">
+          <div className="text-[11px] font-semibold uppercase tracking-wider text-white/60">
+            個案工作檔 Case File
           </div>
-          <p className="mt-1 text-sm text-slate-500">
-            個管員 {managerName(c.managerId)} · CMS {c.cmsLevel ?? "—"}
-          </p>
+          <Link
+            to="/cases"
+            className="text-xs font-medium text-white/70 hover:text-white"
+          >
+            ← 返回登記冊
+          </Link>
         </div>
-        <Link
-          to="/cases"
-          className="text-sm font-medium text-slate-500 hover:text-orbit-600"
-        >
-          ← 個案清單
-        </Link>
+        <div className="mt-1 flex flex-wrap items-center gap-3">
+          <h1 className="text-2xl font-bold tracking-tight">{c.name}</h1>
+          <span className="rounded-full bg-white/15 px-2 py-0.5 text-xs font-semibold">
+            {c.id}
+          </span>
+          <span className="rounded-full bg-white/15 px-2 py-0.5 text-xs font-semibold">
+            {caseStatusLabel[c.status]}
+          </span>
+        </div>
+        <div className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 text-xs text-white/80">
+          <span>個管員 {managerName(c.managerId)}</span>
+          <span>CMS {c.cmsLevel ?? "—"}</span>
+          <span>身分證 {c.maskedNationalId ?? "—"}</span>
+          {c.area && <span>{c.area}</span>}
+        </div>
       </div>
 
       {/* Tab bar */}

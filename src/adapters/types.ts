@@ -97,7 +97,14 @@ export interface CaseRecord {
   idLookupHash?: string;
 }
 
-export type TaskType = "visit" | "review" | "dispatch" | "document" | "general";
+export type TaskType =
+  | "visit"
+  | "review"
+  | "dispatch"
+  | "document"
+  | "general"
+  | "meeting"
+  | "plan";
 
 export interface TaskItem {
   id: string;
@@ -106,6 +113,32 @@ export interface TaskItem {
   due: string; // ISO date
   type: TaskType;
   done: boolean;
+  to?: string; // navigation target (route)
+}
+
+// Abnormal notifications (異常通知) surfaced on the Command Center — distinct
+// from forward-looking Today Tasks. These are things that are WRONG and need
+// attention, not planned work.
+export type AbnormalKind =
+  | "overdue_visit"
+  | "dispatch_timeout"
+  | "dispatch_no_capacity"
+  | "missing_aa01"
+  | "fa310_failed"
+  | "data_mismatch"
+  | "missing_source"
+  | "import_abnormal";
+
+export type AbnormalSeverity = "high" | "medium" | "low";
+
+export interface AbnormalItem {
+  id: string;
+  kind: AbnormalKind;
+  title: string;
+  body: string;
+  severity: AbnormalSeverity;
+  caseId: string | null;
+  to: string; // where clicking navigates
 }
 
 export type NotificationKind = "visit" | "dispatch" | "review" | "system";

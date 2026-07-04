@@ -11,6 +11,7 @@
 //   • Dispatch status comes FROM the external Dispatch system. Read-only in V1.
 
 import type {
+  AbnormalItem,
   CaseRecord,
   DispatchInfo,
   DocumentLink,
@@ -35,8 +36,11 @@ export interface DataAdapter {
   getDispatch(caseId: string): Promise<DispatchInfo | null>;
 
   // Command Center / cross-case
+  // Today Tasks — forward-looking planned work for today (NOT overdue items).
   listTasks(): Promise<TaskItem[]>;
-  // Workspace: open tasks for a single case (uncapped).
+  // Abnormal notifications (異常通知) — things that are wrong and need attention.
+  listAbnormal(): Promise<AbnormalItem[]>;
+  // Workspace: open action items for a single case.
   listCaseTasks(caseId: string): Promise<TaskItem[]>;
   listNotifications(): Promise<NotificationItem[]>;
   listDocuments(): Promise<DocumentLink[]>;

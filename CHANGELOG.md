@@ -2,6 +2,38 @@
 
 All notable changes to Orbikt are documented here.
 
+## [1.0.3] - 2026-07-04 — Acceptance Correction Sprint
+
+### Added
+- **Settings ▸ Data Sources** — CS100 + FA310 source status, last imported time,
+  record count, import report link, safe-import instructions, and raw (`input/`)
+  vs sanitized (`generated/`) locations. No browser upload of raw PII.
+- **Eisenhower Matrix** on the Command Center — classifies overdue visits,
+  dispatch timeouts, FA310 failures, AA01 unfinished/missing, and visit warnings
+  into the four quadrants; each item links to the relevant case/tab.
+- **異常通知 (Abnormal Notifications)** on the Command Center — overdue visits,
+  dispatch timeout/no-capacity, missing AA01, FA310 failed, and source/import
+  issues. Global Notifications page retained.
+- **FA310 ↔ CS100 case-manager matching rule** (`docs/DATA_MATCHING.md` +
+  `src/modules/data/caseManagerMatch.ts`): manager determined primarily from
+  FA310 (national ID → case → name), CS100 as secondary; raw ID import-time only,
+  browser exposes only `maskedNationalId`.
+
+### Changed
+- **Command Center rebuilt as a compact one-screen-first dashboard**: KPI strip
+  (caseload / overdue / 30-day / 60-day / dispatch / today tasks) + dense panels
+  (Today Tasks, 異常通知, Eisenhower, Dispatch, Schedule, Visit) with internal
+  scrolling instead of long page scroll.
+- **Today Tasks are now forward-looking** (meetings, care plans to complete,
+  dispatch follow-ups, scheduled visits) — overdue items moved to 異常通知.
+- **Cases vs Workspace distinction**: Cases is now a registry/triage list
+  ("個案登記冊") with sort (visit urgency / CMS / name / manager) + count;
+  Workspace gets a distinct "case file" banner (masked ID, manager, CMS, status).
+
+### Notes
+- Header global search continues to support case name / id / maskedNationalId /
+  last-4 (v1.0.2). No raw national ID appears in browser-facing data.
+
 ## [1.0.2] - 2026-07-04 — UI upgrade (Codex component library)
 
 Adopted the Codex UI handoff as a **component library only** — the Blueprint
