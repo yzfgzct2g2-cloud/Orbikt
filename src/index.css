@@ -1,3 +1,5 @@
+﻿@import "./styles/tokens.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -14,8 +16,7 @@ body,
 
 body {
   margin: 0;
-  font-family: "Inter", "Noto Sans TC", system-ui, -apple-system, "Segoe UI",
-    Roboto, sans-serif;
-  background-color: #f1f5f9;
+  font-family: var(--font-orbikt);
+  background-color: var(--color-bg-main);
   color: #0f172a;
 }

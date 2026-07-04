@@ -1,0 +1,75 @@
+:root {
+  --color-bg-main: #f7faff;
+  --color-bg-soft: #f3f6fb;
+  --color-bg-card: #ffffff;
+  --color-bg-sidebar: #f8fafd;
+  --color-bg-hover: #eef4ff;
+  --color-bg-active: #e8f0ff;
+  --color-primary: #2563eb;
+  --color-primary-soft: #dbeafe;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-text: #1e40af;
+  --module-care: #22c55e;
+  --module-care-soft: #dcfce7;
+  --module-care-text: #15803d;
+  --module-finance: #f59e0b;
+  --module-finance-soft: #fef3c7;
+  --module-finance-text: #b45309;
+  --module-project: #3b82f6;
+  --module-project-soft: #dbeafe;
+  --module-project-text: #1d4ed8;
+  --module-knowledge: #8b5cf6;
+  --module-knowledge-soft: #ede9fe;
+  --module-knowledge-text: #6d28d9;
+  --module-analytics: #06b6d4;
+  --module-analytics-soft: #cffafe;
+  --module-analytics-text: #0e7490;
+  --module-ai: #6366f1;
+  --module-ai-soft: #e0e7ff;
+  --module-ai-text: #4338ca;
+  --status-success: #16a34a;
+  --status-success-soft: #dcfce7;
+  --status-warning: #f59e0b;
+  --status-warning-soft: #fef3c7;
+  --status-danger: #ef4444;
+  --status-danger-soft: #fee2e2;
+  --status-info: #2563eb;
+  --status-info-soft: #dbeafe;
+  --status-muted: #64748b;
+  --status-muted-soft: #f1f5f9;
+  --radius-card: 20px;
+  --radius-control: 12px;
+  --shadow-card: 0 8px 24px rgba(15, 23, 42, 0.04);
+  --shadow-card-hover: 0 12px 28px rgba(15, 23, 42, 0.08);
+  --font-orbikt: "Inter", "Noto Sans TC", "PingFang TC",
+    "Microsoft JhengHei", sans-serif;
+}
+
+.orbikt-card {
+  background: var(--color-bg-card);
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.orbikt-card-hover {
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.orbikt-card-hover:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-1px);
+}
+
+.orbikt-badge {
+  align-items: center;
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 5px 10px;
+}

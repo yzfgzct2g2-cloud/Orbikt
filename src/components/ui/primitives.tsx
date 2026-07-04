@@ -10,13 +10,7 @@ export function Card({
   children: ReactNode;
   className?: string;
 }) {
-  return (
-    <div
-      className={`rounded-xl border border-slate-200 bg-white shadow-sm ${className}`}
-    >
-      {children}
-    </div>
-  );
+  return <div className={`orbikt-card ${className}`}>{children}</div>;
 }
 
 export function CardHeader({

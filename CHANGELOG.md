@@ -2,6 +2,32 @@
 
 All notable changes to Orbikt are documented here.
 
+## [Unreleased] — UI upgrade (Codex component library)
+
+Adopted the Codex UI handoff as a **component library only** — the Blueprint
+architecture is unchanged (Command Center homepage, routing/IA, DataAdapters,
+Workspace all preserved).
+
+### Added
+- Design tokens `src/styles/tokens.css` (`.orbikt-card`, CSS variables) imported
+  by `index.css`.
+- Reusable visual components: `AppShell` / `Sidebar` / `TopHeader` (decoupled
+  from the module registry, driven by Orbikt nav), `KpiCard`, `DashboardSection`,
+  `DonutChart` / `LineChart` / `Sparkline` (+ `chartTypes.ts`, `chartUtils.ts`).
+
+### Changed
+- `AppLayout` now renders the new `AppShell`; the shared `Card` primitive uses
+  `.orbikt-card`, upgrading every page consistently.
+- Command Center KPI row rebuilt with `KpiCard` (30/60 split preserved) and a
+  `DonutChart` for dispatch status.
+
+### Removed
+- The alternate module-dashboard architecture that was NOT adopted:
+  `DashboardPage`, `ModulePlaceholderPage`, module `registry`/`types`,
+  `mockDashboardData`, `dashboardSelectors`, module-only components, and the
+  `vite.config.mjs` / `scripts/vite*.mjs` wrappers (scripts restored to plain
+  `vite`).
+
 ## [1.0.1] - 2026-07-04 — Correction Sprint
 
 ### Restored

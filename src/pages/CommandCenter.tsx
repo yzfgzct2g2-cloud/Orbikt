@@ -4,6 +4,10 @@ import { useAppStore } from "../store/useAppStore";
 import { dataAdapter } from "../adapters";
 import { team, managerName } from "../config/appConfig";
 import { Badge, Card, CardHeader, PageHeader } from "../components/ui/primitives";
+import { KpiCard } from "../components/dashboard/KpiCard";
+import { DashboardSection } from "../components/dashboard/DashboardSection";
+import { DonutChart } from "../components/charts/DonutChart";
+import type { DonutSlice } from "../components/charts/chartTypes";
 import { caseloadByManager } from "../lib/caseload";
 import { bucketVisitWarnings, visitManager } from "../modules/visit/visitManager";
 import {
@@ -36,39 +40,6 @@ function hhmm(iso: string): string {
     minute: "2-digit",
     hour12: false,
   });
-}
-
-function Stat({
-  label,
-  value,
-  hint,
-  tone = "default",
-  title,
-}: {
-  label: string;
-  value: string | number;
-  hint?: string;
-  tone?: "default" | "warning" | "danger";
-  title?: string;
-}) {
-  const toneClass =
-    tone === "danger"
-      ? "text-red-600"
-      : tone === "warning"
-        ? "text-orange-600"
-        : "text-slate-900";
-  return (
-    <Card className="p-5">
-      <div
-        className="text-xs font-medium uppercase tracking-wide text-slate-400"
-        title={title}
-      >
-        {label}
-      </div>
-      <div className={`mt-2 text-3xl font-bold ${toneClass}`}>{value}</div>
-      {hint && <div className="mt-1 text-xs text-slate-500">{hint}</div>}
-    </Card>
-  );
 }
 
 function CaseRow({ c }: { c: CaseRecord }) {
@@ -146,6 +117,23 @@ export function CommandCenter() {
 
   // Dispatch status breakdown (single dispatch module code path).
   const dispatchStatusCounts = dispatchCounts(cases);
+  const dispatchColor: Record<string, string> = {
+    dispatching: "#0ea5e9",
+    waiting: "#f59e0b",
+    timeout: "#f97316",
+    no_capacity: "#ef4444",
+    manual_required: "#8b5cf6",
+    accepted: "#22c55e",
+    closed: "#64748b",
+  };
+  const dispatchDonut: DonutSlice[] = dispatchStatusCounts.map(
+    ({ status, count }) => ({
+      id: status,
+      label: dispatchStatusLabel[status],
+      value: count,
+      color: dispatchColor[status] ?? "#94a3b8",
+    })
+  );
 
   const caseloads = caseloadByManager(cases, team);
   const maxRef = Math.max(1, ...caseloads.map((c) => c.reference));
@@ -166,24 +154,25 @@ export function CommandCenter() {
 
       {/* Required first row: Total Caseload · Today Tasks · 30-Day · 60-Day */}
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <Stat
+        <KpiCard
           label="總個案量"
           value={cases.length}
+          tone="primary"
           hint={`${team.length} 位個管員 · team.json 參考 ${totalCaseload}`}
           title={caseloadHint}
         />
-        <Stat
+        <KpiCard
           label="今日待辦 Today Tasks"
           value={openTasks.length}
           hint="待處理事項"
         />
-        <Stat
+        <KpiCard
           label="30 日內訪視"
           value={within30.length}
           tone="warning"
           hint="30-Day Visit Warning"
         />
-        <Stat
+        <KpiCard
           label="60 日內訪視"
           value={within60.length}
           tone="warning"
@@ -193,8 +182,13 @@ export function CommandCenter() {
 
       {/* Secondary row: overdue stays visible + dispatch attention */}
       <div className="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <Stat label="訪視逾期" value={overdue.length} tone="danger" hint="需儘速安排" />
-        <Stat
+        <KpiCard
+          label="訪視逾期"
+          value={overdue.length}
+          tone="danger"
+          hint="需儘速安排"
+        />
+        <KpiCard
           label="派案需關注"
           value={dispatchNeedsAttention.length}
           tone="warning"
@@ -367,22 +361,24 @@ export function CommandCenter() {
         </Card>
 
         {/* Dispatch status — external */}
-        <Card>
-          <CardHeader
-            title="派案狀態 Dispatch"
-            subtitle={`來源：${dispatchManager.source}（${dispatchManager.status}）`}
-            action={
-              <a
-                href={dispatchManager.url}
-                target="_blank"
-                rel="noreferrer"
-                className="text-xs font-medium text-orbit-600 hover:underline"
-              >
-                開啟 ↗
-              </a>
-            }
-          />
-          <div className="space-y-2 px-5 py-4">
+        <DashboardSection
+          title="派案狀態 Dispatch"
+          subtitle={`來源：${dispatchManager.source}（${dispatchManager.status}）`}
+          action={
+            <a
+              href={dispatchManager.url}
+              target="_blank"
+              rel="noreferrer"
+              className="text-xs font-medium text-blue-600 hover:underline"
+            >
+              開啟 ↗
+            </a>
+          }
+        >
+          <div className="mb-4">
+            <DonutChart slices={dispatchDonut} />
+          </div>
+          <div className="space-y-2">
             {dispatchStatusCounts.map(({ status, count }) => (
               <div
                 key={status}
@@ -395,7 +391,7 @@ export function CommandCenter() {
               </div>
             ))}
           </div>
-        </Card>
+        </DashboardSection>
 
         {/* Recent cases */}
         <Card>
