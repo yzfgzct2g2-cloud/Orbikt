@@ -2,6 +2,31 @@
 
 All notable changes to Orbikt are documented here.
 
+## [1.3.0] - 2026-07-06 — Morning Workflow (Milestone 3)
+
+### Added
+- **Daily Progress** in the Command Center header — a progress bar showing
+  today's planned work checked off (done/total), always visible without
+  scrolling.
+- **Checkable Today Tasks** — each task row has a done-toggle (separate from
+  navigation, so checking never navigates); completed tasks show struck-through
+  below the open list, feeding the Daily Progress bar. New store action
+  `toggleTaskDone` (user working state for the day — SSOT unaffected).
+- **KPI chip click-through** — 總案量 / 逾期 / 30 日訪視 / 60 日訪視 / 派案關注
+  now open the Cases registry pre-filtered to exactly the cases they count,
+  via new triage URL params (`?visit=<status>`, `?dispatch=attention`).
+- **Cases triage filters** (`src/lib/caseFilters.ts`) — pure param→filter
+  helpers; dispatch "attention" **reuses** `dispatchAttention` (no duplicated
+  logic). Active filter shows as a removable chip on the Cases page.
+  10 new unit tests (`caseFilters.test.ts`, `useAppStore.test.ts`).
+
+### Notes
+- Command Center already satisfied most of ACCEPTANCE ▸ Morning Workflow from
+  v1.0.3 (compact one-screen layout, forward-looking Today Tasks, 異常通知,
+  Eisenhower Matrix, Dispatch, Schedule, Visit warnings). This milestone closes
+  the remaining gaps: daily progress and complete dashboard click-through.
+- Dashboard remains an operational surface, not a module launcher.
+
 ## [1.2.0] - 2026-07-05 — Workspace Work Mode (Milestone 2)
 
 ### Added

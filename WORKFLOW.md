@@ -2,8 +2,8 @@
 
 Version: Governance V2  
 Status: Active  
-Current Stable Version: v1.2.0  
-Current Development Target: v1.3.0  
+Current Stable Version: v1.3.0  
+Current Development Target: v1.4.0  
 Current Milestone
 Automatically determined from PROJECT_STATE.json.
 The first milestone marked
@@ -334,10 +334,14 @@ Milestone 2 is complete only when:
 
 # 8. Milestone 3 — Morning Workflow
 
-Status: Next  
+Status: Completed  
 Priority: P1  
 Expected Version: v1.3.0
 Depends On: Milestone 2 — Workspace Work Mode (Completed)
+Completed: v1.3.0 — Daily Progress bar + checkable Today Tasks (store
+toggleTaskDone) + KPI chip click-through to filtered Cases registry
+(?visit=/?dispatch=attention, caseFilters.ts reuses dispatchAttention).
+Compact one-screen dashboard from v1.0.3 covered the other criteria.
 
 ## Goal
 
@@ -400,10 +404,10 @@ Milestone 3 is complete only when:
 
 # 9. Milestone 4 — Case Workflow
 
-Status: Deferred  
+Status: Next  
 Priority: P1  
 Expected Version: v1.4.0
-Depends On: Milestone 3 — Morning Workflow
+Depends On: Milestone 3 — Morning Workflow (Completed)
 
 ## Goal
 

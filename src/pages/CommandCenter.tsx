@@ -105,6 +105,7 @@ export function CommandCenter() {
   const abnormal = useAppStore((s) => s.abnormal);
   const userName = useAppStore((s) => s.currentUser.name);
   const loaded = useAppStore((s) => s.loaded);
+  const toggleTaskDone = useAppStore((s) => s.toggleTaskDone);
 
   const [schedule, setSchedule] = useState<ScheduleEvent[]>([]);
   useEffect(() => {
@@ -115,6 +116,10 @@ export function CommandCenter() {
   const buckets = bucketVisitWarnings(cases);
   const dispatchNeedsAttention = dispatchAttention(cases);
   const openTasks = tasks.filter((t) => !t.done);
+  const doneTasks = tasks.filter((t) => t.done);
+  // Daily progress = today's planned work checked off (user working state).
+  const progressPct =
+    tasks.length > 0 ? Math.round((doneTasks.length / tasks.length) * 100) : 0;
 
   const caseloadHint =
     `team.json 參考 ${totalCaseload} · ` +
@@ -144,11 +149,38 @@ export function CommandCenter() {
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex items-baseline justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-xl font-bold text-slate-900">Command Center</h1>
-        <span className="text-xs text-slate-500">
-          {userName} · 今天該做什麼？{!loaded && "載入中…"}
-        </span>
+        <div className="flex items-center gap-3">
+          {/* Daily progress — today's planned work checked off */}
+          <div
+            className="flex items-center gap-2"
+            title={`今日進度：完成 ${doneTasks.length} / ${tasks.length} 項`}
+          >
+            <span className="text-[11px] font-semibold text-slate-500">
+              今日進度
+            </span>
+            <div
+              className="h-2 w-28 overflow-hidden rounded-full bg-slate-200"
+              role="progressbar"
+              aria-valuenow={progressPct}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label="今日進度"
+            >
+              <div
+                className="h-full rounded-full bg-emerald-500 transition-all"
+                style={{ width: `${progressPct}%` }}
+              />
+            </div>
+            <span className="text-[11px] font-bold text-slate-700">
+              {doneTasks.length}/{tasks.length}
+            </span>
+          </div>
+          <span className="text-xs text-slate-500">
+            {userName} · 今天該做什麼？{!loaded && "載入中…"}
+          </span>
+        </div>
       </div>
 
       {/* KPI strip — compact, single row */}
@@ -157,35 +189,66 @@ export function CommandCenter() {
           label="總案量"
           value={cases.length}
           tone="primary"
+          to="/cases"
           title={caseloadHint}
         />
-        <StatChip label="逾期" value={buckets.overdue.length} tone="danger" />
+        <StatChip
+          label="逾期"
+          value={buckets.overdue.length}
+          tone="danger"
+          to="/cases?visit=overdue"
+        />
         <StatChip
           label="30 日訪視"
           value={buckets.within_30.length}
           tone="warning"
+          to="/cases?visit=within_30"
         />
         <StatChip
           label="60 日訪視"
           value={buckets.within_60.length}
           tone="warning"
+          to="/cases?visit=within_60"
         />
         <StatChip
           label="派案關注"
           value={dispatchNeedsAttention.length}
           tone="warning"
+          to="/cases?dispatch=attention"
         />
         <StatChip label="今日待辦" value={openTasks.length} tone="primary" />
       </div>
 
       {/* Main dense grid — panels scroll internally, page stays ~one screen */}
       <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
-        {/* Today Tasks (forward-looking) */}
+        {/* Today Tasks (forward-looking, checkable → daily progress) */}
         <Panel title="今日待辦 Today Tasks" count={openTasks.length}>
           {openTasks.map((t) => (
-            <TaskRow key={t.id} to={t.to} type={t.type} title={t.title} due={t.due} />
+            <TaskRow
+              key={t.id}
+              to={t.to}
+              type={t.type}
+              title={t.title}
+              due={t.due}
+              done={false}
+              onToggle={() => toggleTaskDone(t.id)}
+            />
           ))}
-          {openTasks.length === 0 && <Empty text="今日暫無安排的工作。" />}
+          {doneTasks.map((t) => (
+            <TaskRow
+              key={t.id}
+              to={t.to}
+              type={t.type}
+              title={t.title}
+              due={t.due}
+              done
+              onToggle={() => toggleTaskDone(t.id)}
+            />
+          ))}
+          {tasks.length === 0 && <Empty text="今日暫無安排的工作。" />}
+          {tasks.length > 0 && openTasks.length === 0 && (
+            <Empty text="今日待辦已全部完成 ✓" />
+          )}
         </Panel>
 
         {/* Abnormal notifications */}
@@ -322,22 +385,54 @@ function TaskRow({
   type,
   title,
   due,
+  done,
+  onToggle,
 }: {
   to?: string;
   type: string;
   title: string;
   due: string;
+  done: boolean;
+  onToggle: () => void;
 }) {
   const body = (
-    <div className="flex items-center gap-2 rounded-md px-2 py-1 hover:bg-slate-50">
+    <div className="flex min-w-0 flex-1 items-center gap-2 rounded-md px-1 py-1 hover:bg-slate-50">
       <span className="shrink-0 rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-600">
         {taskTypeLabel[type] ?? type}
       </span>
-      <span className="min-w-0 flex-1 truncate text-xs text-slate-800">{title}</span>
+      <span
+        className={`min-w-0 flex-1 truncate text-xs ${
+          done ? "text-slate-400 line-through" : "text-slate-800"
+        }`}
+      >
+        {title}
+      </span>
       <span className="shrink-0 text-[10px] text-slate-400">{due}</span>
     </div>
   );
-  return to ? <Link to={to}>{body}</Link> : body;
+  return (
+    <div className="flex items-center gap-1 px-1">
+      {/* Done toggle — separate from navigation so checking never navigates */}
+      <button
+        onClick={onToggle}
+        aria-label={done ? `取消完成：${title}` : `標記完成：${title}`}
+        className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border text-[10px] font-bold transition-colors ${
+          done
+            ? "border-emerald-500 bg-emerald-500 text-white"
+            : "border-slate-300 bg-white text-transparent hover:border-emerald-400"
+        }`}
+      >
+        ✓
+      </button>
+      {to && !done ? (
+        <Link to={to} className="min-w-0 flex-1">
+          {body}
+        </Link>
+      ) : (
+        body
+      )}
+    </div>
+  );
 }
 
 function Empty({ text }: { text: string }) {

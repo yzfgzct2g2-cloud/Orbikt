@@ -39,6 +39,9 @@ interface AppState {
 
   loadInitial: () => Promise<void>;
   setRole: (role: Role) => void;
+  // Mark a Today Task done/undone. This is the user's working state for the
+  // day (daily progress), not source-system data — SSOT is unaffected.
+  toggleTaskDone: (id: string) => void;
   markNotificationRead: (id: string) => void;
   markAllNotificationsRead: () => void;
 }
@@ -74,6 +77,13 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   setRole: (role) =>
     set((state) => ({ currentUser: { ...state.currentUser, role } })),
+
+  toggleTaskDone: (id) =>
+    set((state) => ({
+      tasks: state.tasks.map((t) =>
+        t.id === id ? { ...t, done: !t.done } : t
+      ),
+    })),
 
   markNotificationRead: (id) =>
     set((state) => ({

@@ -4,6 +4,11 @@ import { useAppStore } from "../store/useAppStore";
 import { managerName } from "../config/appConfig";
 import { Badge, Card, PageHeader } from "../components/ui/primitives";
 import {
+  applyTriageFilter,
+  triageFilterFromParams,
+  triageFilterLabel,
+} from "../lib/caseFilters";
+import {
   caseStatusLabel,
   dispatchStatusClass,
   dispatchStatusLabel,
@@ -14,15 +19,33 @@ import {
 } from "../lib/labels";
 
 export function Cases() {
-  const cases = useAppStore((s) => s.cases);
+  const allCases = useAppStore((s) => s.cases);
   // The header search box navigates here with ?q=; Cases owns the actual search.
-  const [searchParams] = useSearchParams();
+  // Command Center KPI chips navigate here with ?visit= / ?dispatch= triage filters.
+  const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
 
   useEffect(() => {
     const q = searchParams.get("q");
     if (q !== null) setQuery(q);
   }, [searchParams]);
+
+  const triage = useMemo(
+    () => triageFilterFromParams(searchParams),
+    [searchParams]
+  );
+  const activeFilterLabel = triageFilterLabel(triage);
+  const cases = useMemo(
+    () => applyTriageFilter(allCases, triage),
+    [allCases, triage]
+  );
+
+  const clearTriage = () => {
+    const next = new URLSearchParams(searchParams);
+    next.delete("visit");
+    next.delete("dispatch");
+    setSearchParams(next, { replace: true });
+  };
 
   const [sortKey, setSortKey] = useState<"name" | "cms" | "visit" | "manager">(
     "visit"
@@ -80,6 +103,16 @@ export function Cases() {
         description={`個案登記與分流（registry / triage）· 共 ${sorted.length} 筆。搜尋、排序後點選個案進入其 Workspace。`}
         action={
           <div className="flex items-center gap-2">
+            {activeFilterLabel && (
+              <button
+                onClick={clearTriage}
+                className="flex items-center gap-1 rounded-lg bg-orbit-50 px-2.5 py-2 text-sm font-medium text-orbit-700 hover:bg-orbit-100"
+                title="清除篩選"
+              >
+                {activeFilterLabel}
+                <span aria-hidden>×</span>
+              </button>
+            )}
             <select
               value={sortKey}
               onChange={(e) =>
