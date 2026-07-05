@@ -105,7 +105,10 @@ export function CommandCenter() {
   const abnormal = useAppStore((s) => s.abnormal);
   const userName = useAppStore((s) => s.currentUser.name);
   const loaded = useAppStore((s) => s.loaded);
+  const loading = useAppStore((s) => s.loading);
   const toggleTaskDone = useAppStore((s) => s.toggleTaskDone);
+  const refreshData = useAppStore((s) => s.refreshData);
+  const lastRefreshedAt = useAppStore((s) => s.lastRefreshedAt);
 
   const [schedule, setSchedule] = useState<ScheduleEvent[]>([]);
   useEffect(() => {
@@ -177,6 +180,20 @@ export function CommandCenter() {
               {doneTasks.length}/{tasks.length}
             </span>
           </div>
+          {/* Defined refresh behavior: manual re-derivation, done-marks kept.
+              See automationRegistry "dashboard-refresh". */}
+          <button
+            onClick={() => void refreshData()}
+            disabled={loading}
+            className="rounded-lg border border-slate-200 px-2.5 py-1 text-[11px] font-semibold text-slate-600 hover:bg-slate-50 disabled:opacity-50"
+            title={
+              lastRefreshedAt
+                ? `最後更新 ${hhmm(lastRefreshedAt)} · 重新整理會保留已勾選的待辦`
+                : "重新整理會保留已勾選的待辦"
+            }
+          >
+            {loading ? "更新中…" : `↻ 重新整理${lastRefreshedAt ? ` · ${hhmm(lastRefreshedAt)}` : ""}`}
+          </button>
           <span className="text-xs text-slate-500">
             {userName} · 今天該做什麼？{!loaded && "載入中…"}
           </span>

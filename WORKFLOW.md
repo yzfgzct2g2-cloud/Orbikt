@@ -2,8 +2,8 @@
 
 Version: Governance V2  
 Status: Active  
-Current Stable Version: v1.4.0  
-Current Development Target: v1.5.0  
+Current Stable Version: v1.5.0  
+Current Development Target: v2.0.0  
 Current Milestone
 Automatically determined from PROJECT_STATE.json.
 The first milestone marked
@@ -464,10 +464,14 @@ Milestone 4 is complete only when:
 
 # 10. Milestone 5 — Automation
 
-Status: Next  
+Status: Completed  
 Priority: P2  
 Expected Version: v1.5.0
 Depends On: Milestone 4 — Case Workflow (Completed)
+Completed: v1.5.0 — automationRegistry.ts (9 automations: rule/source/surface/
+codePath/writes) surfaced at Settings > 自動化透明度; defined dashboard refresh
+(refreshData with done-mark merge + lastRefreshedAt, Command Center ↻ button).
+No automation writes to source systems.
 
 ## Goal
 
@@ -522,10 +526,10 @@ Milestone 5 is complete only when:
 
 # 11. Milestone 6 — External Integration
 
-Status: Deferred  
+Status: Next  
 Priority: P3  
 Expected Version: v2.0.0
-Depends On: Milestone 5 — Automation
+Depends On: Milestone 5 — Automation (Completed)
 
 ## Goal
 

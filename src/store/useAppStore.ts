@@ -36,8 +36,14 @@ interface AppState {
   loaded: boolean;
   loading: boolean;
   error: string | null;
+  lastRefreshedAt: string | null; // ISO datetime of the last (re)load
 
   loadInitial: () => Promise<void>;
+  // Defined dashboard-refresh behavior (see automationRegistry
+  // "dashboard-refresh"): re-run all derivations from the adapter, MERGING the
+  // user's checked-off task state by task id — refresh never silently clears
+  // daily progress.
+  refreshData: () => Promise<void>;
   setRole: (role: Role) => void;
   // Mark a Today Task done/undone. This is the user's working state for the
   // day (daily progress), not source-system data — SSOT is unaffected.
@@ -55,6 +61,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   loaded: false,
   loading: false,
   error: null,
+  lastRefreshedAt: null,
 
   loadInitial: async () => {
     if (get().loading) return;
@@ -66,7 +73,51 @@ export const useAppStore = create<AppState>((set, get) => ({
         dataAdapter.listAbnormal(),
         dataAdapter.listNotifications(),
       ]);
-      set({ cases, tasks, abnormal, notifications, loaded: true, loading: false });
+      set({
+        cases,
+        tasks,
+        abnormal,
+        notifications,
+        loaded: true,
+        loading: false,
+        lastRefreshedAt: new Date().toISOString(),
+      });
+    } catch (err) {
+      set({
+        loading: false,
+        error: err instanceof Error ? err.message : "資料載入失敗",
+      });
+    }
+  },
+
+  refreshData: async () => {
+    if (get().loading) return;
+    set({ loading: true, error: null });
+    try {
+      const [cases, tasks, abnormal, notifications] = await Promise.all([
+        dataAdapter.listCases(),
+        dataAdapter.listTasks(),
+        dataAdapter.listAbnormal(),
+        dataAdapter.listNotifications(),
+      ]);
+      // Preserve the user's done-marks for tasks that still exist (by id).
+      const doneIds = new Set(
+        get()
+          .tasks.filter((t) => t.done)
+          .map((t) => t.id)
+      );
+      const merged = tasks.map((t) =>
+        doneIds.has(t.id) ? { ...t, done: true } : t
+      );
+      set({
+        cases,
+        tasks: merged,
+        abnormal,
+        notifications,
+        loaded: true,
+        loading: false,
+        lastRefreshedAt: new Date().toISOString(),
+      });
     } catch (err) {
       set({
         loading: false,

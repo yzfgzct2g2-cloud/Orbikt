@@ -2,6 +2,29 @@
 
 All notable changes to Orbikt are documented here.
 
+## [1.5.0] - 2026-07-06 — Automation (Milestone 5)
+
+### Added
+- **Automation Transparency** (Settings) — a user-facing registry of all nine
+  automated derivations (Today Tasks, abnormal detection, Eisenhower,
+  next action, completion checklist, manager matching, source warnings,
+  notifications, dashboard refresh): each with its plain-language rule
+  (explainable), data source (traceable), output surface, code path
+  (verifiable), and what it may write ("唯讀" for all but session state).
+  `src/modules/automation/automationRegistry.ts` + tests enforcing that every
+  entry is complete and that no automation writes to source systems.
+- **Defined dashboard refresh** — Command Center gains a ↻ 重新整理 button with
+  last-refreshed time. `refreshData()` re-runs all derivations and **merges the
+  user's checked-off task state by id** — refresh never silently clears daily
+  progress (automation must not silently change data). No fake auto-polling of
+  the static seed.
+
+### Notes
+- The automations themselves (matching, reminders, abnormal detection,
+  workflow suggestions) already existed as derivations; this milestone makes
+  their explainability and traceability explicit per ACCEPTANCE ▸ Automation,
+  and defines refresh semantics per WORKFLOW §10.
+
 ## [1.4.0] - 2026-07-06 — Case Workflow (Milestone 4)
 
 ### Added

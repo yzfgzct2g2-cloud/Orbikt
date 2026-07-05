@@ -2,6 +2,7 @@ import { useAppStore } from "../store/useAppStore";
 import { team, sourceSystems } from "../config/appConfig";
 import { Badge, Card, CardHeader, PageHeader } from "../components/ui/primitives";
 import { DataSourcesSection } from "./settings/DataSourcesSection";
+import { AutomationSection } from "./settings/AutomationSection";
 import type { Role } from "../adapters/types";
 
 const roles: { value: Role; label: string }[] = [
@@ -74,6 +75,8 @@ export function Settings() {
             ))}
           </div>
         </Card>
+
+        <AutomationSection />
 
         <Card className="lg:col-span-2">
           <CardHeader
