@@ -2,8 +2,8 @@
 
 Version: Governance V2  
 Status: Active  
-Current Stable Version: v1.3.0  
-Current Development Target: v1.4.0  
+Current Stable Version: v1.4.0  
+Current Development Target: v1.5.0  
 Current Milestone
 Automatically determined from PROJECT_STATE.json.
 The first milestone marked
@@ -404,10 +404,15 @@ Milestone 3 is complete only when:
 
 # 9. Milestone 4 — Case Workflow
 
-Status: Next  
+Status: Completed  
 Priority: P1  
 Expected Version: v1.4.0
 Depends On: Milestone 3 — Morning Workflow (Completed)
+Completed: v1.4.0 — Completion Checklist on Workspace Overview (6 derived,
+explainable, tab-linked items + progress bar) and banner 完成度 x/6.
+caseChecklist.ts reads stored statuses only (SSOT respected). Note: the
+"ACCEPTANCE.md > Case Workflow" section referenced below does not exist in
+ACCEPTANCE.md; reviewed against this milestone's Completion Criteria.
 
 ## Goal
 
@@ -459,10 +464,10 @@ Milestone 4 is complete only when:
 
 # 10. Milestone 5 — Automation
 
-Status: Deferred  
+Status: Next  
 Priority: P2  
 Expected Version: v1.5.0
-Depends On: Milestone 4 — Case Workflow
+Depends On: Milestone 4 — Case Workflow (Completed)
 
 ## Goal
 

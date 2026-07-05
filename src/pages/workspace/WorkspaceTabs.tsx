@@ -17,6 +17,10 @@ import type { ReviewResult } from "../../modules/review/reviewTypes";
 import { relatedTopics, knowledgeManager } from "../../modules/knowledge/knowledge";
 import { caseAbnormalItems } from "../../modules/workspace/caseFocus";
 import {
+  caseCompletionChecklist,
+  checklistProgress,
+} from "../../modules/workspace/caseChecklist";
+import {
   genogram,
   genogramIntegrationSteps,
 } from "../../modules/genogram/genogram";
@@ -56,6 +60,8 @@ const abnormalSeverityClass: Record<string, string> = {
 export function OverviewTab({ c }: { c: CaseRecord }) {
   const references = useMemo(() => relatedTopics(c), [c]);
   const abnormal = useMemo(() => caseAbnormalItems(c), [c]);
+  const checklist = useMemo(() => caseCompletionChecklist(c), [c]);
+  const progress = checklistProgress(checklist);
   const [tasks, setTasks] = useState<TaskItem[]>([]);
   const [timeline, setTimeline] = useState<TimelineEvent[]>([]);
   useEffect(() => {
@@ -162,6 +168,63 @@ export function OverviewTab({ c }: { c: CaseRecord }) {
         </Card>
       </div>
 
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      {/* Completion checklist — what remains unfinished for this case. Every
+          item reads stored status (SSOT respected) and links to its tab. */}
+      <Card>
+        <CardHeader
+          title="完成度檢核 Completion Checklist"
+          subtitle={`已完成 ${progress.done} / ${progress.total} 項（${progress.pct}%）`}
+        />
+        <div className="px-5 pt-3">
+          <div
+            className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100"
+            role="progressbar"
+            aria-valuenow={progress.pct}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label="個案完成度"
+          >
+            <div
+              className="h-full rounded-full bg-emerald-500 transition-all"
+              style={{ width: `${progress.pct}%` }}
+            />
+          </div>
+        </div>
+        <div className="divide-y divide-slate-100">
+          {checklist.map((item) => (
+            <Link
+              key={item.id}
+              to={item.to}
+              className="flex items-center gap-3 px-5 py-2.5 hover:bg-slate-50"
+            >
+              <span
+                aria-hidden
+                className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[11px] font-bold ${
+                  item.done
+                    ? "bg-emerald-100 text-emerald-700"
+                    : "border border-slate-300 text-transparent"
+                }`}
+              >
+                ✓
+              </span>
+              <span className="min-w-0">
+                <span
+                  className={`block text-sm ${
+                    item.done ? "text-slate-500" : "font-medium text-slate-800"
+                  }`}
+                >
+                  {item.label}
+                </span>
+                <span className="block truncate text-xs text-slate-400">
+                  {item.detail}
+                </span>
+              </span>
+            </Link>
+          ))}
+        </div>
+      </Card>
+
       {/* Case-specific abnormal items — scoped to THIS case, distinct from the
           forward-looking Case Tasks below. Each links to the relevant tab. */}
       <Card>
@@ -201,6 +264,7 @@ export function OverviewTab({ c }: { c: CaseRecord }) {
           </div>
         )}
       </Card>
+      </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {/* Case tasks (Overview = Case + Task + Timeline) */}

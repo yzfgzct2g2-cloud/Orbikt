@@ -7,6 +7,10 @@ import { Card } from "../components/ui/primitives";
 import { caseStatusLabel } from "../lib/labels";
 import { defaultTab, workspaceTabs } from "./workspace/tabs";
 import { nextCaseAction, type NextActionUrgency } from "../modules/workspace/caseFocus";
+import {
+  caseCompletionChecklist,
+  checklistProgress,
+} from "../modules/workspace/caseChecklist";
 
 // Next-action strip colours by urgency.
 const nextActionClass: Record<NextActionUrgency, string> = {
@@ -137,6 +141,18 @@ export function Workspace() {
           <span>CMS {c.cmsLevel ?? "—"}</span>
           <span>身分證 {c.maskedNationalId ?? "—"}</span>
           {c.area && <span>{c.area}</span>}
+          {(() => {
+            const p = checklistProgress(caseCompletionChecklist(c));
+            return (
+              <Link
+                to={`/workspace/${c.id}/overview`}
+                className="font-semibold text-white/90 hover:text-white"
+                title="完成度檢核（Overview）"
+              >
+                完成度 {p.done}/{p.total}
+              </Link>
+            );
+          })()}
         </div>
       </div>
 

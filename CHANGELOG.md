@@ -2,6 +2,28 @@
 
 All notable changes to Orbikt are documented here.
 
+## [1.4.0] - 2026-07-06 — Case Workflow (Milestone 4)
+
+### Added
+- **Completion Checklist** on the Workspace Overview tab — six derived items
+  (開案建檔, 評估完成/CMS, AA01 核定, FA310 通過, 派案完成, 訪視在軌) with a
+  progress bar. Every item shows its current state as explainable detail and
+  links to the Workspace tab where the work happens.
+- **完成度 x/6** in the case banner — the case's completion status is visible
+  from every tab and links back to the checklist.
+- **`src/modules/workspace/caseChecklist.ts`** — pure derivations that READ
+  stored statuses (visit from Visit Manager, dispatch from the external
+  console, AA01/FA310 module statuses); nothing recomputed, SSOT respected.
+  5 new unit tests.
+
+### Notes
+- With M2's Next Action + Case Abnormal Items and this checklist, a case can be
+  reviewed start-to-finish inside Workspace: what's done, what remains, what's
+  wrong, and what to do next — without re-searching or leaving the case file.
+- WORKFLOW.md references "ACCEPTANCE.md ▸ Case Workflow", which does not exist
+  as a section; the milestone's own Completion Criteria plus general acceptance
+  principles were used (recorded in the release review).
+
 ## [1.3.0] - 2026-07-06 — Morning Workflow (Milestone 3)
 
 ### Added
