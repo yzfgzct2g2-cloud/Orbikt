@@ -2,8 +2,8 @@
 
 Version: Governance V2  
 Status: Active  
-Current Stable Version: v1.0.3  
-Current Development Target: v1.1.0  
+Current Stable Version: v1.1.0  
+Current Development Target: v1.2.0  
 Current Milestone
 Automatically determined from PROJECT_STATE.json.
 The first milestone marked
@@ -132,10 +132,13 @@ Only the user may reorder milestones.
 
 # 6. Milestone 1 — Data Center
 
-Status: Next  
+Status: Completed  
 Priority: P0  
 Expected Version: v1.1.0
 Depends On: v1.0.3 stable baseline
+Completed: v1.1.0 — Data Center page (/data-center) with all 6 source systems,
+import report/history/log, validation, FA310↔CS100 matching (staged), source
+warnings. FA310 live import deferred to Milestone 6 (adapter seam ready).
 
 ## Goal
 
@@ -261,10 +264,10 @@ Milestone 1 is complete only when:
 
 # 7. Milestone 2 — Workspace Work Mode
 
-Status: Deferred  
+Status: Next  
 Priority: P1  
 Expected Version: v1.2.0
-Prerequisite: Milestone 1 — Data Center
+Prerequisite: Milestone 1 — Data Center (Completed)
 
 ## Goal
 

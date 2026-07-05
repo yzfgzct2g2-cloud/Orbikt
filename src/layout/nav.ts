@@ -42,6 +42,11 @@ export const navItems: NavItem[] = [
     icon: "M12 3a6 6 0 016 6v4l2 3H4l2-3V9a6 6 0 016-6zM10 20a2 2 0 004 0",
   },
   {
+    to: "/data-center",
+    label: "Data Center 資料中心",
+    icon: "M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zM4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3",
+  },
+  {
     to: "/settings",
     label: "Settings 設定",
     icon: "M12 8a4 4 0 100 8 4 4 0 000-8zM3 12h2m14 0h2M12 3v2m0 14v2",

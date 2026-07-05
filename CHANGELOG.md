@@ -2,6 +2,45 @@
 
 All notable changes to Orbikt are documented here.
 
+## [1.1.0] - 2026-07-05 — Data Center (Milestone 1)
+
+### Added
+- **Data Center page (`/data-center`)** — promoted from Settings ▸ Data Sources.
+  A single operating surface for all six source systems (CS100, FA310, AA01,
+  Knowledge, Dispatch, Visit Manager) with:
+  - **Data Health Summary** KPI strip (source counts by status, total safe
+    records, pending sources, live privacy verdict).
+  - **Source Status** cards — status, last imported, record count, raw vs
+    sanitized locations, import command, report link, and import errors per
+    source.
+  - **Import Report** — real CS100 generation metadata (produced-at, count) with
+    breakdowns by manager / visit status / dispatch status.
+  - **Import History** and **Import Log** — one entry per source, derived from
+    the generated artifacts (newest first).
+  - **Matching Result** — FA310 ↔ CS100 manager assignment, staged on CS100
+    while FA310 is pending, fully explainable and traceable.
+  - **Validation Result** — live privacy/integrity evidence: no raw national ID
+    (letter + 9 digits), no phone, record count matches report, masked-ID format.
+  - **Source Warnings** — missing / stale / pending / seed sources ranked by
+    severity.
+- **`src/modules/data/dataCenter.ts`** — all Data Center derivations, computed
+  from browser-safe generated artifacts only (never raw files). 12 unit tests
+  in `dataCenter.test.ts`, including a direct raw-national-ID guard on the seed.
+- **Data Center** navigation entry in the sidebar.
+
+### Changed
+- **`src/modules/data/dataSources.ts`** expanded from 2 to all 6 source systems,
+  with honest `status` (`ok` / `pending` / `seed` / `stale` / `missing`), a new
+  `mode` (imported / index / engine / adapter / external), per-source `errors`,
+  and `dependsOn`. Record counts are read from the generated artifacts so they
+  cannot drift.
+- **Settings ▸ Data Sources** slimmed to a compact at-a-glance summary that
+  links to the full Data Center (no duplicated import/validation logic).
+
+### Privacy
+- Data Center reads only generated (de-identified) data; the browser never
+  touches raw Excel. Live DOM scan confirms no raw national ID or phone number.
+
 ## [1.0.3] - 2026-07-04 — Acceptance Correction Sprint
 
 ### Added

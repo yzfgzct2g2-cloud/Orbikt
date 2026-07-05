@@ -7,6 +7,7 @@ import { WorkspacePicker } from "./pages/WorkspacePicker";
 import { Knowledge } from "./pages/Knowledge";
 import { Documents } from "./pages/Documents";
 import { Notifications } from "./pages/Notifications";
+import { DataCenter } from "./pages/DataCenter";
 import { Settings } from "./pages/Settings";
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="knowledge" element={<Knowledge />} />
         <Route path="documents" element={<Documents />} />
         <Route path="notifications" element={<Notifications />} />
+        <Route path="data-center" element={<DataCenter />} />
         <Route path="settings" element={<Settings />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
