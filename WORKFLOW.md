@@ -2,8 +2,8 @@
 
 Version: Governance V2  
 Status: Active  
-Current Stable Version: v1.1.0  
-Current Development Target: v1.2.0  
+Current Stable Version: v1.2.0  
+Current Development Target: v1.3.0  
 Current Milestone
 Automatically determined from PROJECT_STATE.json.
 The first milestone marked
@@ -264,10 +264,13 @@ Milestone 1 is complete only when:
 
 # 7. Milestone 2 — Workspace Work Mode
 
-Status: Next  
+Status: Completed  
 Priority: P1  
 Expected Version: v1.2.0
 Prerequisite: Milestone 1 — Data Center (Completed)
+Completed: v1.2.0 — Next Action strip (derived, explainable, every tab) +
+case-specific Abnormal Items panel (Overview). Banner + 8 tabs + knowledge
+references pre-existing. caseFocus.ts reuses deriveAbnormal (no duplicated logic).
 
 ## Goal
 
@@ -331,10 +334,10 @@ Milestone 2 is complete only when:
 
 # 8. Milestone 3 — Morning Workflow
 
-Status: Deferred  
+Status: Next  
 Priority: P1  
 Expected Version: v1.3.0
-Depends On: Milestone 2 — Workspace Work Mode
+Depends On: Milestone 2 — Workspace Work Mode (Completed)
 
 ## Goal
 

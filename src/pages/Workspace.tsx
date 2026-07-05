@@ -6,6 +6,22 @@ import { managerName } from "../config/appConfig";
 import { Card } from "../components/ui/primitives";
 import { caseStatusLabel } from "../lib/labels";
 import { defaultTab, workspaceTabs } from "./workspace/tabs";
+import { nextCaseAction, type NextActionUrgency } from "../modules/workspace/caseFocus";
+
+// Next-action strip colours by urgency.
+const nextActionClass: Record<NextActionUrgency, string> = {
+  high: "border-red-200 bg-red-50",
+  medium: "border-amber-200 bg-amber-50",
+  low: "border-sky-200 bg-sky-50",
+  none: "border-emerald-200 bg-emerald-50",
+};
+
+const nextActionDot: Record<NextActionUrgency, string> = {
+  high: "bg-red-500",
+  medium: "bg-amber-500",
+  low: "bg-sky-500",
+  none: "bg-emerald-500",
+};
 
 // A small status dot per module tab, so the case's state is visible without
 // opening each tab. Reads the case's stored status (no recomputation).
@@ -123,6 +139,40 @@ export function Workspace() {
           {c.area && <span>{c.area}</span>}
         </div>
       </div>
+
+      {/* Next action — the single most important next step for this case,
+          derived from its state and visible on every tab. */}
+      {(() => {
+        const action = nextCaseAction(c);
+        return (
+          <div
+            className={`mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border px-4 py-3 ${nextActionClass[action.urgency]}`}
+          >
+            <div className="flex min-w-0 items-start gap-2.5">
+              <span
+                className={`mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full ${nextActionDot[action.urgency]}`}
+              />
+              <div className="min-w-0">
+                <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                  下一步 Next Action
+                </div>
+                <div className="text-sm font-semibold text-slate-900">
+                  {action.title}
+                </div>
+                <div className="text-xs text-slate-600">{action.reason}</div>
+              </div>
+            </div>
+            {action.urgency !== "none" && (
+              <Link
+                to={action.to}
+                className="shrink-0 rounded-lg bg-white/80 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm hover:bg-white"
+              >
+                前往處理 →
+              </Link>
+            )}
+          </div>
+        );
+      })()}
 
       {/* Tab bar */}
       <div className="mb-5 flex flex-wrap gap-1 border-b border-slate-200">

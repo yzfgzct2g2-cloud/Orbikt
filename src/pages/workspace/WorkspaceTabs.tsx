@@ -15,6 +15,7 @@ import { reviewAdapter } from "../../modules/review/reviewAdapter";
 import { reviewManager, fa310IdentityLabel } from "../../modules/review/reviewEngine";
 import type { ReviewResult } from "../../modules/review/reviewTypes";
 import { relatedTopics, knowledgeManager } from "../../modules/knowledge/knowledge";
+import { caseAbnormalItems } from "../../modules/workspace/caseFocus";
 import {
   genogram,
   genogramIntegrationSteps,
@@ -46,8 +47,15 @@ function Field({ label, value }: { label: string; value: React.ReactNode }) {
   );
 }
 
+const abnormalSeverityClass: Record<string, string> = {
+  high: "bg-red-100 text-red-700",
+  medium: "bg-amber-100 text-amber-700",
+  low: "bg-slate-100 text-slate-600",
+};
+
 export function OverviewTab({ c }: { c: CaseRecord }) {
   const references = useMemo(() => relatedTopics(c), [c]);
+  const abnormal = useMemo(() => caseAbnormalItems(c), [c]);
   const [tasks, setTasks] = useState<TaskItem[]>([]);
   const [timeline, setTimeline] = useState<TimelineEvent[]>([]);
   useEffect(() => {
@@ -153,6 +161,46 @@ export function OverviewTab({ c }: { c: CaseRecord }) {
           </div>
         </Card>
       </div>
+
+      {/* Case-specific abnormal items — scoped to THIS case, distinct from the
+          forward-looking Case Tasks below. Each links to the relevant tab. */}
+      <Card>
+        <CardHeader
+          title="個案異常 Case Abnormal Items"
+          subtitle={
+            abnormal.length > 0 ? `${abnormal.length} 項需注意` : "本案目前無異常"
+          }
+        />
+        {abnormal.length === 0 ? (
+          <div className="px-5 py-4 text-sm text-emerald-600">
+            本案無異常項目，各模組狀態正常。
+          </div>
+        ) : (
+          <div className="divide-y divide-slate-100">
+            {abnormal.map((a) => (
+              <Link
+                key={a.id}
+                to={a.to}
+                className="flex items-center justify-between gap-3 px-5 py-3 hover:bg-slate-50"
+              >
+                <div className="min-w-0">
+                  <div className="text-sm font-medium text-slate-800">
+                    {a.title}
+                  </div>
+                  <div className="truncate text-xs text-slate-500">{a.body}</div>
+                </div>
+                <Badge className={abnormalSeverityClass[a.severity]}>
+                  {a.severity === "high"
+                    ? "高"
+                    : a.severity === "medium"
+                      ? "中"
+                      : "低"}
+                </Badge>
+              </Link>
+            ))}
+          </div>
+        )}
+      </Card>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {/* Case tasks (Overview = Case + Task + Timeline) */}

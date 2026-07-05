@@ -2,6 +2,28 @@
 
 All notable changes to Orbikt are documented here.
 
+## [1.2.0] - 2026-07-05 — Workspace Work Mode (Milestone 2)
+
+### Added
+- **Next Action strip** in the Workspace — the single most important next step
+  for the open case, derived from its state and visible on every tab. Colour-
+  coded by urgency (high/medium/low/none) with an explainable reason and a
+  "前往處理" link to the relevant tab.
+- **Case Abnormal Items panel** on the Overview tab — abnormalities scoped to
+  THIS case (overdue visit, dispatch timeout/no-capacity, missing AA01, FA310
+  returned), distinct from the forward-looking Case Tasks; each links to its tab.
+- **`src/modules/workspace/caseFocus.ts`** — `caseAbnormalItems()` and
+  `nextCaseAction()`, both derived and explainable. Abnormal detection **reuses**
+  `deriveAbnormal` (no duplicated business logic). 7 unit tests in
+  `caseFocus.test.ts`.
+
+### Notes
+- Workspace remains visually distinct from Cases (case-file banner) and requires
+  no re-search after entry. All eight tabs (Overview, AA01, FA310, Dispatch,
+  Visit, Genogram, Attachments, Timeline) and Knowledge references were already
+  present from earlier phases; this milestone closes the "next action" and
+  "case-specific abnormal items" acceptance gaps.
+
 ## [1.1.0] - 2026-07-05 — Data Center (Milestone 1)
 
 ### Added
