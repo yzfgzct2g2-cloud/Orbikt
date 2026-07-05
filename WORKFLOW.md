@@ -526,10 +526,15 @@ Milestone 5 is complete only when:
 
 # 11. Milestone 6 — External Integration
 
-Status: Next  
+Status: Blocked  
 Priority: P3  
 Expected Version: v2.0.0
 Depends On: Milestone 5 — Automation (Completed)
+Blocked: Stop Condition — missing credentials / external authorization for all
+live integrations (see docs/ADAPTERS.md, which documents every adapter
+boundary, required credentials, and safe fallback). Credential-free portion
+(adapter-boundary documentation) completed at CP-0024. Unblock by supplying
+credentials per docs/ADAPTERS.md ▸ Stop Condition table.
 
 ## Goal
 
