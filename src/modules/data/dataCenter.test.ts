@@ -51,9 +51,10 @@ describe("dataCenter — history + log", () => {
     expect(importHistory()).toHaveLength(dataSources.length);
   });
 
-  it("marks FA310 as pending in history", () => {
+  it("marks FA310 as imported (success) in history", () => {
     const fa310 = importHistory().find((h) => h.id === "imp-fa310");
-    expect(fa310?.result).toBe("pending");
+    expect(fa310?.result).toBe("success");
+    expect(fa310?.count).toBeGreaterThan(0);
   });
 
   it("sorts the log newest first with null timestamps last", () => {
@@ -89,22 +90,40 @@ describe("dataCenter — validation (privacy evidence)", () => {
 });
 
 describe("dataCenter — matching", () => {
-  it("is staged on CS100 while FA310 is pending, and stays explainable", () => {
+  it("FA310 is the primary manager source with real per-name stats", () => {
     const m = matchingResult();
-    expect(m.status).toBe("staged");
+    expect(m.status).toBe("matched");
     expect(m.assignedCases).toBeGreaterThan(0);
     expect(m.managerCount).toBeGreaterThan(0);
-    expect(m.detail).toContain("FA310");
+    expect(m.detail).toContain("FA310 為個管主要來源");
+    // Real manager names appear in the explanation.
+    expect(m.detail).toMatch(/案個管由 FA310 指派/);
   });
 });
 
 describe("dataCenter — source issues", () => {
-  it("flags FA310 (pending) as a low-severity issue", () => {
-    const issues = sourceIssues();
-    expect(issues.some((i) => i.source.includes("FA310"))).toBe(true);
+  it("no longer flags FA310 as a source issue (imported ok)", () => {
+    // FA310 is imported; unmatched records surface via errors/validation, not
+    // as a missing-source warning.
+    expect(sourceIssues().some((i) => i.source.includes("FA310"))).toBe(false);
   });
 
   it("does not flag CS100 (ok)", () => {
     expect(sourceIssues().some((i) => i.source.includes("CS100"))).toBe(false);
+  });
+});
+
+describe("dataCenter — FA310 validation", () => {
+  it("FA310 generated data passes the raw-ID scan", () => {
+    expect(validationResults().find((c) => c.id === "v-fa310-raw")?.status).toBe(
+      "pass"
+    );
+  });
+
+  it("reports the FA310↔CS100 match result with unmatched detail", () => {
+    const v = validationResults().find((c) => c.id === "v-fa310-match");
+    expect(v).toBeDefined();
+    expect(["pass", "warn"]).toContain(v!.status);
+    expect(v!.detail).toMatch(/對應/);
   });
 });

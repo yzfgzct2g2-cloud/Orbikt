@@ -2,6 +2,50 @@
 
 All notable changes to Orbikt are documented here.
 
+## [1.6.0] - 2026-07-06 — FA310 Import + Real CS100 Source (Milestone 6, partial)
+
+### Added
+- **FA310 import pipeline** — `scripts/fa310Normalize.mjs` (pure, tested) +
+  `scripts/buildFa310Seed.mjs` (`npm run seed:fa310`): reads
+  `input/FA310/FA310.xls` (Requests export, ROC-compact dates, V-flags),
+  matches case national IDs to CS100 surrogate case IDs at import time, groups
+  managers into anonymous deterministic keys (FA-M1…) from 主責個管員身分證,
+  and emits sanitized `fa310.generated.json` + `fa310.meta.generated.json`.
+  A hard guard aborts the build if any raw national ID reaches the output.
+  Result: **390 records, 375 matched to CS100, 15 unmatched (reported), 5
+  manager groups.**
+- **Data Center** — FA310 source now 已匯入 with real counts/report; matching
+  result shows real FA310↔CS100 stats; two new validation checks (FA310 raw-ID
+  scan, FA310↔CS100 match result). Pending sources: 0.
+- **Workspace ▸ FA310 tab** — real imported service record per case (service
+  date, 電訪/家訪, manager group, tracking/goals completeness). The
+  LongCare-QA-Engine review seam is untouched — review rules stay in the engine.
+- 16 new tests (117 total), including generated-seed privacy contracts.
+
+### Added (manager resolution — governance data rule)
+- **FA310 is now the live PRIMARY responsible-manager source.** The manager
+  roster `input/manager-map/manager-map.csv` (managerNationalId → managerName,
+  Big5-aware parsing) resolves FA310 column S at import time:
+  **375 of 378 cases receive their real manager from FA310** (3 fallback,
+  labelled `managerSource: "fallback"`). Real per-manager caseloads: 簡淑儀 95,
+  江睿儀 92, 游靜怡 90, 王郁琪 53, 房立泓 45.
+- Generated/browser data exposes only `managerName`, `maskedManagerId`,
+  `managerSource` (per governance); `CaseRecord.managerSource` added; Workspace
+  Overview and FA310 tab show the manager with its source label.
+- `config/team.json` manager names updated to the authoritative full names from
+  the roster (matched by unique given-name suffix; ids/quotas unchanged).
+
+### Changed
+- **CS100 seed now builds from the real raw export** `input/CS100/CS100.xls`
+  (fallback to the legacy local copy when absent).
+
+### Security
+- **`input/` and `mock-data/` are now gitignored**; `mock-data/CS100.xlsx` was
+  **untracked** from the index after discovery that it contains real PII
+  (378 valid-format national IDs + phones, 100% overlap with the real CS100
+  export). ⚠️ The file remains in **git history** on GitHub — purging history
+  requires a user-authorized rewrite (see release review).
+
 ## [1.5.0] - 2026-07-06 — Automation (Milestone 5)
 
 ### Added

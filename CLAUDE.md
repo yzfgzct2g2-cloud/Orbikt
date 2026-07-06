@@ -267,17 +267,25 @@ Raw files
 
 input/
 
-Generated
+Raw files are local-only and must never be committed.
+
+Generated files
 
 generated/
+
+Generated files may be browser-facing only after sanitization.
 
 Browser
 
 generated only
 
-Never expose
+The browser must never read raw files directly.
 
-National ID
+Never expose browser-facing
+
+Case National ID
+
+Manager National ID
 
 Phone
 
@@ -285,13 +293,101 @@ Address
 
 Birth date
 
-Allowed
+Raw source Excel content
+
+Raw case number if it embeds National ID
+
+Allowed browser-facing
 
 Full Name
 
+CaseID
+
 maskedNationalId
 
-CaseID
+maskedManagerId
+
+managerName
+
+managerSource
+
+CMS Level
+
+Workflow Status
+
+Case matching priority
+
+1.
+
+Case National ID
+
+import-time only
+
+2.
+
+Case ID
+
+3.
+
+Case Name
+
+fallback only
+
+Case Name must never be used as the primary matching key when Case National ID is available during import.
+
+Responsible Manager priority
+
+1.
+
+FA310 column S
+
+manager National ID
+
+import-time only
+
+2.
+
+manager-map.csv
+
+managerNationalId → managerName
+
+3.
+
+Generated managerName
+
+Rules
+
+Raw Case National ID may exist only during import-time matching.
+
+Raw Manager National ID may exist only during import-time manager mapping.
+
+Raw identifiers must never be written to:
+
+generated/
+
+browser data
+
+logs
+
+snapshots
+
+tests
+
+docs
+
+timeline
+
+notifications
+
+If FA310 column S contains a manager National ID that does not exist in manager-map.csv,
+
+create an import abnormality:
+
+unmappedManagerId
+
+Do not silently assign unknown manager.
+
+Do not fall back to CS100 as primary manager source unless FA310 is missing entirely.
 
 ====================================================
 

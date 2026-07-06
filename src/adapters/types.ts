@@ -64,6 +64,10 @@ export interface CaseRecord {
   id: string; // 案號 (business case number, not the national ID)
   name: string;
   managerId: string;
+  // Where the responsible-manager assignment came from. "fa310" = resolved at
+  // import time from FA310 column S + the manager roster (PRIMARY source per
+  // governance); "fallback" = quota stand-in (case absent from FA310).
+  managerSource?: "fa310" | "fallback";
   cmsLevel: number | null; // CMS 2–8, or null when not yet assessed
   status: CaseStatus;
   visit: VisitInfo;

@@ -1,17 +1,25 @@
 {
-  "source": "mock-data/CS100.xlsx",
+  "source": "input/CS100/CS100.xls",
   "sheet": "個案總查詢清冊",
-  "generatedAt": "2026-07-02T22:41:43.037Z",
+  "generatedAt": "2026-07-06T06:28:28.017Z",
   "seedToday": "2026-07-02",
   "count": 378,
   "note": "Sanitized V1 seed. Raw national ID is read transiently at import and NEVER emitted — only maskedNationalId (first char + last 4). Birth date / phone / street address omitted. visit / dispatch / aa01 / fa310 are deterministic seed stand-ins replaced by their SSOT adapters in Phases 5-8.",
   "idLookupHashEnabled": false,
+  "managerAssignment": {
+    "fa310": 375,
+    "fallback": 3
+  },
   "byManager": {
-    "cm-001": 45,
-    "cm-002": 93,
-    "cm-003": 97,
+    "cm-001": 48,
+    "cm-002": 92,
     "cm-004": 90,
-    "cm-005": 53
+    "cm-005": 53,
+    "cm-003": 95
+  },
+  "byManagerSource": {
+    "fallback": 3,
+    "fa310": 375
   },
   "byCaseStatus": {
     "active": 378

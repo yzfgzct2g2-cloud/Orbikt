@@ -8,7 +8,9 @@
 
 import meta from "../../data/seed/meta.generated.json";
 import seed from "../../data/seed/cases.generated.json";
+import fa310Seed from "../../data/seed/fa310.generated.json";
 import { dataSources, type DataSourceStatus } from "./dataSources";
+import { fa310Meta } from "./fa310Data";
 
 // --- Data health summary -----------------------------------------------------
 
@@ -227,6 +229,23 @@ export function validationResults(): ValidationCheck[] {
         ? "身分識別僅以遮罩後的 maskedNationalId 呈現。"
         : "部分 maskedNationalId 未遮罩，請檢查匯入腳本。",
     },
+    {
+      id: "v-fa310-raw",
+      label: "FA310 無原始身分證號",
+      status: !RAW_NATIONAL_ID.test(JSON.stringify(fa310Seed)) ? "pass" : "fail",
+      detail: !RAW_NATIONAL_ID.test(JSON.stringify(fa310Seed))
+        ? `FA310 匯入資料（${fa310Meta.records} 筆）僅含遮罩值與匿名個管群組。`
+        : "FA310 匯入資料偵測到原始身分證號，違反隱私規則。",
+    },
+    {
+      id: "v-fa310-match",
+      label: "FA310 ↔ CS100 比對",
+      status: fa310Meta.unmatchedRecords === 0 ? "pass" : "warn",
+      detail:
+        fa310Meta.unmatchedRecords === 0
+          ? `全部 ${fa310Meta.records} 筆對應成功。`
+          : `${fa310Meta.matchedCases}/${fa310Meta.records} 筆對應成功；${fa310Meta.unmatchedRecords} 筆未對應（可能為已結案或未列於 CS100 的個案），未對應清單見匯入報告。`,
+    },
   ];
 }
 
@@ -242,24 +261,26 @@ export interface MatchingResult {
 }
 
 export function matchingResult(): MatchingResult {
-  const fa310 = dataSources.find((s) => s.id === "fa310");
-  const managerCount = Object.keys(meta.byManager ?? {}).length;
-  const assignedCases = Object.values(meta.byManager ?? {}).reduce(
-    (a, b) => a + b,
-    0
-  );
-  // Rule: manager PRIMARILY from FA310 when available; CS100 secondary. FA310 is
-  // pending, so current assignment is staged on CS100 until FA310 is imported.
-  const fa310Ready = fa310 != null && fa310.status !== "pending";
+  // Governance data rule: FA310 (column S + manager roster) is the PRIMARY
+  // responsible-manager source; the quota stand-in remains only for cases
+  // absent from FA310 (managerSource "fallback").
+  const fa310Assigned =
+    (meta as { byManagerSource?: Record<string, number> }).byManagerSource
+      ?.fa310 ?? 0;
+  const names = Object.entries(fa310Meta.byManagerName ?? {})
+    .sort((a, b) => b[1] - a[1])
+    .map(([n, c]) => `${n} ${c}`)
+    .join("、");
   return {
-    status: fa310Ready ? "matched" : "staged",
-    primary: "FA310（個管身分證號 → 個案 → 姓名）",
-    secondary: "CS100（個管姓名）",
-    assignedCases,
-    managerCount,
-    detail: fa310Ready
-      ? `已依 FA310 為主、CS100 為輔完成比對，涵蓋 ${assignedCases} 案 / ${managerCount} 位個管。`
-      : `FA310 尚未匯入，目前以 CS100 為個管來源（${assignedCases} 案 / ${managerCount} 位個管）；FA310 匯入後將以其為主重新比對。原始身分證號僅於匯入時使用，瀏覽器僅顯示 maskedNationalId。`,
+    status: "matched",
+    primary: "FA310（欄位 S 個管身分證 → 名冊姓名；個案身分證 → 代理案號）",
+    secondary: "名冊 input/manager-map/manager-map.csv；無 FA310 紀錄者暫代",
+    assignedCases: fa310Assigned,
+    managerCount: fa310Meta.distinctManagers,
+    detail:
+      `FA310 為個管主要來源：${fa310Meta.records} 筆中 ${fa310Meta.matchedCases} 筆對應 CS100 個案` +
+      `（${fa310Meta.unmatchedRecords} 筆未對應）；${fa310Assigned} 案個管由 FA310 指派（${names}）。` +
+      `原始身分證號僅於匯入時比對名冊，瀏覽器僅見 managerName／maskedManagerId／managerSource。`,
   };
 }
 

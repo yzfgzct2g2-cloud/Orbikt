@@ -30,13 +30,20 @@ describe("Cs100DataAdapter", () => {
     }
   });
 
-  it("assigns every case to a known manager, matching team.json quotas", async () => {
+  it("assigns every case to a known manager, primarily from FA310", async () => {
+    // Governance data rule: FA310 (column S + manager roster) is the PRIMARY
+    // responsible-manager source; quota stand-ins remain only for cases
+    // without an FA310 record (managerSource "fallback").
     const cases = await adapter.listCases();
-    const counts: Record<string, number> = {};
-    for (const c of cases) counts[c.managerId] = (counts[c.managerId] ?? 0) + 1;
-    for (const m of team) {
-      expect(counts[m.id]).toBe(m.caseload);
+    const teamIds = new Set(team.map((m) => m.id));
+    let fa310Count = 0;
+    for (const c of cases) {
+      expect(teamIds.has(c.managerId)).toBe(true);
+      expect(["fa310", "fallback"]).toContain(c.managerSource);
+      if (c.managerSource === "fa310") fa310Count += 1;
     }
+    // The overwhelming majority must come from the primary source.
+    expect(fa310Count).toBeGreaterThan(cases.length * 0.9);
   });
 
   it("passes visit info through unchanged (Visit Manager is SSOT)", async () => {

@@ -8,6 +8,7 @@
 
 import meta from "../../data/seed/meta.generated.json";
 import topics from "../knowledge/topics.generated.json";
+import { fa310Meta } from "./fa310Data";
 
 // Statuses, honest about how each source currently supplies data:
 //  ok      — imported/generated, browser-safe data available now
@@ -72,8 +73,9 @@ export const dataSources: DataSourceInfo[] = [
     status: "ok",
     lastImported: CS100_IMPORTED_AT,
     recordCount: CS100_COUNT,
-    rawLocation: "input/CS100.xlsx",
-    sanitizedLocation: "generated/cases.generated.json（maskedNationalId only）",
+    rawLocation: meta.source,
+    sanitizedLocation:
+      "src/data/seed/cases.generated.json（maskedNationalId only）",
     importCommand: "npm run seed:cases",
     reportLink: "src/data/seed/meta.generated.json",
     errors: [],
@@ -82,19 +84,24 @@ export const dataSources: DataSourceInfo[] = [
   },
   {
     id: "fa310",
-    name: "FA310 審查資料",
-    kind: "LongCare-QA-Engine（Python，Adapter）",
-    mode: "adapter",
-    status: "pending",
-    lastImported: null,
-    recordCount: null,
-    rawLocation: "input/FA310/*.xlsx",
-    sanitizedLocation: "generated/fa310.*.json（去識別化）",
-    importCommand: "（於 LongCare-QA-Engine 匯入，Orbikt 以 Adapter 介接）",
-    reportLink: null,
-    errors: ["尚未匯入：FA310 原始檔尚未複製到 input/FA310/。"],
+    name: "FA310 服務紀錄",
+    kind: "Excel（Requests 匯出）＋ LongCare-QA-Engine 審查（Adapter）",
+    mode: "imported",
+    status: "ok",
+    lastImported: fa310Meta.generatedAt,
+    recordCount: fa310Meta.records,
+    rawLocation: fa310Meta.source,
+    sanitizedLocation: "src/data/seed/fa310.generated.json（去識別化）",
+    importCommand: "npm run seed:fa310",
+    reportLink: "src/data/seed/fa310.meta.generated.json",
+    errors:
+      fa310Meta.unmatchedRecords > 0
+        ? [
+            `${fa310Meta.unmatchedRecords} 筆 FA310 紀錄無法對應 CS100 個案（可能為已結案或新案），詳見匯入報告。`,
+          ]
+        : [],
     dependsOn: ["cs100"],
-    note: "FA310 個管欄位為身分證號；匯入時比對 CS100 姓名，瀏覽器僅顯示 maskedNationalId。尚未匯入。",
+    note: "FA310 服務紀錄已匯入並比對 CS100（身分證號僅於匯入時使用，輸出僅遮罩值與匿名個管群組）。審查規則仍在 LongCare-QA-Engine，Orbikt 不重建。",
   },
   {
     id: "aa01",

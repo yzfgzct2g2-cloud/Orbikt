@@ -16,6 +16,7 @@ import { reviewManager, fa310IdentityLabel } from "../../modules/review/reviewEn
 import type { ReviewResult } from "../../modules/review/reviewTypes";
 import { relatedTopics, knowledgeManager } from "../../modules/knowledge/knowledge";
 import { caseAbnormalItems } from "../../modules/workspace/caseFocus";
+import { fa310ForCase } from "../../modules/data/fa310Data";
 import {
   caseCompletionChecklist,
   checklistProgress,
@@ -77,7 +78,24 @@ export function OverviewTab({ c }: { c: CaseRecord }) {
     <div className="space-y-4">
       <Card className="p-5">
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-          <Field label="個管員" value={managerName(c.managerId)} />
+          <Field
+            label="個管員"
+            value={
+              <>
+                {managerName(c.managerId)}
+                <span
+                  className="ml-1 text-[10px] font-normal text-slate-400"
+                  title={
+                    c.managerSource === "fa310"
+                      ? "個管指派來源：FA310（主要來源）"
+                      : "個管指派來源：暫代（本案無 FA310 紀錄）"
+                  }
+                >
+                  {c.managerSource === "fa310" ? "FA310" : "暫代"}
+                </span>
+              </>
+            }
+          />
           <Field label="身分證" value={c.maskedNationalId ?? "—"} />
           <Field label="CMS 等級" value={c.cmsLevel ?? "未評估"} />
           <Field label="個案狀態" value={caseStatusLabel[c.status]} />
@@ -476,6 +494,7 @@ export function FA310Tab({ c }: { c: CaseRecord }) {
   const [review, setReview] = useState<ReviewResult | null | undefined>(
     undefined
   );
+  const fa310 = useMemo(() => fa310ForCase(c.id), [c.id]);
   useEffect(() => {
     let active = true;
     setReview(undefined);
@@ -487,6 +506,59 @@ export function FA310Tab({ c }: { c: CaseRecord }) {
 
   return (
     <div className="space-y-4">
+      {/* Real imported FA310 service record for this case (data, not review). */}
+      <Card className="p-5">
+        <div className="text-xs uppercase tracking-wide text-slate-400">
+          FA310 服務紀錄（實際匯入）
+        </div>
+        {fa310 ? (
+          <div className="mt-2 grid grid-cols-2 gap-4 sm:grid-cols-4">
+            <Field label="服務日期" value={fa310.serviceDate ?? "—"} />
+            <Field
+              label="服務方式"
+              value={
+                [
+                  fa310.phoneVisit ? "電訪" : null,
+                  fa310.homeVisit ? "家訪" : null,
+                ]
+                  .filter(Boolean)
+                  .join("＋") || "—"
+              }
+            />
+            <Field
+              label="主責個管員"
+              value={
+                fa310.managerName ? (
+                  <>
+                    {fa310.managerName}
+                    <span className="ml-1 text-[10px] font-normal text-slate-400">
+                      FA310
+                    </span>
+                  </>
+                ) : (
+                  "—"
+                )
+              }
+            />
+            <Field
+              label="紀錄完整性"
+              value={
+                fa310.hasTracking && fa310.hasGoals ? (
+                  <Badge className="bg-emerald-100 text-emerald-700">
+                    追蹤＋目標已填
+                  </Badge>
+                ) : (
+                  <Badge className="bg-amber-100 text-amber-700">欄位缺漏</Badge>
+                )
+              }
+            />
+          </div>
+        ) : (
+          <p className="mt-2 text-sm text-slate-500">
+            本案在 FA310 匯出中沒有對應紀錄（可能為新案或未列入本期匯出）。
+          </p>
+        )}
+      </Card>
       <Card className="p-5">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div>

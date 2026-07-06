@@ -18,3 +18,7 @@ serviceAccountKey.json
 # dist, runtime output, and PII). They must never be committed into the Orbikt repo.
 # See docs/SOURCE_SYSTEMS.md.
 source-systems/
+
+# Raw source files (PII) — import-time only, NEVER commit
+input/
+mock-data/

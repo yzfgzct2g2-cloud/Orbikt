@@ -286,6 +286,25 @@ export function assignManagers(cases, team) {
 }
 
 /**
+ * GOVERNANCE DATA RULE: FA310 is the PRIMARY source for the responsible case
+ * manager. Overrides the quota stand-in with the real FA310 assignment
+ * (managerNameByCaseId, resolved at import time from FA310 column S + the
+ * manager roster). Cases without an FA310 record keep the fallback assignment
+ * and are labelled managerSource "fallback" so the UI/reporting stay honest.
+ */
+export function applyFa310Managers(cases, team, managerNameByCaseId) {
+  const idByName = new Map(team.map((m) => [m.name, m.id]));
+  return cases.map((c) => {
+    const name = managerNameByCaseId.get(c.id);
+    const teamId = name ? idByName.get(name) : undefined;
+    if (name && teamId) {
+      return { ...c, managerId: teamId, managerSource: "fa310" };
+    }
+    return { ...c, managerSource: "fallback" };
+  });
+}
+
+/**
  * Assign a non-PII surrogate id ("C-0001", …) by stable file order and strip
  * the internal `srcKey`. This guarantees no national ID (which some raw 案號
  * embed) can reach the output.

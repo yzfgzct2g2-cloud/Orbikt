@@ -68,8 +68,8 @@ export const automationRegistry: AutomationEntry[] = [
   {
     id: "manager-matching",
     name: "個管比對 Manager Matching",
-    rule: "個管歸屬以 FA310 為主（身分證號 → 個案 → 姓名）、CS100 為輔；原始身分證號僅存在於匯入時，瀏覽器僅見 maskedNationalId。FA310 未匯入前暫以 CS100。",
-    source: "匯入時的 FA310/CS100 原始欄位（匯入腳本內）；瀏覽器僅讀比對結果",
+    rule: "個管歸屬以 FA310 為主（欄位 S 個管身分證 → 名冊姓名 → team.json）；個案以身分證號比對 CS100 產生代理案號。無 FA310 紀錄之個案暫代並標示 managerSource=fallback。原始身分證號僅存在於匯入時；瀏覽器僅見 managerName／maskedManagerId／managerSource。",
+    source: "input/FA310/FA310.xls + input/CS100/CS100.xls + input/manager-map/manager-map.csv（匯入腳本內）；瀏覽器僅讀 generated JSON",
     surface: "Data Center ▸ 比對結果、個案的個管員欄位",
     codePath: "src/modules/data/caseManagerMatch.ts",
     writes: "nothing",

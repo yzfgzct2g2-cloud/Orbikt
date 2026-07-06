@@ -1,0 +1,41 @@
+{
+  "source": "input/FA310/FA310.xls",
+  "cs100Source": "input/CS100/CS100.xls",
+  "managerMapSource": "input/manager-map/manager-map.csv",
+  "managerMapEntries": 5,
+  "managerMapErrors": [],
+  "sheet": "Requests",
+  "generatedAt": "2026-07-06T06:28:29.182Z",
+  "totalRows": 390,
+  "invalidRows": 0,
+  "records": 390,
+  "matchedCases": 375,
+  "unmatchedRecords": 15,
+  "unmatchedMaskedIds": [
+    "G*****9066",
+    "G*****7437",
+    "A*****9057",
+    "G*****2680",
+    "G*****1746",
+    "G*****8415",
+    "N*****0322",
+    "G*****2219",
+    "G*****2921",
+    "G*****0268",
+    "G*****1302",
+    "G*****2657",
+    "G*****2650",
+    "G*****4723",
+    "G*****8072"
+  ],
+  "distinctManagers": 5,
+  "byManagerName": {
+    "游靜怡": 90,
+    "江睿儀": 92,
+    "房立泓": 45,
+    "王郁琪": 53,
+    "簡淑儀": 95
+  },
+  "unmappedManagerIds": [],
+  "note": "Sanitized FA310 import. Raw case/manager national IDs are read transiently for matching (FA310 column S ↔ input/manager-map/manager-map.csv) and NEVER emitted — output carries only surrogate caseId, masked IDs, managerName, and managerSource. FA310 is the PRIMARY responsible-manager source. FA310 REVIEW rules remain in LongCare-QA-Engine."
+}
