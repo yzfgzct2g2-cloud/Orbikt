@@ -34,6 +34,14 @@ labelled 暫代種子 in the Data Center.
   token or doGet parameter agreement) — the exec URL alone is a UI link, not a
   documented API; calling it programmatically requires the owner's
   authorization and a stable contract
+- **Probe result (2026-07-06, read-only GET):** the exec URL returns the full
+  HtmlService web app「伊甸基金會個案訪視管理系統」(HTTP 200, text/html) —
+  **no JSON API exists at this URL**. To integrate, the GAS project owner must
+  add a JSON mode (e.g. `doGet(e)` with `e.parameter.format === "json"`
+  returning `ContentService` JSON of per-case visit warnings: caseId,
+  lastVisitDate, nextDueDate, remainingDays, status) or publish a second
+  API-only deployment. Payload must contain only safe fields (no phone /
+  address / raw ID) since the browser consumes it directly.
 - **Fallback:** per-case seed visit status + external link (current)
 
 ## 3. Dispatch (external console/API)
