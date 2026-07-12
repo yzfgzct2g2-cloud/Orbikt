@@ -2,6 +2,35 @@
 
 All notable changes to Orbikt are documented here.
 
+## [1.7.0] - 2026-07-06 — Orbikt Launcher (Milestone 7 — DX)
+
+### Added
+- **Orbikt Launcher — the official entry point for non-technical users.**
+  Double-click `Orbikt.vbs` → 「Orbikt 啟動器」 page →「開始使用 Orbikt」→
+  Orbikt opens in the browser. Users never see PowerShell / npm / Node /
+  localhost / Vite / Git.
+  - `launcher/server.mjs` — zero-dependency (Node stdlib), localhost-only
+    orchestrator (port 5199). Serves the built app itself (static `dist/`,
+    port 5198, SPA fallback) so no dev tooling runs at use-time. Fixed command
+    set only; single-instance; idempotent start (never duplicates servers).
+  - `launcher/launcherCore.mjs` — pure, unit-tested decisions: deps/generated/
+    build freshness, start plan, update plan (pull → conditional install /
+    reseed / rebuild), sync summary (no git vocabulary), diagnostics.
+  - `launcher/ui.html` — System Status, Data Sources (CS100 / FA310 /
+    manager-map / generated with counts + health), PASS/FAIL diagnostics,
+    update, stop. Traditional-Chinese, zero developer terminology.
+  - `Orbikt.vbs` — hidden-window entry with a friendly install message when
+    the runtime is missing.
+  - `ORBIKT_NO_BROWSER=1` for headless verification; `npm run launcher` for
+    developers.
+  - 20 new launcherCore tests (140 total). `docs/LAUNCHER.md` documents the
+    architecture and the 1:1 Electron/Tauri migration path (UI unchanged,
+    endpoints become IPC, pure core moves as-is).
+
+### Fixed
+- Windows `npm.cmd` spawning under modern Node (EINVAL, CVE-2024-27980
+  mitigation) — fixed commands are routed through `cmd /c` with array args.
+
 ## [1.6.0] - 2026-07-06 — FA310 Import + Real CS100 Source (Milestone 6, partial)
 
 ### Added

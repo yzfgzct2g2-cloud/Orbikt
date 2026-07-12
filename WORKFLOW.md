@@ -585,6 +585,33 @@ Milestone 6 is complete only when:
 
 ---
 
+# 11b. Milestone 7 — Launcher (Developer Experience)
+
+Status: Completed  
+Priority: P2 (user-approved 2026-07-06 — explicit New Development Target)  
+Expected Version: v1.7.0
+Depends On: v1.6.0
+
+## Goal
+
+Orbikt must be usable by non-technical users. One-click startup; users never
+see PowerShell, npm, Node.js, localhost, Vite, or Git.
+
+## Delivered (v1.7.0)
+
+- Orbikt.vbs double-click entry (hidden window, friendly runtime check).
+- launcher/server.mjs — localhost-only orchestrator (port 5199) + static app
+  host for dist/ (port 5198, SPA fallback; no Vite at use-time).
+- launcher/ui.html — 開始使用 Orbikt primary action; status / data sources /
+  diagnostics / update / stop; zero developer terminology.
+- launcher/launcherCore.mjs — pure, unit-tested decisions (freshness, start
+  plan, update plan, sync summary, diagnostics).
+- Electron/Tauri-ready split (UI ⇄ endpoint table ⇄ pure core) —
+  docs/LAUNCHER.md.
+
+Launcher only orchestrates startup: no business rules, fixed command set,
+existing Data Center logic untouched.
+
 # 12. Product Memory
 
 Accepted permanent decisions:

@@ -22,3 +22,4 @@ source-systems/
 # Raw source files (PII) — import-time only, NEVER commit
 input/
 mock-data/
+.claude/heartbeat.ps1

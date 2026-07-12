@@ -1,7 +1,7 @@
 {
   "name": "orbikt",
   "private": true,
-  "version": "1.6.0",
+  "version": "1.7.0",
   "type": "module",
   "description": "Orbikt — case-centered professional workspace platform for long-term care",
   "scripts": {
@@ -9,6 +9,7 @@
     "build": "tsc -b && vite build",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
+    "launcher": "node launcher/server.mjs",
     "seed:cases": "node scripts/buildCaseSeed.mjs",
     "seed:fa310": "node scripts/buildFa310Seed.mjs",
     "seed:knowledge": "node scripts/buildKnowledgeIndex.mjs",

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orbikt 啟動器</title>
+<style>
+  :root { --blue:#2563eb; --blue-dark:#1e40af; --ok:#16a34a; --warn:#d97706; --bad:#dc2626; --ink:#0f172a; --mut:#64748b; --line:#e2e8f0; --bg:#f1f5f9; }
+  * { box-sizing:border-box; margin:0; }
+  body { font-family:"Microsoft JhengHei","Noto Sans TC",system-ui,sans-serif; background:var(--bg); color:var(--ink); padding:24px; }
+  .wrap { max-width:720px; margin:0 auto; }
+  header { display:flex; align-items:center; gap:14px; margin-bottom:20px; }
+  .logo { width:52px; height:52px; border-radius:16px; background:var(--blue); color:#fff; font-size:26px; font-weight:900; display:flex; align-items:center; justify-content:center; }
+  h1 { font-size:22px; } .sub { color:var(--mut); font-size:13px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px; margin-bottom:14px; }
+  .big { display:block; width:100%; padding:18px; font-size:20px; font-weight:800; color:#fff; background:var(--blue); border:none; border-radius:14px; cursor:pointer; font-family:inherit; }
+  .big:hover { background:var(--blue-dark); } .big:disabled { background:#94a3b8; cursor:wait; }
+  .row { display:flex; justify-content:space-between; gap:10px; padding:7px 0; border-bottom:1px dashed var(--line); font-size:14px; }
+  .row:last-child { border-bottom:none; }
+  .k { color:var(--mut); } .v { font-weight:600; text-align:right; }
+  .ok { color:var(--ok); } .warn { color:var(--warn); } .bad { color:var(--bad); }
+  .btns { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+  button.sec { padding:10px 16px; font-size:14px; font-weight:700; border:1px solid var(--line); background:#fff; border-radius:10px; cursor:pointer; font-family:inherit; }
+  button.sec:hover { background:var(--bg); }
+  #progress { white-space:pre-wrap; font-size:13px; color:var(--mut); margin-top:12px; min-height:1.2em; }
+  h2 { font-size:15px; margin-bottom:8px; }
+  .pill { font-size:12px; font-weight:700; padding:2px 10px; border-radius:99px; }
+  .pill.ok { background:#dcfce7; } .pill.warn { background:#fef3c7; } .pill.bad { background:#fee2e2; }
+  .note { font-size:12px; color:var(--mut); margin-top:10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">O</div>
+    <div>
+      <h1>Orbikt 啟動器</h1>
+      <div class="sub">個案工作平台 · <span id="ver">…</span></div>
+    </div>
+  </header>
+
+  <div class="card">
+    <button class="big" id="startBtn" onclick="startOrbikt()">開始使用 Orbikt</button>
+    <div id="progress"></div>
+    <div class="btns">
+      <button class="sec" onclick="openOrbikt()">開啟 Orbikt 視窗</button>
+      <button class="sec" onclick="stopOrbikt()">停止 Orbikt</button>
+      <button class="sec" onclick="updateOrbikt()">檢查更新</button>
+      <button class="sec" onclick="runDiag()">系統檢查</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>系統狀態</h2>
+    <div id="status">載入中…</div>
+  </div>
+
+  <div class="card">
+    <h2>資料來源</h2>
+    <div id="sources">載入中…</div>
+  </div>
+
+  <div class="card" id="diagCard" style="display:none">
+    <h2>系統檢查</h2>
+    <div id="diag"></div>
+  </div>
+
+  <div class="note">關閉這個視窗不會停止 Orbikt。要完全結束，請按「停止 Orbikt」。</div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+
+function row(k, v, cls) {
+  return `<div class="row"><span class="k">${esc(k)}</span><span class="v ${cls||""}">${v}</span></div>`;
+}
+
+async function refreshStatus() {
+  try {
+    const s = await (await fetch("/api/status")).json();
+    $("ver").textContent = "版本 " + s.version;
+    const runPill = s.appRunning
+      ? '<span class="pill ok">執行中</span>'
+      : '<span class="pill warn">未啟動</span>';
+    $("status").innerHTML =
+      row("Orbikt", runPill) +
+      row("版本", esc(s.version)) +
+      row("版本同步", esc(s.sync.text), s.sync.level === "ok" ? "ok" : "warn") +
+      row("必要元件", esc(s.deps.reason), s.deps.fresh ? "ok" : "warn") +
+      row("個案資料", esc(s.generated.cases.reason), s.generated.cases.fresh ? "ok" : "warn") +
+      row("FA310 資料", esc(s.generated.fa310.reason), s.generated.fa310.fresh ? "ok" : "warn") +
+      row("應用程式", esc(s.build.reason), s.build.fresh ? "ok" : "warn");
+  } catch { $("status").textContent = "無法取得狀態"; }
+}
+
+async function refreshSources() {
+  try {
+    const d = await (await fetch("/api/data-sources")).json();
+    $("sources").innerHTML = d.sources.map(s => {
+      const st = s.available
+        ? (s.health === "ok" ? '<span class="pill ok">正常</span>' : '<span class="pill warn">需更新</span>')
+        : '<span class="pill bad">缺少</span>';
+      const info = [
+        s.recordCount != null ? s.recordCount + " 筆" : null,
+        s.lastUpdated ? new Date(s.lastUpdated).toLocaleString("zh-TW") : null,
+      ].filter(Boolean).join(" · ");
+      return row(s.label, st + (info ? ` <span class="k" style="font-weight:400">${esc(info)}</span>` : ""));
+    }).join("");
+  } catch { $("sources").textContent = "無法取得資料來源"; }
+}
+
+async function streamPost(url, onLine) {
+  const res = await fetch(url, { method: "POST" });
+  const reader = res.body.getReader();
+  const dec = new TextDecoder();
+  let buf = "";
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buf += dec.decode(value, { stream: true });
+    let i;
+    while ((i = buf.indexOf("\n")) >= 0) {
+      onLine(buf.slice(0, i));
+      buf = buf.slice(i + 1);
+    }
+  }
+  if (buf.trim()) onLine(buf);
+}
+
+async function startOrbikt() {
+  $("startBtn").disabled = true;
+  $("progress").textContent = "";
+  const lines = [];
+  await streamPost("/api/start", (l) => {
+    if (l.startsWith("DONE")) lines.push("✅ Orbikt 已開啟，若視窗沒有出現請按「開啟 Orbikt 視窗」。");
+    else if (l.startsWith("FAIL")) lines.push("❌ " + l.slice(5));
+    else lines.push("⏳ " + l);
+    $("progress").textContent = lines.join("\n");
+  });
+  $("startBtn").disabled = false;
+  refreshStatus();
+}
+
+async function openOrbikt() {
+  const r = await (await fetch("/api/open", { method: "POST" })).json();
+  if (!r.ok) $("progress").textContent = "Orbikt 尚未啟動，請先按「開始使用 Orbikt」。";
+}
+
+async function stopOrbikt() {
+  await fetch("/api/stop", { method: "POST" });
+  $("progress").textContent = "Orbikt 已停止。";
+  refreshStatus();
+}
+
+async function updateOrbikt() {
+  $("startBtn").disabled = true;
+  $("progress").textContent = "";
+  const lines = [];
+  await streamPost("/api/update", (l) => {
+    if (l.startsWith("DONE")) lines.push("✅ " + l.slice(5));
+    else if (l.startsWith("FAIL")) lines.push("❌ " + l.slice(5));
+    else lines.push("⏳ " + l);
+    $("progress").textContent = lines.join("\n");
+  });
+  $("startBtn").disabled = false;
+  refreshStatus(); refreshSources();
+}
+
+async function runDiag() {
+  $("diagCard").style.display = "";
+  try {
+    const d = await (await fetch("/api/diagnostics")).json();
+    $("diag").innerHTML = d.items.map(i =>
+      row(i.label, (i.pass ? '<span class="pill ok">通過</span>' : '<span class="pill bad">未通過</span>')
+        + ` <span class="k" style="font-weight:400">${esc(i.hint)}</span>`)
+    ).join("");
+  } catch { $("diag").textContent = "檢查失敗"; }
+}
+
+refreshStatus();
+refreshSources();
+setInterval(refreshStatus, 15000);
+</script>
+</body>
+</html>
