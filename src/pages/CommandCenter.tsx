@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useAppStore } from "../store/useAppStore";
-import { dataAdapter } from "../adapters";
 import { team } from "../config/appConfig";
 import { EisenhowerMatrix } from "../components/dashboard/EisenhowerMatrix";
 import { DonutChart } from "../components/charts/DonutChart";
@@ -18,7 +17,10 @@ import {
   visitStatusClass,
   visitStatusLabel,
 } from "../lib/labels";
-import type { ScheduleEvent } from "../adapters/types";
+import { useCalendarStore } from "../store/useCalendarStore";
+import { combineCalendarEvents, eventTarget } from "../modules/calendar/calendarPage";
+import { deriveVisitEvents, occursOn } from "../modules/calendar/calendarDomain";
+import { todayTaipei } from "../modules/calendar/calendarDates";
 
 // --- compact building blocks ---------------------------------------------
 
@@ -110,10 +112,16 @@ export function CommandCenter() {
   const refreshData = useAppStore((s) => s.refreshData);
   const lastRefreshedAt = useAppStore((s) => s.lastRefreshedAt);
 
-  const [schedule, setSchedule] = useState<ScheduleEvent[]>([]);
+  const calendarEvents = useCalendarStore((s) => s.events);
+  const calendarLoaded = useCalendarStore((s) => s.loaded);
+  const loadCalendar = useCalendarStore((s) => s.load);
   useEffect(() => {
-    void dataAdapter.listSchedule().then(setSchedule);
-  }, []);
+    if (!calendarLoaded) void loadCalendar();
+  }, [calendarLoaded, loadCalendar]);
+  const schedule = useMemo(
+    () => combineCalendarEvents(calendarEvents, deriveVisitEvents(cases)).filter((event) => !event.deletedAt && occursOn(event, todayTaipei())),
+    [calendarEvents, cases]
+  );
 
   const totalCaseload = team.reduce((sum, m) => sum + m.caseload, 0);
   const buckets = bucketVisitWarnings(cases);
@@ -325,15 +333,15 @@ export function CommandCenter() {
         </Panel>
 
         {/* Schedule */}
-        <Panel title="今日行程 Schedule" count={schedule.length}>
+        <Panel title="今日團隊行程" count={schedule.length} action={<Link to="/calendar" className="text-[11px] font-medium text-blue-600 hover:underline">完整行事曆</Link>}>
           {schedule.map((ev) => (
             <div key={ev.id} className="flex items-center gap-2 px-2 py-1">
               <span className="w-10 shrink-0 text-[11px] font-semibold text-slate-600">
-                {hhmm(ev.start)}
+                {ev.allDay ? "全天" : hhmm(ev.startAt)}
               </span>
-              {ev.caseId ? (
+              {eventTarget(ev) ? (
                 <Link
-                  to={`/workspace/${ev.caseId}`}
+                  to={eventTarget(ev)!}
                   className="truncate text-xs text-slate-800 hover:text-blue-600"
                 >
                   {ev.title}

@@ -182,6 +182,76 @@ export interface DocumentLink {
   scope: DocumentScope;
 }
 
+// ---------------------------------------------------------------------------
+// Team Calendar (團隊行事曆) — obj-orbikt-team-calendar-v1
+//
+// The Team Calendar is Orbikt's team WORK-COORDINATION layer. It is NOT a new
+// SSOT for any business module: Visit Manager / AA01 / FA310 / Dispatch keep
+// their own rules. Events with `source !== "manual"` are read-only projections
+// of source-system deadlines and always link back to the source module.
+
+export type CalendarEventType =
+  | "visit"
+  | "reassessment"
+  | "care-plan"
+  | "dispatch"
+  | "meeting"
+  | "administrative"
+  | "training"
+  | "leave"
+  | "other";
+
+export type CalendarEventStatus =
+  | "scheduled"
+  | "in-progress"
+  | "completed"
+  | "overdue"
+  | "cancelled";
+
+export type CalendarEventSource =
+  | "manual"
+  | "visit-manager"
+  | "aa01"
+  | "fa310"
+  | "dispatch"
+  | "system";
+
+/**
+ * A team calendar event. Datetimes are ISO strings with an explicit +08:00
+ * offset (Asia/Taipei) so date bucketing never drifts through UTC conversion.
+ *
+ * `status` stores the user-declared state; "overdue" is normally DERIVED at
+ * read time (see calendarDomain.effectiveStatus) — no scheduler rewrites data.
+ *
+ * Privacy: `caseDisplayName` may carry only browser-safe identity (full name /
+ * CaseID per existing rules). Never raw national IDs, phones, addresses,
+ * birth dates, or medical detail.
+ */
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  description: string;
+  type: CalendarEventType;
+  status: CalendarEventStatus;
+  source: CalendarEventSource;
+  startAt: string; // ISO datetime (+08:00)
+  endAt: string; // ISO datetime (+08:00), >= startAt
+  allDay: boolean;
+  ownerId: string; // responsible team member (負責人)
+  participantIds: string[]; // co-participants (共同參與人)
+  caseId: string | null;
+  caseDisplayName?: string; // privacy-safe display only
+  location?: string;
+  reminderAt?: string | null;
+  completedAt?: string | null;
+  createdBy: string;
+  createdAt: string; // ISO datetime
+  updatedBy: string;
+  updatedAt: string; // ISO datetime
+  deletedAt?: string | null; // soft delete marker — no hard delete in V1
+  deletedBy?: string | null;
+}
+
 export type ScheduleKind = "visit" | "meeting" | "review" | "personal";
 
 /**

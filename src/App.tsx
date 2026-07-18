@@ -9,6 +9,7 @@ import { Documents } from "./pages/Documents";
 import { Notifications } from "./pages/Notifications";
 import { DataCenter } from "./pages/DataCenter";
 import { Settings } from "./pages/Settings";
+import { Calendar } from "./pages/Calendar";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
       <Route element={<AppLayout />}>
         <Route index element={<CommandCenter />} />
         <Route path="cases" element={<Cases />} />
+        <Route path="calendar" element={<Calendar />} />
         <Route path="workspace" element={<WorkspacePicker />} />
         <Route path="workspace/:caseId" element={<Workspace />} />
         <Route path="workspace/:caseId/:tab" element={<Workspace />} />

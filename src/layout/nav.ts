@@ -27,6 +27,11 @@ export const navItems: NavItem[] = [
     icon: "M3 7h18v12H3zM3 7l2-3h14l2 3M9 12h6",
   },
   {
+    to: "/calendar",
+    label: "團隊行事曆",
+    icon: "M4 5h16v15H4zM7 3v4m10-4v4M4 9h16M8 13h3m2 0h3m-8 4h3",
+  },
+  {
     to: "/knowledge",
     label: "Knowledge 知識庫",
     icon: "M4 5a2 2 0 012-2h12v18H6a2 2 0 01-2-2zM8 3v18",

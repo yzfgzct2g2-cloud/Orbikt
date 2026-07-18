@@ -3,6 +3,9 @@
 // same wording for the same status.
 
 import type {
+  CalendarEventSource,
+  CalendarEventStatus,
+  CalendarEventType,
   CaseStatus,
   DispatchStatus,
   ModuleStatus,
@@ -70,4 +73,55 @@ export const caseStatusLabel: Record<CaseStatus, string> = {
   pending: "待啟動",
   suspended: "暫停",
   closed: "結案",
+};
+
+// --- Team Calendar (團隊行事曆) --------------------------------------------
+
+export const calendarTypeLabel: Record<CalendarEventType, string> = {
+  visit: "家訪",
+  reassessment: "複評",
+  "care-plan": "照顧計畫",
+  dispatch: "派案",
+  meeting: "會議",
+  administrative: "行政",
+  training: "教育訓練",
+  leave: "請假",
+  other: "其他",
+};
+
+export const calendarTypeClass: Record<CalendarEventType, string> = {
+  visit: "bg-orange-100 text-orange-700",
+  reassessment: "bg-violet-100 text-violet-700",
+  "care-plan": "bg-teal-100 text-teal-700",
+  dispatch: "bg-sky-100 text-sky-700",
+  meeting: "bg-blue-100 text-blue-700",
+  administrative: "bg-slate-100 text-slate-600",
+  training: "bg-emerald-100 text-emerald-700",
+  leave: "bg-amber-100 text-amber-700",
+  other: "bg-slate-100 text-slate-500",
+};
+
+export const calendarStatusLabel: Record<CalendarEventStatus, string> = {
+  scheduled: "已排定",
+  "in-progress": "進行中",
+  completed: "已完成",
+  overdue: "逾期",
+  cancelled: "已取消",
+};
+
+export const calendarStatusClass: Record<CalendarEventStatus, string> = {
+  scheduled: "bg-sky-100 text-sky-700",
+  "in-progress": "bg-blue-100 text-blue-700",
+  completed: "bg-emerald-100 text-emerald-700",
+  overdue: "bg-red-100 text-red-700",
+  cancelled: "bg-slate-100 text-slate-500",
+};
+
+export const calendarSourceLabel: Record<CalendarEventSource, string> = {
+  manual: "手動建立",
+  "visit-manager": "Visit Manager",
+  aa01: "AA01",
+  fa310: "FA310",
+  dispatch: "派案系統",
+  system: "系統",
 };
