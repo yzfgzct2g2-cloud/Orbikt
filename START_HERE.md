@@ -29,7 +29,7 @@ Before writing, editing, deleting, refactoring, committing, tagging, or pushing 
 1. CLAUDE.md
 2. WORKFLOW.md
 3. ACCEPTANCE.md
-4. PROJECT_STATE.json
+4. project-state/PROJECT_STATE.json (the machine-readable project state lives in project-state/, not the repository root)
 5. Latest checkpoint in project-state/checkpoints/
 6. Latest review in project-state/reviews/
 7. CHANGELOG.md

@@ -1,9 +1,28 @@
 {
   "project": "Orbikt",
   "version": "1.7.0",
-  "current_phase": "Milestone 7 — Launcher (DX)",
+  "current_phase": "Milestone 8 — Team Calendar (obj-orbikt-team-calendar-v1)",
   "current_checkpoint": "CP-0027",
-  "status": "V1_7_0_STABLE",
+  "status": "M8_IN_PROGRESS",
+  "objective": {
+    "id": "obj-orbikt-team-calendar-v1",
+    "title": "Orbikt 團隊行事曆 V1 — team work-coordination layer",
+    "model": "OAES v2 (Objective/Knowledge/State/Action/Actor)",
+    "actors": [
+      "Repository Owner",
+      "Supervisor / Admin",
+      "Case Manager",
+      "System",
+      "Claude Code Implementer"
+    ],
+    "knowledge": {
+      "requirement": "Known",
+      "architecture": "Known",
+      "implementation": "Unknown",
+      "verification": "Unknown"
+    },
+    "boundaries": "Not a personal calendar; not a Google Calendar shortcut; not a new SSOT over Visit Manager/AA01/FA310/Dispatch; V1 has no Google two-way sync; V1 persistence is browser-local behind a CalendarAdapter seam (NOT a shared multi-user backend)."
+  },
   "launcher": "Official entry point: Orbikt.vbs -> launcher/server.mjs (localhost-only orchestrator :5199, zero-dep) + static app host for dist/ (:5198, SPA fallback). Pure decisions in launcher/launcherCore.mjs (20 tests). UI launcher/ui.html: 開始使用 Orbikt, status, data sources, diagnostics, update, stop — no developer terminology. Electron/Tauri-ready (docs/LAUNCHER.md).",
   "milestone": "M1–M5 COMPLETED (v1.1.0–v1.5.0). M6 partial (FA310/CS100 file integrations) COMPLETED at v1.6.0; remainder Blocked (credentials). M7 Launcher (DX, user-approved) COMPLETED at v1.7.0.",
   "next_milestone": "Milestone 6 remainder (P3, v2.0.0): BLOCKED — credentials/authorization for Visit GAS JSON, Dispatch API, Supabase, Graph, Calendar, LINE, real auth (docs/ADAPTERS.md).",

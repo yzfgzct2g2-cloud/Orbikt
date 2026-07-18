@@ -612,6 +612,36 @@ see PowerShell, npm, Node.js, localhost, Vite, or Git.
 Launcher only orchestrates startup: no business rules, fixed command set,
 existing Data Center logic untouched.
 
+# 11c. Milestone 8 — Team Calendar (obj-orbikt-team-calendar-v1)
+
+Status: In Progress
+Priority: P2 (user-directed 2026-07-18 — OAES v2 Objective)
+Expected Version: v1.8.0
+Depends On: v1.7.0
+
+## Goal
+
+A shared TEAM work calendar (團隊行事曆): every case manager can create,
+edit, complete and track work in Orbikt; supervisors see the whole team's
+schedule and progress. The calendar is the team coordination layer — it is
+NOT a personal calendar, NOT a Google Calendar shortcut, NOT a new SSOT for
+Visit Manager / AA01 / FA310 / Dispatch, and V1 has NO two-way Google sync.
+
+## Scope
+
+- /calendar route (top-level destination), month / week / day views, zh-TW,
+  Asia/Taipei dates.
+- CalendarEvent domain model + CalendarAdapter seam; V1 browser-local
+  persistence (explicitly NOT a shared multi-user backend yet).
+- Owner / participants, event types & statuses, derived overdue, soft delete
+  + supervisor restore, case links back into the Workspace.
+- Permission model: case managers manage own events; supervisors manage all;
+  system-source events protected (read-only projections that link back to the
+  source module).
+- Command Center keeps its summary role and gains a calendar summary + entry.
+- Domain / permission / adapter / view-model tests; existing suite must stay
+  green.
+
 # 12. Product Memory
 
 Accepted permanent decisions:
