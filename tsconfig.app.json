@@ -29,6 +29,7 @@
   },
   "include": [
     "src",
+    "shared/auth/authIdentity.ts",
     "config/team.json",
     "config/integrations.json",
     "config/source-systems.json",
