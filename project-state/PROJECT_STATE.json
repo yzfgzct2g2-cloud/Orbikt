@@ -2,8 +2,8 @@
   "project": "Orbikt",
   "version": "1.7.1",
   "current_phase": "Milestone 9 — Orbikt v2 Repository Offline Foundation (obj-orbikt-v2-cloud-auth-shared-workspace)",
-  "current_checkpoint": "CP-0029",
-  "status": "M9_GOVERNANCE_AND_DESIGN_IN_PROGRESS",
+  "current_checkpoint": "CP-0030",
+  "status": "M9_DATABASE_SECURITY_FOUNDATION_REPOSITORY_VERIFIED",
   "objective": {
     "id": "obj-orbikt-v2-cloud-auth-shared-workspace",
     "title": "Orbikt v2 Cloud Auth and Shared Organization Workspace — Repository Offline Foundation",
@@ -18,8 +18,8 @@
     "knowledge": {
       "requirement": "Known",
       "architecture": "Known",
-      "implementation": "Unknown",
-      "verification": "Unknown"
+      "implementation": "Known",
+      "verification": "Partially Known"
     },
     "boundaries": "Repository-only foundation: migrations, RLS source/tests, Auth/client boundaries, undeployed Edge Function source, shared adapters, mobile navigation, and static/local verification. No Cloud link/push/deploy/Auth users/data import; no production alias fallback; no production-ready or v2.0.0 claim. Existing Workspace remains Case Workspace; tenant boundary uses tenant_workspace naming."
   },
@@ -50,13 +50,13 @@
   "dashboard": "Compact one-screen Command Center (unchanged from v1.0.3): KPI strip + dense panels (Today Tasks forward-looking, 異常通知, Eisenhower Matrix, Dispatch, Schedule, Visit)",
   "ui": "Codex UI handoff component library; Blueprint IA/routing/DataAdapters preserved; Data Center added as a global destination (not a module-dashboard).",
   "last_commit": "7dcfae1 is the verified v1.7.1 baseline; v2 work continues on feat/orbikt-v2-cloud-foundation.",
-  "next_task": "Review and approve the v2 Repository Offline Foundation design, then create the first TDD implementation plan. Cloud link/push/deploy remains unauthorized.",
-  "governance_note": "CP-0029 activates the v2 repository-only objective. OAES requirement/architecture are Known; implementation/verification remain Unknown until repository evidence exists. Cloud verification remains a separate Stop Condition.",
-  "m9_repository_verification": "Unknown",
-  "build": "BASELINE v1.7.1 PASS",
-  "typecheck": "BASELINE v1.7.1 PASS",
-  "tests": "BASELINE v1.7.1 PASS (219)",
-  "lint": "BASELINE v1.7.1 PASS",
+  "next_task": "Await human approval for a local Supabase/PostgreSQL runtime to execute migrations and SQL/RLS tests. Cloud link/push/deploy remains unauthorized.",
+  "governance_note": "CP-0030 records the repository/static Database Security Foundation. PostgreSQL migration execution and RLS behavior are explicitly Not Executed because no local database runtime is available; Cloud verification remains a separate Stop Condition.",
+  "m9_repository_verification": "Cloud-safe composition and database-security repository/static foundations verified; PostgreSQL/RLS execution not executed",
+  "build": "PASS (local and Cloud)",
+  "typecheck": "PASS (app and Cloud)",
+  "tests": "PASS (225)",
+  "lint": "PASS",
   "stack": "React 18 + TypeScript 5.6 + Vite 5 + TailwindCSS 3 + React Router 6 + Zustand 4",
   "data_source": "CS100 seed (sanitized, 378 cases) + derived tasks/notifications/timeline/schedule; knowledge index (21 topics)",
   "planner": "AA01 engine vendored; AA01 tab = engine-integrated DRAFT mode, full authoring UI remains external",

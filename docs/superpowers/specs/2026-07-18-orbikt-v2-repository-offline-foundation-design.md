@@ -54,10 +54,13 @@ such as `cm-001` remain legacy manager codes/usernames and are never treated as
 Auth UUIDs. `user_profiles.username` is immutable and globally unique because
 the login form has no tenant code.
 
-Authorization roles are the fixed Postgres enum `tenant_role` with
+Authorization roles are the fixed Postgres enum `tenant_role` with `owner`,
 `admin`, `supervisor`, and `case_manager`. The V1 `director` value is a legacy
 presentation/title value; cloud migration maps its authorization capability to
-`supervisor` while preserving the displayed job title separately.
+`supervisor` while preserving the displayed job title separately. Roles are
+membership identities; database-backed permissions and per-membership
+allow/deny overrides determine capabilities. `manager` and `viewer` are not
+roles, and read-only access is composed through permissions.
 
 ## Environment and build isolation
 

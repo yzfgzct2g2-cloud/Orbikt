@@ -229,10 +229,13 @@ that value to match the Edge runtime. A later domain change requires an explicit
 identity migration and coordinated frontend rebuild, never routine config
 rotation.
 
-Roles: cloud authorization uses the Postgres enum `tenant_role` with
+Roles: cloud authorization uses the Postgres enum `tenant_role` with `owner`,
 `admin`, `supervisor`, and `case_manager`. Existing `director` values map to
 `supervisor` authorization while the displayed job title is preserved
-separately. Roles never come from user-editable metadata.
+separately. Roles are fixed membership identities, not complete capability
+sets; database-backed permissions and explicit user overrides determine
+authorization. `manager` and `viewer` are not roles. Read-only access is a
+permission combination. Roles never come from user-editable metadata.
 
 Forced password change: the caller-scoped Supabase client changes the password
 directly, then calls a narrowly granted database RPC without sending either

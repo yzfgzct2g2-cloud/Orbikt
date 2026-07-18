@@ -10,6 +10,7 @@
     "typecheck": "tsc -b",
     "typecheck:cloud": "tsc -p tsconfig.cloud.json --noEmit",
     "build:cloud": "npm run typecheck:cloud && vite build --config vite.cloud.config.ts",
+    "verify:database-foundation": "node scripts/verifyDatabaseFoundation.mjs",
     "lint": "eslint .",
     "launcher": "node launcher/server.mjs",
     "seed:cases": "node scripts/buildCaseSeed.mjs",
