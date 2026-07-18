@@ -1,0 +1,1 @@
+export function ConfigurationUnavailable() { return <main className="flex min-h-screen items-center justify-center bg-slate-50 px-6"><section role="alert" className="w-full max-w-lg rounded-2xl border bg-white p-8 text-center shadow-sm"><h1 className="text-2xl font-semibold">Orbikt 暫時無法登入</h1><p className="mt-3 text-sm">系統尚未完成雲端登入設定，請聯絡系統管理員。</p></section></main>; }

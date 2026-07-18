@@ -1,0 +1,5 @@
+{
+  "clientEnvironment": ["VITE_SUPABASE_URL", "VITE_SUPABASE_PUBLISHABLE_KEY", "VITE_AUTH_ALIAS_DOMAIN"],
+  "serverOnlyEnvironment": ["SUPABASE_PROJECT_REF", "SUPABASE_SECRET_KEY", "SUPABASE_DB_PASSWORD"],
+  "forbiddenCloudModules": ["src/adapters/", "src/data/seed/", "config/team.json", "src/store/useAppStore.ts", "src/store/useCalendarStore.ts", "supabase/functions/"]
+}

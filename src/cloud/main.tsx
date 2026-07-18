@@ -1,0 +1,4 @@
+import { StrictMode, type ReactElement } from "react"; import { createRoot } from "react-dom/client"; import { bootstrapCloud } from "./bootstrapCloud"; import { CloudRoot } from "./CloudRoot";
+const element = document.getElementById("root"); if (!element) throw new Error("Orbikt Cloud root element is missing."); const root = createRoot(element);
+void bootstrapCloud<ReactElement>({ VITE_SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL, VITE_SUPABASE_PUBLISHABLE_KEY: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY, VITE_AUTH_ALIAS_DOMAIN: import.meta.env.VITE_AUTH_ALIAS_DOMAIN }, { loadConfiguredApplication: async () => <ConfiguredCloudApp /> }).then((result) => root.render(<StrictMode><CloudRoot result={result} /></StrictMode>)).catch(() => root.render(<ConfigurationUnavailable />));
+import { ConfiguredCloudApp } from "./ConfiguredCloudApp"; import { ConfigurationUnavailable } from "./ConfigurationUnavailable";
