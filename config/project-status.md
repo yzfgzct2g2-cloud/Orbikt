@@ -33,3 +33,11 @@ Status: Backend Service
 Type: Node.js + Express + Firebase
 Can Build: Yes
 Integration: Future Authentication Service
+
+Team Calendar
+Status: V1 Implemented (v1.7.1)
+Route: /calendar
+Persistence: Browser-local via CalendarAdapter (not multi-user shared)
+Source Projections: Visit Manager read-only
+Google Calendar: Not synchronized; future optional export only
+Next Integration: Shared API/Supabase adapter with server-side authorization/RLS

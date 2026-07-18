@@ -2,6 +2,29 @@
 
 All notable changes to Orbikt are documented here.
 
+## [1.7.1] - 2026-07-18 — Team Calendar V1 (Milestone 8)
+
+### Added
+- **團隊行事曆 (`/calendar`)** — responsive month/week/day views, Today and
+  interval navigation, owner/type/case/completion filters, and per-member
+  today/open/overdue/week coordination counts.
+- Manual event workflows: create, edit, complete/reopen, cancel, soft-delete,
+  and supervisor restore; owner/participant/case links and Taiwan-time form
+  validation included.
+- `CalendarAdapter` plus `LocalCalendarAdapter` persistence/reload and Zustand
+  write path with testable mock-role permission guards.
+- Read-only Visit Manager due-date projections linking back to Case Workspace;
+  the source system remains the visit-warning SSOT.
+- Command Center now summarizes today's combined Team Calendar and links to the
+  complete calendar.
+- 79 Team Calendar domain/permission/adapter/view-model tests; 219 total.
+
+### Security and boundaries
+- Event case identity is limited to existing browser-safe CaseID/display name.
+- V1 local storage is explicitly not a shared multi-user backend; future API or
+  Supabase persistence requires server-side authorization/RLS.
+- No Google Calendar two-way sync or external disclosure was added.
+
 ## [1.7.0] - 2026-07-06 — Orbikt Launcher (Milestone 7 — DX)
 
 ### Added

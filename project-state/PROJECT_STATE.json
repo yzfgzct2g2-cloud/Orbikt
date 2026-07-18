@@ -1,9 +1,9 @@
 {
   "project": "Orbikt",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "current_phase": "Milestone 8 — Team Calendar (obj-orbikt-team-calendar-v1)",
-  "current_checkpoint": "CP-0027",
-  "status": "M8_IN_PROGRESS",
+  "current_checkpoint": "CP-0028",
+  "status": "M8_COMPLETED_V1_7_1",
   "objective": {
     "id": "obj-orbikt-team-calendar-v1",
     "title": "Orbikt 團隊行事曆 V1 — team work-coordination layer",
@@ -18,14 +18,15 @@
     "knowledge": {
       "requirement": "Known",
       "architecture": "Known",
-      "implementation": "Unknown",
-      "verification": "Unknown"
+      "implementation": "Implemented",
+      "verification": "Verified"
     },
     "boundaries": "Not a personal calendar; not a Google Calendar shortcut; not a new SSOT over Visit Manager/AA01/FA310/Dispatch; V1 has no Google two-way sync; V1 persistence is browser-local behind a CalendarAdapter seam (NOT a shared multi-user backend)."
   },
   "launcher": "Official entry point: Orbikt.vbs -> launcher/server.mjs (localhost-only orchestrator :5199, zero-dep) + static app host for dist/ (:5198, SPA fallback). Pure decisions in launcher/launcherCore.mjs (20 tests). UI launcher/ui.html: 開始使用 Orbikt, status, data sources, diagnostics, update, stop — no developer terminology. Electron/Tauri-ready (docs/LAUNCHER.md).",
   "milestone": "M1–M5 COMPLETED (v1.1.0–v1.5.0). M6 partial (FA310/CS100 file integrations) COMPLETED at v1.6.0; remainder Blocked (credentials). M7 Launcher (DX, user-approved) COMPLETED at v1.7.0.",
-  "next_milestone": "Milestone 6 remainder (P3, v2.0.0): BLOCKED — credentials/authorization for Visit GAS JSON, Dispatch API, Supabase, Graph, Calendar, LINE, real auth (docs/ADAPTERS.md).",
+  "next_milestone": "Milestone 6 remainder (P3, v2.0.0): BLOCKED — credentials/authorization for Visit GAS JSON, Dispatch API, Supabase, Graph, Calendar, LINE, real auth (docs/ADAPTERS.md). Team Calendar production-shared persistence belongs to this backend work.",
+  "team_calendar": "v1.7.1 /calendar: responsive month/week/day views, filters, create/edit/complete/cancel, soft delete/restore, case/source links, team counts, LocalCalendarAdapter persistence, mock-role guards, Visit Manager read-only projections, Command Center summary. Browser-local only; NOT a shared multi-user backend; no Google two-way sync.",
   "fa310_import": "input/FA310/FA310.xls (390 records) -> fa310.generated.json: 375 matched to CS100, 15 unmatched (reported), manager via column S x input/manager-map/manager-map.csv (Big5). Browser contract: managerName/maskedManagerId/managerSource only. Hard raw-ID guard at import + tests + live scan.",
   "manager_rule": "FA310 PRIMARY responsible-manager source: 375/378 cases managerSource=fa310, 3 fallback. team.json names = roster full names (房立泓/江睿儀/簡淑儀/游靜怡/王郁琪). CS100 never primary while FA310 present.",
   "security_note": "mock-data/CS100.xlsx contained REAL PII and was untracked+gitignored at CP-0026; REMAINS IN GIT HISTORY — purge requires user-authorized history rewrite (see release-v1.6.0-review).",
@@ -44,7 +45,7 @@
   "governance_note": "WORKFLOW.md references 'ACCEPTANCE.md > Case Workflow' which has no section in ACCEPTANCE.md; M4 reviewed against WORKFLOW Completion Criteria + general Acceptance Principles. User may want to add the section.",
   "build": "PASS",
   "typecheck": "PASS",
-  "tests": "PASS (140)",
+  "tests": "PASS (219)",
   "lint": "PASS",
   "stack": "React 18 + TypeScript 5.6 + Vite 5 + TailwindCSS 3 + React Router 6 + Zustand 4",
   "data_source": "CS100 seed (sanitized, 378 cases) + derived tasks/notifications/timeline/schedule; knowledge index (21 topics)",
@@ -56,5 +57,5 @@
   "external_links_ssot": "config/external-links.json (UI reads via src/config/externalLinks.ts)",
   "archived": "archive/finance-module/ — alternate module-dashboard prototype (Blueprint-conflicting), archived not deleted",
   "governance": "Governance V2 baseline tracked (WORKFLOW.md / ACCEPTANCE.md / GOVERNANCE_README.md).",
-  "updated_at": "2026-07-05"
+  "updated_at": "2026-07-18"
 }
