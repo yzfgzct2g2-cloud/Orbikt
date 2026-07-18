@@ -390,3 +390,59 @@ Visit warning is visible.
 AA01 and FA310 are accessible from Workspace.
 Knowledge Hub is accessible and referenceable.
 Genogram tab exists with integration path.
+
+---
+
+## Orbikt v2 Repository Offline Foundation
+
+Objective: `obj-orbikt-v2-cloud-auth-shared-workspace`
+
+### Naming
+
+- Existing `Workspace` remains the Case Workspace and keeps existing routes.
+- Organization ownership uses `tenant_workspace`, `tenant_workspace_id`,
+  `TenantWorkspace`, and `TenantMembership`.
+- Supabase `auth.users.id` is the identity key; legacy values such as `cm-001`
+  remain username/manager-code mappings rather than Auth UUIDs.
+
+### Auth migration
+
+- Replace mock session and client role switching only in explicit cloud
+  composition.
+- Keep local mode available as an explicit development/import source.
+- Cloud roles are `admin`, `supervisor`, and `case_manager`; legacy `director`
+  maps to supervisor authorization with a separate displayed job title.
+- Browser login builds the alias using public `VITE_AUTH_ALIAS_DOMAIN` and
+  sends the password directly to Supabase Auth.
+- The centralized username policy is 3-32 normalized ASCII characters matching
+  `^[a-z0-9]+(?:[._-][a-z0-9]+)*$`.
+- Browser and admin Edge source share that pure service; a database CHECK and
+  unique constraint mirror the rule. Auth email is immutable after admin
+  creation with `email_confirm: true`.
+- Missing Auth configuration fails closed. No test alias becomes a runtime
+  fallback.
+- Forced-password completion uses a protected, password-free RPC that requires
+  a newer `user_updated_password` Auth audit event; missing evidence stays
+  restricted.
+- A project-level canonical alias-domain setting must match the Edge runtime
+  before account operations. Post-provisioning changes require an explicit
+  identity migration.
+
+### Data and adapter migration
+
+- Supabase migrations, not Dashboard edits, define schema/RLS/grants.
+- Cloud composition must not import V1 case seed, team roster, mock auth, or
+  LocalCalendarAdapter.
+- `npm run build:cloud` writes `dist-cloud/`; invalid client config renders an
+  unavailable state with no Auth request or local fallback rather than failing
+  compilation.
+- `LocalCalendarAdapter` remains an explicit source for previewed, validated,
+  user-confirmed future migration; no automatic upload occurs.
+- `SupabaseCalendarAdapter` preserves Team Calendar domain behavior while the
+  database owns tenant authority, actors, timestamps, and row versions.
+
+### Verification boundary
+
+- Repository checks may verify source, tests, and bundles.
+- Cloud schema, RLS, Auth, Realtime, deployment, and data import require later
+  authorization and separate evidence.

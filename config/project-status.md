@@ -29,10 +29,10 @@ Type: Python Project
 Can Build: Python
 
 Auth
-Status: Backend Service
-Type: Node.js + Express + Firebase
-Can Build: Yes
-Integration: Future Authentication Service
+Status: V1 Mock/Local; v2 Repository Foundation In Progress
+Type: Client-direct Supabase Auth composition
+Can Build: Repository sources only
+Integration: Cloud Auth not deployed or verified
 
 Team Calendar
 Status: V1 Implemented (v1.7.1)
@@ -41,3 +41,14 @@ Persistence: Browser-local via CalendarAdapter (not multi-user shared)
 Source Projections: Visit Manager read-only
 Google Calendar: Not synchronized; future optional export only
 Next Integration: Shared API/Supabase adapter with server-side authorization/RLS
+
+Orbikt v2 Repository Offline Foundation
+Objective: obj-orbikt-v2-cloud-auth-shared-workspace
+Status: Governance and Design In Progress
+Branch: feat/orbikt-v2-cloud-foundation
+Baseline: v1.7.1 / 7dcfae1
+Cloud Project: orbikt-v2-staging (empty; not linked or deployed)
+Repository Scope: Authorized
+Cloud Schema/Auth/RLS/Realtime: Not Deployed / Not Verified
+Alias Domain: Missing - Cloud Auth user creation remains blocked
+Local Supabase Verification: Not Available (Supabase CLI and Docker missing)

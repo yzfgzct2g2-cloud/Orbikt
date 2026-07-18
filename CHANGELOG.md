@@ -2,6 +2,21 @@
 
 All notable changes to Orbikt are documented here.
 
+## [Unreleased] - Orbikt v2 Repository Offline Foundation
+
+### Governance and design
+
+- Activated `obj-orbikt-v2-cloud-auth-shared-workspace` at CP-0029 from the
+  verified v1.7.1 Team Calendar baseline.
+- Recorded client-safe alias option C: the browser composes the Auth identifier
+  from normalized username plus public `VITE_AUTH_ALIAS_DOMAIN` and sends the
+  password directly to Supabase Auth.
+- Defined tenant naming, migration/RLS source-of-truth, forced-password,
+  privileged admin, cloud-safe build, shared calendar, notification/audit,
+  mobile navigation, verification, and version boundaries.
+- Repository work is authorized; Cloud link/push/deploy, Auth users, data
+  import, and production-readiness claims remain blocked and unverified.
+
 ## [1.7.1] - 2026-07-18 — Team Calendar V1 (Milestone 8)
 
 ### Added

@@ -653,6 +653,11 @@ External systems connect through adapters.
 
 Orbikt always provides a safe fallback.
 
+For v2, safe fallback means an explicitly selected local/development or
+read-only adapter mode. Production cloud composition must never select mock
+data or localStorage merely because configuration or a remote service is
+unavailable.
+
 ---
 
 ## PASS only if
@@ -676,6 +681,129 @@ Orbikt always provides a safe fallback.
 ✗ Missing credentials are ignored.
 
 ✗ Placeholder data is presented as live production data.
+
+---
+
+# Orbikt v2 Repository Offline Foundation
+
+## Goal
+
+Produce a reproducible Supabase/Auth/shared-workspace foundation without
+misrepresenting Repository evidence as Cloud evidence.
+
+## PASS only if
+
+✓ Existing Case Workspace routes and Blueprint remain intact.
+
+✓ Tenant concepts use explicit `tenant_workspace` naming.
+
+✓ Supabase CLI migrations are the only schema source of truth.
+
+✓ Every exposed application table has explicit grants, RLS enablement, and
+operation-specific policy source.
+
+✓ SQL test sources cover tenant isolation, role boundaries, suspended access,
+forced-password restrictions/completion evidence, reset ordering, username
+uniqueness, immutable Auth email, soft deletion, concurrency, and audit
+immutability.
+
+✓ Client login sends passwords directly to Supabase Auth and never through an
+Orbikt Edge Function or custom server.
+
+✓ Username normalization is centralized and enforces the recorded 3-32
+character policy. Browser and Edge consume the same pure service, the database
+mirrors it, and normative parity vectors cover invalid/ambiguous input and alias
+composition.
+
+✓ Admin creation derives the alias, confirms it without requiring an inbox,
+and direct caller attempts to change Auth email fail. Orbikt exposes no public
+signup, invite, recovery, OTP/magic-link, anonymous, identity-link, or
+self-service email-change action.
+
+✓ Forced-password completion sends no password to an Orbikt server or database
+RPC and remains restricted unless a newer Supabase password-change audit event
+with caller—not admin/service—provenance is verified. The client re-reads
+authoritative security state before leaving the restricted route.
+
+✓ Every missing, malformed, or partial client configuration state renders a
+value-free configuration-unavailable screen, disables login, creates no
+Supabase/business adapter, makes no Auth request, and has no runtime default.
+
+✓ Server-only environment names are absent from the frontend dependency graph
+and production bundle.
+
+✓ `npm run build:cloud` writes `dist-cloud/`, while the existing local build
+remains separate. The cloud dependency graph and bundle/source maps contain no
+tracked case seed, team roster, mock auth, or local calendar adapter.
+
+✓ Production cloud mode never silently selects mock data or localStorage.
+
+✓ Privileged account-management source verifies caller identity, active
+same-tenant admin membership, and target tenant before using Admin API access.
+
+✓ The project canonical alias domain and Edge value must match before account
+operations. Changing a domain after user creation is blocked unless performed
+as an explicit identity migration with a coordinated frontend rebuild.
+
+✓ Reset-handler tests fail every cross-system step and prove that partial work
+stays locked, is recoverable, and never reuses or re-returns an old temporary
+password. Existing sessions remain blocked by live data policy checks.
+
+✓ Real/generated temporary passwords, real/production aliases, tokens,
+authorization headers, API keys, and database credentials are absent from
+Orbikt logs and committed fixtures. Temporary-password responses use
+`Cache-Control: no-store`, sanitized errors, and UI memory cleanup. Clearly
+marked synthetic redaction sentinels and identifiers such as
+`login.example.test` are allowed only in tests.
+
+✓ Audit logs are append-only for authenticated clients.
+
+✓ Protected-route tests cover restoring, signed-out deep links, active access,
+forced-change-only routing, disabled/zero-membership states, logout, and tenant
+switch cleanup. One membership is validated/auto-selected; multiple require
+`/organization-workspaces`; stale or suspended memberships are never trusted.
+
+✓ Mobile navigation tests cover accessible trigger/dialog state,
+Escape/overlay/navigation close, focus trap/restoration, scroll cleanup,
+complete `navItems`, 44px touch targets, safe areas, and computed behavior below
+and above 1024px without claiming physical-device coverage.
+
+✓ Typecheck, lint, tests, builds, secret scans, bundle scans, and Team Calendar
+regressions pass.
+
+✓ Any unavailable Docker/Supabase integration checks are reported as not
+executed rather than PASS.
+
+## FAIL if
+
+✗ Repository work is described as Cloud deployed, Cloud verified,
+production-ready, or final v2.0.0.
+
+✗ Cloud operations occur without explicit authorization.
+
+✗ A fake runtime/Cloud alias-domain value, secret, Cloud Auth user, or real-data
+import is introduced. Explicit reserved test-domain fixtures are not runtime
+configuration and do not violate this rule.
+
+✗ An unauthenticated, wrong-tenant, suspended, or forced-password user can
+access normal business data under the authored policy model.
+
+✗ A missing, delayed, or older password-change audit event clears
+`must_change_password`.
+
+✗ A direct Auth API call can change the derived email identity, or an admin
+account is created without the canonical alias and confirmed-email policy.
+
+✗ A forced-change or tenant-selection flow loads a business adapter before its
+authoritative state is validated.
+
+## Scoped acceptance classification
+
+Repository Offline Foundation acceptance may pass when all available
+Repository checks pass, required SQL integration tests exist, and unavailable
+Docker/local-Supabase execution is reported as **Not Executed**. That result
+does not verify RLS behavior. Overall Orbikt v2 acceptance remains FAIL until
+the SQL suite and later authorized Cloud acceptance both pass.
 
 ---
 

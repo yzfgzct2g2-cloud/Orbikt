@@ -2,8 +2,8 @@
 
 Version: Governance V2  
 Status: Active  
-Current Stable Version: v1.5.0  
-Current Development Target: v2.0.0  
+Current Stable Version: v1.7.1
+Current Development Target: v2.0.0-alpha.1 Repository Offline Foundation
 Current Milestone
 Automatically determined from PROJECT_STATE.json.
 The first milestone marked
@@ -14,7 +14,7 @@ becomes the active milestone.
 Current Checkpoint
 Automatically read from PROJECT_STATE.json.
 Never hardcode checkpoint numbers in WORKFLOW.md.
-Primary Focus: Data Center
+Primary Focus: Orbikt v2 Repository Offline Foundation
 
 ---
 
@@ -557,6 +557,10 @@ Replace read/link seams with live integrations where safe and authorized.
 - Safe fallback mode remains available.
 - No fake live integration is shown as real.
 
+Here, safe fallback means an explicit local/development or read-only adapter
+mode. It never authorizes an automatic production cloud fallback to mock data
+or localStorage.
+
 ## Integration Rule
 
 All external systems must be adapter-based.
@@ -614,9 +618,9 @@ existing Data Center logic untouched.
 
 # 11c. Milestone 8 — Team Calendar (obj-orbikt-team-calendar-v1)
 
-Status: In Progress
+Status: Completed
 Priority: P2 (user-directed 2026-07-18 — OAES v2 Objective)
-Expected Version: v1.8.0
+Completed Version: v1.7.1
 Depends On: v1.7.0
 
 ## Goal
@@ -641,6 +645,55 @@ Visit Manager / AA01 / FA310 / Dispatch, and V1 has NO two-way Google sync.
 - Command Center keeps its summary role and gains a calendar summary + entry.
 - Domain / permission / adapter / view-model tests; existing suite must stay
   green.
+
+Completed at CP-0028. Persistence is explicitly browser-local; production
+sharing belongs to Milestone 9 and requires server-side RLS.
+
+# 11d. Milestone 9 — Orbikt v2 Repository Offline Foundation
+
+Objective: `obj-orbikt-v2-cloud-auth-shared-workspace`
+
+Status: In Progress
+Priority: P2 (user-directed 2026-07-18)
+Development Version: v2.0.0-alpha.1 after offline acceptance
+Depends On: v1.7.1 / CP-0028
+
+## Goal
+
+Create a version-controlled and locally verifiable foundation for Supabase
+Auth, tenant isolation, shared calendar persistence, notifications, audit, and
+mobile navigation without claiming Cloud deployment or production readiness.
+
+## Repository-authorized scope
+
+- OAES governance, Decision Records, checkpoints, acceptance, and design/plan.
+- Supabase CLI structure, migrations, grants, RLS policies, SQL test sources,
+  generated-type workflow, and undeployed Edge Function source.
+- Client-direct username/password Auth using public
+  `VITE_AUTH_ALIAS_DOMAIN`; no password-handling Orbikt login server.
+- Explicit tenant naming that preserves the existing Case Workspace.
+- Cloud-safe build composition that excludes tracked case/team seeds and never
+  silently falls back to mock/localStorage persistence.
+- Supabase calendar adapter, notification/audit foundations, local import
+  preview, optimistic concurrency/retry/subscription abstractions.
+- Accessible mobile drawer and automated responsive coverage.
+- Typecheck, lint, unit/integration/browser tests, builds, and leakage scans.
+
+## Cloud stop conditions
+
+- No organization-controlled alias domain is available.
+- Server-only secret configuration is unavailable.
+- No authorization exists for `supabase link`, `db push`, function deployment,
+  Cloud Auth user creation/reset, Realtime publication, data import, or staging
+  frontend deployment.
+- Free staging accepts synthetic data only.
+- Production data-processing/privacy approval is incomplete.
+
+## Completion boundary
+
+Repository Offline Foundation may become `2.0.0-alpha.1` only after its local
+acceptance evidence passes. It must not be described as Cloud deployed, Cloud
+RLS/Auth/Realtime verified, production-ready, or final v2.0.0.
 
 # 12. Product Memory
 
@@ -803,7 +856,7 @@ Potential future work:
 - Live Visit Manager GAS integration
 - Live Dispatch API integration
 - Microsoft Graph document access
-- Supabase persistence
+- Supabase Cloud deployment and acceptance verification
 - Google Calendar integration
 - LINE notification integration
 - Full AA01 authoring UI
@@ -896,15 +949,16 @@ A milestone is complete only when:
 
 Current Goal:
 
-Complete Data Center.
+Complete Orbikt v2 Repository Offline Foundation.
 
 Next Goal:
 
-Complete Workspace Work Mode.
+Obtain alias-domain and explicit Cloud deployment authorization, then verify
+the foundation against staging.
 
 Future Goal:
 
-Complete Morning Workflow.
+Release v2.0.0 only after Cloud and production acceptance conditions pass.
 
 ---
 
